@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "better_ore_geology:ore_chunk_tin_quartz"
+  },
+  "result": {
+    "item": "chemlib:tin_nugget",
+    "count": 4
+  },
+  "experience": 0.1,
+  "cookingtime": 240
+}

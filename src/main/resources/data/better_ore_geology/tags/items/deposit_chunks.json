@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "better_ore_geology:ore_chunk_coal_measures",
+    "better_ore_geology:ore_chunk_ironstone",
+    "better_ore_geology:ore_chunk_copper_bloom",
+    "better_ore_geology:ore_chunk_tin_quartz",
+    "better_ore_geology:ore_chunk_brassroot",
+    "better_ore_geology:ore_chunk_evaporite_beds",
+    "better_ore_geology:ore_chunk_hotstone",
+    "better_ore_geology:ore_chunk_black_shale"
+  ]
+}

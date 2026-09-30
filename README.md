@@ -1,4 +1,4 @@
-# Realistic Ores
+# Better Ore Geology
 
 Pack-owned ore and deposit support mod for Forge `1.20.1`.
 
@@ -74,7 +74,7 @@ rock type and Excavated Variants derives the corresponding ore block by inspecti
 registered stone and ore definitions. Realistic Ores must therefore expose conventional,
 finished models and textures rather than a private intermediate art representation.
 
-Keep `defaultresources/excavated_variants/excavated_variants/variants/realistic_ores.json5`
+Keep `defaultresources/excavated_variants/excavated_variants/variants/better_ore_geology.json5`
 as the declarative mapping boundary. New art should require only normal Minecraft asset
 definitions plus that existing mapping; it should not require bespoke generated textures
 for each Unearthed stone. Validation should sample several light, dark, coarse, and
@@ -117,7 +117,7 @@ source for processing-item art. Block masters preserve their generated palette t
 Tin Quartz folds gem-bearing pegmatite depth into its later assay routes, while Black Shale
 folds redstone and precious-metal depth into its controlled soul-bearing geology.
 
-World generation uses one dual-host `realistic_ores:geological_deposit` configured feature
+World generation uses one dual-host `better_ore_geology:geological_deposit` configured feature
 per family. `tools/geological_worldgen.json` freezes each family's dominant trapezoidal home
 band and its smaller uniform echo band across Tectonic's `-128..512` Overworld. The home band
 carries the family identity and most of its supply; the distant echo is larger per encounter
@@ -143,7 +143,7 @@ This source owns ordinary mineral deposits only in `#minecraft:is_overworld`, us
 
 Every native host block separates into exactly one deposit chunk and one existing host block: stone deposits return `minecraft:stone` and deep deposits return `minecraft:deepslate`. Excavated Variants returns its actual substrate. These are useful high-volume building materials; no host breakdown creates a mineral, concentrate, dust, or a route from renewable stone to a valuable material.
 
-Pack integration closes vanilla raw-ore generation and loot separately. It must inventory vanilla and modded placed features, ore loot tables, structures, trades, recycling, and dimension-specific deposits. This source removes the listed Overworld placed features in `data/realistic_ores/disabled_placed_features/vanilla.json`; it cannot close pack-owned datapacks, configs, or loot providers.
+Pack integration closes vanilla raw-ore generation and loot separately. It must inventory vanilla and modded placed features, ore loot tables, structures, trades, recycling, and dimension-specific deposits. This source removes the listed Overworld placed features in `data/better_ore_geology/disabled_placed_features/vanilla.json`; it cannot close pack-owned datapacks, configs, or loot providers.
 
 - Chunks of a deposit are the host-independent mining form. They are crisp 16x16
   non-placeable items whose silhouette and internal morphology preserve the parent
@@ -232,7 +232,7 @@ normal lighting and shaders. Confirm that:
 
 Deploy the reobfuscated runtime jar from:
 
-- `build/libs/realistic-ores-<version>.jar`
+- `build/libs/better-ore-geology-<version>.jar`
 
 ## Community and support
 
@@ -240,9 +240,9 @@ For modpack and mod discussion, playtest feedback, and bug reports, join the [Be
 
 ## Canonical identity
 
-- Repository and release artifact: `realistic-ores`
-- Mod ID and resource namespace: `realistic_ores`
-- Java package: `com.bettercontent.realisticores`
+- Repository and release artifact: `better-ore-geology`
+- Mod ID and resource namespace: `better_ore_geology`
+- Java package: `com.bettercontent.betteroregeology`
 - Validation: `./gradlew verifyFull`
 
 This normalization is a clean break. Worlds, configuration files, and integrations created for earlier identities are not migrated or aliased.

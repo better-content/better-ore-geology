@@ -1,8 +1,0 @@
-{
-  "filter": "ore:hotstone",
-  "tags": [
-    "minecraft:blocks/mineable/pickaxe",
-    "realistic_ores:blocks/deposit_ore_blocks/hotstone",
-    "realistic_ores:blocks/deposit_ore_blocks"
-  ]
-}

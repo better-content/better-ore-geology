@@ -1,0 +1,31 @@
+{
+  "type": "bloodmagic:arc",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "bloodmagic"
+    }
+  ],
+  "input": {
+    "item": "better_ore_geology:ore_chunk_brassroot"
+  },
+  "inputsize": 1,
+  "tool": {
+    "tag": "bloodmagic:arc/cuttingfluid"
+  },
+  "consumeingredient": false,
+  "mainoutputchance": 0.0,
+  "output": {
+    "item": "better_ore_geology:zinc_concentrate",
+    "count": 2
+  },
+  "addedoutput": [
+    {
+      "type": {
+        "item": "bloodmagic:corrupted_tinydust"
+      },
+      "chance": 0.25,
+      "mainchance": 0.0
+    }
+  ]
+}

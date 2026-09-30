@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "better_ore_geology:block/evaporite_beds_0"
+      },
+      {
+        "model": "better_ore_geology:block/evaporite_beds_1"
+      },
+      {
+        "model": "better_ore_geology:block/evaporite_beds_2"
+      }
+    ]
+  }
+}

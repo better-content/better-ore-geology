@@ -1,0 +1,40 @@
+{
+  "id": "brassroot",
+  "display_name": "Brassroot Deposit",
+  "variants": [
+    {
+      "host": "stone",
+      "block_id": "brassroot",
+      "texture_mode": "cube_sided",
+      "textures": {
+        "north": "better_ore_geology:block/brassroot_0_north",
+        "east": "better_ore_geology:block/brassroot_0_east",
+        "south": "better_ore_geology:block/brassroot_0_south",
+        "west": "better_ore_geology:block/brassroot_0_west",
+        "up": "better_ore_geology:block/brassroot_0_up",
+        "down": "better_ore_geology:block/brassroot_0_down"
+      },
+      "copy_properties_from": "minecraft:stone"
+    },
+    {
+      "host": "deepslate",
+      "block_id": "deepslate_brassroot",
+      "texture_mode": "cube_sided",
+      "textures": {
+        "north": "better_ore_geology:block/deepslate_brassroot_0_north",
+        "east": "better_ore_geology:block/deepslate_brassroot_0_east",
+        "south": "better_ore_geology:block/deepslate_brassroot_0_south",
+        "west": "better_ore_geology:block/deepslate_brassroot_0_west",
+        "up": "better_ore_geology:block/deepslate_brassroot_0_up",
+        "down": "better_ore_geology:block/deepslate_brassroot_0_down"
+      },
+      "copy_properties_from": "minecraft:deepslate"
+    }
+  ],
+  "tags": [
+    "minecraft:mineable/pickaxe",
+    "forge:ores",
+    "forge:ores/zinc",
+    "forge:ores/lead"
+  ]
+}

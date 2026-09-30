@@ -208,7 +208,7 @@ def ore_chunk_loot_table(block_id: str, chunk_id: str) -> dict[str, object]:
                         "children": [
                             {
                                 "type": "minecraft:item",
-                                "name": f"realistic_ores:{block_id}",
+                                "name": f"better_ore_geology:{block_id}",
                                 "conditions": [
                                     {
                                         "condition": "minecraft:match_tool",
@@ -225,7 +225,7 @@ def ore_chunk_loot_table(block_id: str, chunk_id: str) -> dict[str, object]:
                             },
                             {
                                 "type": "minecraft:item",
-                                "name": f"realistic_ores:{chunk_id}",
+                                "name": f"better_ore_geology:{chunk_id}",
                             },
                         ],
                     }
@@ -237,16 +237,16 @@ def ore_chunk_loot_table(block_id: str, chunk_id: str) -> dict[str, object]:
 
 
 def generate_ore_chunks() -> None:
-    ore_dir = RESOURCES / "data" / "realistic_ores" / "realistic_ores"
-    item_model_dir = RESOURCES / "assets" / "realistic_ores" / "models" / "item"
-    item_texture_dir = RESOURCES / "assets" / "realistic_ores" / "textures" / "item"
-    loot_dir = RESOURCES / "data" / "realistic_ores" / "loot_tables" / "blocks"
-    recipe_dir = RESOURCES / "data" / "realistic_ores" / "recipes"
+    ore_dir = RESOURCES / "data" / "better_ore_geology" / "better_ore_geology"
+    item_model_dir = RESOURCES / "assets" / "better_ore_geology" / "models" / "item"
+    item_texture_dir = RESOURCES / "assets" / "better_ore_geology" / "textures" / "item"
+    loot_dir = RESOURCES / "data" / "better_ore_geology" / "loot_tables" / "blocks"
+    recipe_dir = RESOURCES / "data" / "better_ore_geology" / "recipes"
     chunk_crushing_dir = recipe_dir / "compat" / "create" / "crushing" / "ore_chunks"
     chunk_milling_dir = recipe_dir / "compat" / "create" / "milling" / "ore_chunks"
     reassembly_dir = recipe_dir / "crafting" / "ore_reassembly"
-    chunk_tag_path = RESOURCES / "data" / "realistic_ores" / "tags" / "items" / "ore_chunks.json"
-    lang_path = RESOURCES / "assets" / "realistic_ores" / "lang" / "en_us.json"
+    chunk_tag_path = RESOURCES / "data" / "better_ore_geology" / "tags" / "items" / "ore_chunks.json"
+    lang_path = RESOURCES / "assets" / "better_ore_geology" / "lang" / "en_us.json"
 
     for path in item_model_dir.glob("ore_chunk_*.json"):
         path.unlink()
@@ -256,7 +256,7 @@ def generate_ore_chunks() -> None:
 
     lang = json.loads(lang_path.read_text(encoding="utf-8"))
     for key in list(lang):
-        if key.startswith("item.realistic_ores.ore_chunk_"):
+        if key.startswith("item.better_ore_geology.ore_chunk_"):
             del lang[key]
 
     chunk_ids = []
@@ -273,28 +273,28 @@ def generate_ore_chunks() -> None:
         if not texture_path.is_file():
             raise RuntimeError(f"missing ore chunk texture: {texture_path.relative_to(ROOT)}")
 
-        chunk_ids.append(f"realistic_ores:{chunk_id}")
+        chunk_ids.append(f"better_ore_geology:{chunk_id}")
         write_json(
             item_model_dir / f"{chunk_id}.json",
             {
                 "parent": "minecraft:item/generated",
-                "textures": {"layer0": f"realistic_ores:item/{chunk_id}"},
+                "textures": {"layer0": f"better_ore_geology:item/{chunk_id}"},
             },
         )
-        lang[f"item.realistic_ores.{chunk_id}"] = ore_chunk_display_name(definition["display_name"])
+        lang[f"item.better_ore_geology.{chunk_id}"] = ore_chunk_display_name(definition["display_name"])
 
         write_json(
             chunk_crushing_dir / f"{primary_block_id}.json",
             {
                 "type": "create:crushing",
                 "conditions": [{"type": "forge:mod_loaded", "modid": "create"}],
-                "ingredients": [{"item": f"realistic_ores:{chunk_id}"}],
+                "ingredients": [{"item": f"better_ore_geology:{chunk_id}"}],
                 "processingTime": 400,
                 "results": [
-                    {"item": f"realistic_ores:{crushed_id}"},
-                    {"item": f"realistic_ores:{crushed_id}", "chance": 0.3},
-                    {"item": f"realistic_ores:{crushed_id}", "chance": 0.3},
-                    {"item": f"realistic_ores:{crushed_id}", "chance": 0.3},
+                    {"item": f"better_ore_geology:{crushed_id}"},
+                    {"item": f"better_ore_geology:{crushed_id}", "chance": 0.3},
+                    {"item": f"better_ore_geology:{crushed_id}", "chance": 0.3},
+                    {"item": f"better_ore_geology:{crushed_id}", "chance": 0.3},
                 ],
             },
         )
@@ -303,11 +303,11 @@ def generate_ore_chunks() -> None:
             {
                 "type": "create:milling",
                 "conditions": [{"type": "forge:mod_loaded", "modid": "create"}],
-                "ingredients": [{"item": f"realistic_ores:{chunk_id}"}],
+                "ingredients": [{"item": f"better_ore_geology:{chunk_id}"}],
                 "processingTime": 400,
                 "results": [
-                    {"item": f"realistic_ores:{crushed_id}"},
-                    {"item": f"realistic_ores:{crushed_id}", "chance": 0.1},
+                    {"item": f"better_ore_geology:{crushed_id}"},
+                    {"item": f"better_ore_geology:{crushed_id}", "chance": 0.1},
                 ],
             },
         )
@@ -321,10 +321,10 @@ def generate_ore_chunks() -> None:
                 {
                     "type": "create:crushing",
                     "conditions": [{"type": "forge:mod_loaded", "modid": "create"}],
-                    "ingredients": [{"type": "forge:nbt", "item": f"realistic_ores:{block_id}"}],
+                    "ingredients": [{"type": "forge:nbt", "item": f"better_ore_geology:{block_id}"}],
                     "processingTime": 250,
                     "results": [
-                        {"item": f"realistic_ores:{chunk_id}"},
+                        {"item": f"better_ore_geology:{chunk_id}"},
                         {"item": host_block_id},
                     ],
                 },
@@ -334,10 +334,10 @@ def generate_ore_chunks() -> None:
                 {
                     "type": "minecraft:crafting_shapeless",
                     "ingredients": [
-                        {"item": f"realistic_ores:{chunk_id}"},
+                        {"item": f"better_ore_geology:{chunk_id}"},
                         {"item": host_block_id},
                     ],
-                    "result": {"item": f"realistic_ores:{block_id}"},
+                    "result": {"item": f"better_ore_geology:{block_id}"},
                 },
             )
 
@@ -430,12 +430,12 @@ def surface_sample_elements(block_id: str, variant: int) -> list[dict[str, objec
 
 
 def generate_surface_samples() -> None:
-    ore_dir = RESOURCES / "data" / "realistic_ores" / "realistic_ores"
-    blockstate_dir = RESOURCES / "assets" / "realistic_ores" / "blockstates"
-    block_model_dir = RESOURCES / "assets" / "realistic_ores" / "models" / "block"
-    item_model_dir = RESOURCES / "assets" / "realistic_ores" / "models" / "item"
-    loot_dir = RESOURCES / "data" / "realistic_ores" / "loot_tables" / "blocks"
-    lang_path = RESOURCES / "assets" / "realistic_ores" / "lang" / "en_us.json"
+    ore_dir = RESOURCES / "data" / "better_ore_geology" / "better_ore_geology"
+    blockstate_dir = RESOURCES / "assets" / "better_ore_geology" / "blockstates"
+    block_model_dir = RESOURCES / "assets" / "better_ore_geology" / "models" / "block"
+    item_model_dir = RESOURCES / "assets" / "better_ore_geology" / "models" / "item"
+    loot_dir = RESOURCES / "data" / "better_ore_geology" / "loot_tables" / "blocks"
+    lang_path = RESOURCES / "assets" / "better_ore_geology" / "lang" / "en_us.json"
     lang = json.loads(lang_path.read_text(encoding="utf-8"))
 
     definitions = []
@@ -451,8 +451,8 @@ def generate_surface_samples() -> None:
         if not texture:
             raise RuntimeError(f"surface sample has no usable opaque ore texture: {sample_id}")
         definitions.append((sample_id, definition["display_name"], texture))
-    definitions.append(("oil_seep", "Oil Seep", f"realistic_ores:block/{OIL_SHALE_TEXTURE}"))
-    generate_oil_shale_texture(RESOURCES / "assets" / "realistic_ores" / "textures" / "block" / f"{OIL_SHALE_TEXTURE}.png")
+    definitions.append(("oil_seep", "Oil Seep", f"better_ore_geology:block/{OIL_SHALE_TEXTURE}"))
+    generate_oil_shale_texture(RESOURCES / "assets" / "better_ore_geology" / "textures" / "block" / f"{OIL_SHALE_TEXTURE}.png")
 
     for path in blockstate_dir.glob("crushed_*.json"):
         path.unlink()
@@ -472,7 +472,7 @@ def generate_surface_samples() -> None:
         path.unlink()
 
     for key in list(lang):
-        if key.startswith("block.realistic_ores.crushed_") or key.startswith("block.realistic_ores.surface_sample_"):
+        if key.startswith("block.better_ore_geology.crushed_") or key.startswith("block.better_ore_geology.surface_sample_"):
             del lang[key]
 
     geometry_signatures = set()
@@ -493,7 +493,7 @@ def generate_surface_samples() -> None:
                 },
             )
             for rotation in [0, 90, 180, 270]:
-                variants.append({"model": f"realistic_ores:block/{model_id}", "y": rotation})
+                variants.append({"model": f"better_ore_geology:block/{model_id}", "y": rotation})
         write_json(
             blockstate_dir / f"{block_id}.json",
             {"variants": {"waterlogged=false": variants, "waterlogged=true": variants}},
@@ -513,7 +513,7 @@ def generate_surface_samples() -> None:
                         "entries": [
                             {
                                 "type": "minecraft:item",
-                                "name": f"realistic_ores:{drop_block_id}",
+                                "name": f"better_ore_geology:{drop_block_id}",
                             }
                         ],
                         "conditions": [{"condition": "minecraft:survives_explosion"}],
@@ -529,7 +529,7 @@ def generate_surface_samples() -> None:
             write_json(
                 item_model_dir / f"{item_id}.json",
                 {
-                    "parent": f"realistic_ores:block/{block_id}_2",
+                    "parent": f"better_ore_geology:block/{block_id}_2",
                     "display": {
                         "gui": {
                             "rotation": [30, 225, 0],
@@ -540,9 +540,9 @@ def generate_surface_samples() -> None:
                 },
             )
         if block_id.startswith("surface_sample_"):
-            lang[f"block.realistic_ores.{block_id}"] = f"Surface Sample: {display_name}"
+            lang[f"block.better_ore_geology.{block_id}"] = f"Surface Sample: {display_name}"
         else:
-            lang[f"block.realistic_ores.{block_id}"] = display_name
+            lang[f"block.better_ore_geology.{block_id}"] = display_name
 
         signature = json.dumps(block_geometry, sort_keys=True)
         if signature in geometry_signatures:
@@ -567,17 +567,17 @@ def main() -> None:
 
     spec = json.loads(LEGACY_SPEC_PATH.read_text(encoding="utf-8"))
 
-    ore_dir = RESOURCES / "data" / "realistic_ores" / "realistic_ores"
-    worldgen_dir = RESOURCES / "data" / "realistic_ores" / "realistic_ore_generation"
-    disabled_dir = RESOURCES / "data" / "realistic_ores" / "disabled_placed_features"
-    configured_feature_dir = RESOURCES / "data" / "realistic_ores" / "worldgen" / "configured_feature"
-    placed_feature_dir = RESOURCES / "data" / "realistic_ores" / "worldgen" / "placed_feature"
-    biome_modifier_dir = RESOURCES / "data" / "realistic_ores" / "forge" / "biome_modifier"
-    texture_dir = RESOURCES / "assets" / "realistic_ores" / "textures" / "block"
-    blockstate_dir = RESOURCES / "assets" / "realistic_ores" / "blockstates"
-    block_model_dir = RESOURCES / "assets" / "realistic_ores" / "models" / "block"
-    item_model_dir = RESOURCES / "assets" / "realistic_ores" / "models" / "item"
-    loot_dir = RESOURCES / "data" / "realistic_ores" / "loot_tables" / "blocks"
+    ore_dir = RESOURCES / "data" / "better_ore_geology" / "better_ore_geology"
+    worldgen_dir = RESOURCES / "data" / "better_ore_geology" / "realistic_ore_generation"
+    disabled_dir = RESOURCES / "data" / "better_ore_geology" / "disabled_placed_features"
+    configured_feature_dir = RESOURCES / "data" / "better_ore_geology" / "worldgen" / "configured_feature"
+    placed_feature_dir = RESOURCES / "data" / "better_ore_geology" / "worldgen" / "placed_feature"
+    biome_modifier_dir = RESOURCES / "data" / "better_ore_geology" / "forge" / "biome_modifier"
+    texture_dir = RESOURCES / "assets" / "better_ore_geology" / "textures" / "block"
+    blockstate_dir = RESOURCES / "assets" / "better_ore_geology" / "blockstates"
+    block_model_dir = RESOURCES / "assets" / "better_ore_geology" / "models" / "block"
+    item_model_dir = RESOURCES / "assets" / "better_ore_geology" / "models" / "item"
+    loot_dir = RESOURCES / "data" / "better_ore_geology" / "loot_tables" / "blocks"
 
     for directory in [
         ore_dir,
@@ -616,7 +616,7 @@ def main() -> None:
                         "host": "stone",
                         "block_id": stone_block,
                         "texture_mode": "cube_all",
-                        "textures": {"all": f"realistic_ores:block/{stone_block}"},
+                        "textures": {"all": f"better_ore_geology:block/{stone_block}"},
                         "copy_properties_from": "minecraft:stone",
                     },
                     {
@@ -624,9 +624,9 @@ def main() -> None:
                         "block_id": deepslate_block,
                         "texture_mode": "cube_column_like",
                         "textures": {
-                            "side": f"realistic_ores:block/{deepslate_block}_side",
-                            "top": f"realistic_ores:block/{deepslate_block}_top",
-                            "bottom": f"realistic_ores:block/{deepslate_block}_bottom",
+                            "side": f"better_ore_geology:block/{deepslate_block}_side",
+                            "top": f"better_ore_geology:block/{deepslate_block}_top",
+                            "bottom": f"better_ore_geology:block/{deepslate_block}_bottom",
                         },
                         "copy_properties_from": "minecraft:deepslate",
                     },
@@ -640,30 +640,30 @@ def main() -> None:
         shutil.copyfile(ROOT / "textures" / "deepslate" / f"{source_id}_deepslate_top.png", texture_dir / f"{deepslate_block}_top.png")
         shutil.copyfile(ROOT / "textures" / "deepslate" / f"{source_id}_deepslate_bottom.png", texture_dir / f"{deepslate_block}_bottom.png")
 
-        write_json(blockstate_dir / f"{stone_block}.json", {"variants": {"": {"model": f"realistic_ores:block/{stone_block}"}}})
-        write_json(block_model_dir / f"{stone_block}.json", {"parent": "minecraft:block/cube_all", "textures": {"all": f"realistic_ores:block/{stone_block}"}})
-        write_json(item_model_dir / f"{stone_block}.json", {"parent": f"realistic_ores:block/{stone_block}"})
+        write_json(blockstate_dir / f"{stone_block}.json", {"variants": {"": {"model": f"better_ore_geology:block/{stone_block}"}}})
+        write_json(block_model_dir / f"{stone_block}.json", {"parent": "minecraft:block/cube_all", "textures": {"all": f"better_ore_geology:block/{stone_block}"}})
+        write_json(item_model_dir / f"{stone_block}.json", {"parent": f"better_ore_geology:block/{stone_block}"})
 
-        write_json(blockstate_dir / f"{deepslate_block}.json", {"variants": {"": {"model": f"realistic_ores:block/{deepslate_block}"}}})
+        write_json(blockstate_dir / f"{deepslate_block}.json", {"variants": {"": {"model": f"better_ore_geology:block/{deepslate_block}"}}})
         write_json(
             block_model_dir / f"{deepslate_block}.json",
             {
                 "parent": "minecraft:block/cube_bottom_top",
                 "textures": {
-                    "side": f"realistic_ores:block/{deepslate_block}_side",
-                    "top": f"realistic_ores:block/{deepslate_block}_top",
-                    "bottom": f"realistic_ores:block/{deepslate_block}_bottom",
+                    "side": f"better_ore_geology:block/{deepslate_block}_side",
+                    "top": f"better_ore_geology:block/{deepslate_block}_top",
+                    "bottom": f"better_ore_geology:block/{deepslate_block}_bottom",
                 },
             },
         )
-        write_json(item_model_dir / f"{deepslate_block}.json", {"parent": f"realistic_ores:block/{deepslate_block}"})
+        write_json(item_model_dir / f"{deepslate_block}.json", {"parent": f"better_ore_geology:block/{deepslate_block}"})
 
         loot_template = lambda name: {
             "type": "minecraft:block",
             "pools": [
                 {
                     "rolls": 1.0,
-                    "entries": [{"type": "minecraft:item", "name": f"realistic_ores:{name}"}],
+                    "entries": [{"type": "minecraft:item", "name": f"better_ore_geology:{name}"}],
                     "conditions": [{"condition": "minecraft:survives_explosion"}],
                 }
             ],
@@ -671,11 +671,11 @@ def main() -> None:
         write_json(loot_dir / f"{stone_block}.json", loot_template(stone_block))
         write_json(loot_dir / f"{deepslate_block}.json", loot_template(deepslate_block))
 
-        lang[f"block.realistic_ores.{stone_block}"] = display_name
-        lang[f"block.realistic_ores.{deepslate_block}"] = f"Deepslate {display_name}"
+        lang[f"block.better_ore_geology.{stone_block}"] = display_name
+        lang[f"block.better_ore_geology.{deepslate_block}"] = f"Deepslate {display_name}"
 
         for block_id in [stone_block, deepslate_block]:
-            full_id = f"realistic_ores:{block_id}"
+            full_id = f"better_ore_geology:{block_id}"
             append_tag_value(tag_files, RESOURCES / "data" / "minecraft" / "tags" / "blocks" / "mineable" / "pickaxe.json", full_id)
 
             for tag in tags:
@@ -686,7 +686,7 @@ def main() -> None:
 
         y_bands = ore.get("y_bands", {})
         for variant in ["stone", "deepslate"]:
-            target_tag = "realistic_ores:overworld_ore_replaceables"
+            target_tag = "better_ore_geology:overworld_ore_replaceables"
             band = y_bands.get(variant)
             if not band:
                 continue
@@ -722,7 +722,7 @@ def main() -> None:
                                     "tag": target_tag,
                                 },
                                 "state": {
-                                    "Name": f"realistic_ores:{stone_block if variant == 'stone' else deepslate_block}"
+                                    "Name": f"better_ore_geology:{stone_block if variant == 'stone' else deepslate_block}"
                                 },
                             }
                         ],
@@ -741,7 +741,7 @@ def main() -> None:
             write_json(
                 placed_feature_dir / f"{feature_id}.json",
                 {
-                    "feature": f"realistic_ores:{feature_id}",
+                    "feature": f"better_ore_geology:{feature_id}",
                     "placement": [
                         {"type": "minecraft:count", "count": worldgen_definition["count_per_chunk"]},
                         {"type": "minecraft:in_square"},
@@ -756,13 +756,13 @@ def main() -> None:
                 {
                     "type": "forge:add_features",
                     "biomes": worldgen_definition["biome_filter"],
-                    "features": f"realistic_ores:{feature_id}",
+                    "features": f"better_ore_geology:{feature_id}",
                     "step": worldgen_definition["generation_step"],
                 },
             )
 
     write_json(disabled_dir / "vanilla.json", {"features": DISABLED_VANILLA_FEATURES})
-    write_json(RESOURCES / "assets" / "realistic_ores" / "lang" / "en_us.json", lang)
+    write_json(RESOURCES / "assets" / "better_ore_geology" / "lang" / "en_us.json", lang)
     write_json(
         biome_modifier_dir / "remove_disabled_vanilla_ores.json",
         {

@@ -17,7 +17,7 @@ group = project.property("mod_group") as String
 version = modVersion
 
 base {
-    archivesName.set("realistic-ores")
+    archivesName.set("better-ore-geology")
 }
 
 repositories {
@@ -32,7 +32,7 @@ java {
     withSourcesJar()
 }
 
-mixin { config("realistic_ores.mixins.json") }
+mixin { config("better_ore_geology.mixins.json") }
 
 minecraft {
     mappings("official", minecraftVersion)
@@ -136,7 +136,7 @@ tasks.register<JavaExec>("renderWorldgenGallery") {
     description = "Renders one geological worldgen review sheet per family archetype."
     dependsOn(tasks.named("testClasses"))
     classpath = sourceSets.test.get().runtimeClasspath
-    mainClass.set("com.bettercontent.realisticores.worldgen.DepositMorphologyGallery")
+    mainClass.set("com.bettercontent.betteroregeology.worldgen.DepositMorphologyGallery")
     args(layout.buildDirectory.dir("worldgen-gallery").get().asFile.absolutePath)
     jvmArgs("-Djava.awt.headless=true")
 }
@@ -191,10 +191,10 @@ jacoco {
 }
 
 val coveredModelClasses = listOf(
-    "com.bettercontent.realisticores.ore.OreDefinition",
-    "com.bettercontent.realisticores.ore.OreDefinition\$VariantDefinition",
-    "com.bettercontent.realisticores.ore.OreDefinition\$TextureMode",
-    "com.bettercontent.realisticores.ore.DisabledFeaturesDefinition"
+    "com.bettercontent.betteroregeology.ore.OreDefinition",
+    "com.bettercontent.betteroregeology.ore.OreDefinition\$VariantDefinition",
+    "com.bettercontent.betteroregeology.ore.OreDefinition\$TextureMode",
+    "com.bettercontent.betteroregeology.ore.DisabledFeaturesDefinition"
 )
 val coveredModelFiles = sourceSets.main.get().output.classesDirs.asFileTree.matching {
     include(coveredModelClasses.map { it.replace('.', '/') + ".class" })

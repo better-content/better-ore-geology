@@ -1,0 +1,47 @@
+{
+  "feature": {
+    "type": "better_ore_geology:geological_deposit",
+    "config": {
+      "targets": [
+        {
+          "target": {
+            "predicate_type": "minecraft:tag_match",
+            "tag": "minecraft:stone_ore_replaceables"
+          },
+          "state": {
+            "Name": "better_ore_geology:tin_quartz"
+          }
+        }
+      ],
+      "morphology": "steep_quartz_lode",
+      "block_budget": 18,
+      "budget_spread": 4,
+      "deposit_class": "echo",
+      "discard_chance_on_air_exposure": 0.0
+    }
+  },
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 6
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "min_inclusive": {
+          "absolute": -32
+        },
+        "max_inclusive": {
+          "absolute": 48
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

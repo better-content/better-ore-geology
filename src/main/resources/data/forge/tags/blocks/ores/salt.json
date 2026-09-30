@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "realistic_ores:deepslate_evaporite_beds",
-    "realistic_ores:evaporite_beds"
+    "better_ore_geology:deepslate_evaporite_beds",
+    "better_ore_geology:evaporite_beds"
   ]
 }

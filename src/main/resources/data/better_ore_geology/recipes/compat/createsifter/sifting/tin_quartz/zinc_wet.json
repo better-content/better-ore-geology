@@ -1,0 +1,50 @@
+{
+  "type": "createsifter:sifting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "createsifter"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "better_ore_geology:crushed_tin_quartz"
+    },
+    {
+      "item": "createsifter:zinc_mesh"
+    }
+  ],
+  "processingTime": 500,
+  "results": [
+    {
+      "item": "better_ore_geology:tin_concentrate",
+      "count": 1
+    },
+    {
+      "item": "minecraft:quartz",
+      "count": 2,
+      "chance": 0.125
+    },
+    {
+      "item": "better_ore_geology:aluminum_concentrate",
+      "count": 1,
+      "chance": 0.0625
+    },
+    {
+      "item": "better_ore_geology:amethyst_chip",
+      "count": 2,
+      "chance": 0.125
+    },
+    {
+      "item": "minecraft:lapis_lazuli",
+      "count": 2,
+      "chance": 0.125
+    },
+    {
+      "item": "better_ore_geology:emerald_chip",
+      "count": 2,
+      "chance": 0.0625
+    }
+  ],
+  "waterlogged": true
+}

@@ -1,0 +1,224 @@
+{
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "all": "better_ore_geology:block/copper_bloom_0_south",
+    "particle": "#all"
+  },
+  "elements": [
+    {
+      "from": [
+        2,
+        0.02,
+        2
+      ],
+      "to": [
+        7,
+        3,
+        5
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            6,
+            1,
+            11,
+            4
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            6,
+            1,
+            11,
+            4
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            6,
+            1,
+            11,
+            4
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            6,
+            1,
+            11,
+            4
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            6,
+            1,
+            11,
+            4
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            6,
+            1,
+            11,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        10,
+        0.02,
+        3
+      ],
+      "to": [
+        15,
+        3,
+        8
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            2,
+            2,
+            7,
+            7
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            2,
+            2,
+            7,
+            7
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            2,
+            2,
+            7,
+            5
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            2,
+            2,
+            7,
+            5
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            2,
+            2,
+            7,
+            5
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            2,
+            2,
+            7,
+            5
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          12.5,
+          0,
+          5.5
+        ],
+        "axis": "y",
+        "angle": 22.5,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        4,
+        0.02,
+        9
+      ],
+      "to": [
+        9,
+        2,
+        14
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            7,
+            5,
+            12,
+            10
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            7,
+            5,
+            12,
+            10
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            7,
+            5,
+            12,
+            7
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            7,
+            5,
+            12,
+            7
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            7,
+            5,
+            12,
+            7
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            7,
+            5,
+            12,
+            7
+          ]
+        }
+      }
+    }
+  ]
+}

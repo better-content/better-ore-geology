@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "ingredient": {
+    "item": "better_ore_geology:cadmium_concentrate"
+  },
+  "result": {
+    "tag": "forge:molten_cadmium",
+    "amount": 40
+  },
+  "temperature": 950,
+  "time": 120
+}

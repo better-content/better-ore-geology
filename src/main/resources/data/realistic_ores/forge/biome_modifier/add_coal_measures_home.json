@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#minecraft:is_overworld",
-  "features": "realistic_ores:coal_measures_home",
-  "step": "underground_ores"
-}

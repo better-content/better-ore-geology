@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "better_ore_geology:block/deepslate_tin_quartz_0"
+      },
+      {
+        "model": "better_ore_geology:block/deepslate_tin_quartz_1"
+      },
+      {
+        "model": "better_ore_geology:block/deepslate_tin_quartz_2"
+      }
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "better_ore_geology:block/deepslate_coal_measures_0"
+      },
+      {
+        "model": "better_ore_geology:block/deepslate_coal_measures_1"
+      },
+      {
+        "model": "better_ore_geology:block/deepslate_coal_measures_2"
+      }
+    ]
+  }
+}

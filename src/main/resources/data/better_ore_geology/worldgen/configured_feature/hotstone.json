@@ -1,0 +1,30 @@
+{
+  "type": "better_ore_geology:geological_deposit",
+  "config": {
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:stone_ore_replaceables"
+        },
+        "state": {
+          "Name": "better_ore_geology:hotstone"
+        }
+      },
+      {
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:deepslate_ore_replaceables"
+        },
+        "state": {
+          "Name": "better_ore_geology:deepslate_hotstone"
+        }
+      }
+    ],
+    "morphology": "breccia_pipe_with_radial_dikes",
+    "block_budget": 28,
+    "budget_spread": 8,
+    "deposit_class": "home",
+    "discard_chance_on_air_exposure": 0.0
+  }
+}

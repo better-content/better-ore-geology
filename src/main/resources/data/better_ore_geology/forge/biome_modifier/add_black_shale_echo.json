@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "better_ore_geology:black_shale_echo",
+  "step": "underground_ores"
+}

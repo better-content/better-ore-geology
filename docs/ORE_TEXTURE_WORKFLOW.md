@@ -131,11 +131,11 @@ matter more than maximizing coverage.
 
 ## Complete reproduction runbook
 
-Run all repository commands from `/home/dev/mod_source/realistic-ores`. Java 17 is required. On a
+Run all repository commands from `/home/dev/mod_source/better-ore-geology`. Java 17 is required. On a
 Better Content lane, activate the recorded SDK when the current shell is not already using it:
 
 ```sh
-cd /home/dev/mod_source/realistic-ores
+cd /home/dev/mod_source/better-ore-geology
 source "$HOME/.sdkman/bin/sdkman-init.sh"
 sdk use java 17.0.16-tem
 java -version
@@ -202,8 +202,8 @@ each family and variant; do not generate an atlas.
    approved. Use a unique persistent review directory and a disposable lane-local working area:
 
    ```sh
-   REVIEW_ROOT="/home/dev/workspace_artifacts/reviews/realistic-ores/$(date -u +%Y%m%dT%H%M%SZ)-geology-candidate"
-   WORK_ROOT="/home/dev/.tmp/realistic-ores-texture-review"
+   REVIEW_ROOT="/home/dev/workspace_artifacts/reviews/better-ore-geology/$(date -u +%Y%m%dT%H%M%SZ)-geology-candidate"
+   WORK_ROOT="/home/dev/.tmp/better-ore-geology-texture-review"
    mkdir -p "$REVIEW_ROOT/masters" "$REVIEW_ROOT/composites" \
      "$REVIEW_ROOT/sheets" "$REVIEW_ROOT/provenance" "$WORK_ROOT"
    ```
@@ -274,7 +274,7 @@ each family and variant; do not generate an atlas.
    For a whole suite, create one labeled Herdr workspace and 24 tabs, one sheet per tab, and retain
    a mapping of family, variant, tab ID, pane ID, and absolute image path. Do not substitute one
    tiny overview for per-texture inspection. The accepted geology-v7 bundle is retained under
-   `/home/dev/workspace_artifacts/reviews/realistic-ores/20260910T111120Z-geology-v7-standalone-cubemaps/`
+   `/home/dev/workspace_artifacts/reviews/better-ore-geology/20260910T111120Z-geology-v7-standalone-cubemaps/`
    as a concrete layout and provenance example.
 
    Before handoff, add a concise bundle README, regenerate its sorted relative-path checksum
@@ -323,9 +323,9 @@ each family and variant; do not generate an atlas.
 
     ```sh
     sha256sum \
-      "src/main/resources/assets/realistic_ores/textures/block/${FAMILY}_0_south.png" \
-      "src/main/resources/assets/realistic_ores/textures/block/deepslate_${FAMILY}_0_south.png" \
-      "src/main/resources/assets/realistic_ores/textures/block/deepslate_${FAMILY}_0_up.png"
+      "src/main/resources/assets/better_ore_geology/textures/block/${FAMILY}_0_south.png" \
+      "src/main/resources/assets/better_ore_geology/textures/block/deepslate_${FAMILY}_0_south.png" \
+      "src/main/resources/assets/better_ore_geology/textures/block/deepslate_${FAMILY}_0_up.png"
     ```
 
     Do not update hashes simply to make a failing test green. Variants 1 and 2 are still fully
@@ -340,7 +340,7 @@ each family and variant; do not generate an atlas.
     git status --short
     git add docs/ORE_TEXTURE_WORKFLOW.md \
       "art/block-masters/geology-v7/$FAMILY/variant_$VARIANT.png" \
-      src/main/resources/assets/realistic_ores/textures/block \
+      src/main/resources/assets/better_ore_geology/textures/block \
       src/test/resources/canonical_ore_texture_hashes.json
     git diff --cached --stat
     git commit -m "Refresh approved ore texture art"

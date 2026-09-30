@@ -1,0 +1,8 @@
+{
+  "filter": "ore:hotstone",
+  "tags": [
+    "minecraft:blocks/mineable/pickaxe",
+    "better_ore_geology:blocks/deposit_ore_blocks/hotstone",
+    "better_ore_geology:blocks/deposit_ore_blocks"
+  ]
+}

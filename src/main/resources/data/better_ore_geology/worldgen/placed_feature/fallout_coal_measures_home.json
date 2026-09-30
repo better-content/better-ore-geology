@@ -1,0 +1,28 @@
+{
+  "feature": "better_ore_geology:fallout_coal_measures",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 8
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:trapezoid",
+        "min_inclusive": {
+          "absolute": 40
+        },
+        "max_inclusive": {
+          "absolute": 144
+        },
+        "plateau": 34
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "HH",
+    "HH"
+  ],
+  "key": {
+    "H": {
+      "item": "better_ore_geology:ore_chunk_hotstone"
+    }
+  },
+  "result": {
+    "item": "minecraft:magma_block"
+  }
+}

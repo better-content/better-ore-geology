@@ -1,0 +1,23 @@
+{
+  "type": "create:filling",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "better_ore_geology:crushed_tin_quartz"
+    },
+    {
+      "fluid": "minecraft:water",
+      "amount": 250
+    }
+  ],
+  "results": [
+    {
+      "item": "better_ore_geology:rinsed_tin_quartz"
+    }
+  ]
+}

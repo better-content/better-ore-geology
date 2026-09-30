@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "better_ore_geology:iron_concentrate"
+  },
+  "result": {
+    "item": "minecraft:iron_nugget",
+    "count": 4
+  },
+  "experience": 0.2,
+  "cookingtime": 240
+}

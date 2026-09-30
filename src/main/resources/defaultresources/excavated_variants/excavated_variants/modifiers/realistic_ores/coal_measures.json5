@@ -1,8 +1,0 @@
-{
-  "filter": "ore:coal_measures",
-  "tags": [
-    "minecraft:blocks/mineable/pickaxe",
-    "realistic_ores:blocks/deposit_ore_blocks/coal_measures",
-    "realistic_ores:blocks/deposit_ore_blocks"
-  ]
-}

@@ -1,0 +1,302 @@
+{
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "all": "better_ore_geology:block/copper_bloom_0_south",
+    "particle": "#all"
+  },
+  "elements": [
+    {
+      "from": [
+        2,
+        0.02,
+        2
+      ],
+      "to": [
+        7,
+        2,
+        5
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            9,
+            11,
+            14,
+            14
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            9,
+            11,
+            14,
+            14
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            9,
+            11,
+            14,
+            13
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            9,
+            11,
+            14,
+            13
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            9,
+            11,
+            14,
+            13
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            9,
+            11,
+            14,
+            13
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        10,
+        0.02,
+        3
+      ],
+      "to": [
+        15,
+        2,
+        8
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            4,
+            4,
+            9,
+            9
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            4,
+            4,
+            9,
+            9
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            4,
+            4,
+            9,
+            6
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            4,
+            4,
+            9,
+            6
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            4,
+            4,
+            9,
+            6
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            4,
+            4,
+            9,
+            6
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        0.02,
+        9
+      ],
+      "to": [
+        7,
+        3,
+        12
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            7,
+            7,
+            11,
+            10
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            7,
+            7,
+            11,
+            10
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            7,
+            7,
+            11,
+            10
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            7,
+            7,
+            11,
+            10
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            7,
+            7,
+            11,
+            10
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            7,
+            7,
+            11,
+            10
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          5.0,
+          0,
+          10.5
+        ],
+        "axis": "y",
+        "angle": -22.5,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        9,
+        0.02,
+        10
+      ],
+      "to": [
+        14,
+        3,
+        14
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            6,
+            10,
+            11,
+            14
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            6,
+            10,
+            11,
+            14
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            6,
+            10,
+            11,
+            13
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            6,
+            10,
+            11,
+            13
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            6,
+            10,
+            11,
+            13
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            6,
+            10,
+            11,
+            13
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          11.5,
+          0,
+          12.0
+        ],
+        "axis": "y",
+        "angle": 22.5,
+        "rescale": false
+      }
+    }
+  ]
+}

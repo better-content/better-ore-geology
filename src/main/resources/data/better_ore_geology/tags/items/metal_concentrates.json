@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "better_ore_geology:iron_concentrate",
+    "better_ore_geology:nickel_concentrate",
+    "better_ore_geology:copper_concentrate",
+    "better_ore_geology:gold_concentrate",
+    "better_ore_geology:tin_concentrate",
+    "better_ore_geology:zinc_concentrate",
+    "better_ore_geology:lead_concentrate",
+    "better_ore_geology:cadmium_concentrate",
+    "better_ore_geology:silver_concentrate",
+    "better_ore_geology:aluminum_concentrate",
+    "better_ore_geology:titanium_concentrate",
+    "better_ore_geology:cobalt_concentrate",
+    "better_ore_geology:osmium_concentrate",
+    "better_ore_geology:uranium_concentrate",
+    "better_ore_geology:thorium_concentrate"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "better_ore_geology:gui/aspect_badges.png",
+      "ascent": 16,
+      "height": 18,
+      "chars": [""]
+    }
+  ]
+}

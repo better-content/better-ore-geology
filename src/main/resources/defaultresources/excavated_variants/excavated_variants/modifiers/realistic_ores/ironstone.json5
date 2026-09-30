@@ -1,8 +1,0 @@
-{
-  "filter": "ore:ironstone",
-  "tags": [
-    "minecraft:blocks/mineable/pickaxe",
-    "realistic_ores:blocks/deposit_ore_blocks/ironstone",
-    "realistic_ores:blocks/deposit_ore_blocks"
-  ]
-}

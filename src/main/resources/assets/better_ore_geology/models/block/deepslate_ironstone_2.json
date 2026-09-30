@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "better_ore_geology:block/deepslate_ironstone_2_south",
+    "north": "better_ore_geology:block/deepslate_ironstone_2_north",
+    "east": "better_ore_geology:block/deepslate_ironstone_2_east",
+    "south": "better_ore_geology:block/deepslate_ironstone_2_south",
+    "west": "better_ore_geology:block/deepslate_ironstone_2_west",
+    "up": "better_ore_geology:block/deepslate_ironstone_2_up",
+    "down": "better_ore_geology:block/deepslate_ironstone_2_down"
+  }
+}

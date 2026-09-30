@@ -1,0 +1,22 @@
+{
+  "parent": "better_ore_geology:block/oil_seep_2",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        1.15,
+        1.15,
+        1.15
+      ]
+    }
+  }
+}

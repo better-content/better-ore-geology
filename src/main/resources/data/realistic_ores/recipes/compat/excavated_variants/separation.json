@@ -1,6 +1,0 @@
-{
-  "type": "realistic_ores:excavated_separation",
-  "conditions": [
-    { "type": "forge:mod_loaded", "modid": "excavated_variants" }
-  ]
-}

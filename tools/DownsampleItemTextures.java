@@ -97,7 +97,7 @@ public final class DownsampleItemTextures {
 
     private static void process(Path root, Form form, Map<String, int[]> palettes, boolean write) throws IOException {
         Path masterDirectory = root.resolve("art/item-masters").resolve(form.directory());
-        Path runtimeDirectory = root.resolve("src/main/resources/assets/realistic_ores/textures/item");
+        Path runtimeDirectory = root.resolve("src/main/resources/assets/better_ore_geology/textures/item");
         Path previewDirectory = root.resolve("build/texture-previews").resolve(form.directory());
         if (write) {
             try (var paths = Files.list(masterDirectory)) {

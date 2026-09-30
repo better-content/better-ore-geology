@@ -1,0 +1,27 @@
+{
+  "type": "pneumaticcraft:pressure_chamber",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "pneumaticcraft"
+    }
+  ],
+  "inputs": [
+    {
+      "type": "pneumaticcraft:stacked_item",
+      "item": "better_ore_geology:rinsed_coal_measures",
+      "count": 4
+    }
+  ],
+  "pressure": 2.0,
+  "results": [
+    {
+      "item": "minecraft:coal",
+      "count": 8
+    },
+    {
+      "item": "better_ore_geology:iron_concentrate",
+      "count": 1
+    }
+  ]
+}

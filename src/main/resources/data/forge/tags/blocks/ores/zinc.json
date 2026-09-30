@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "realistic_ores:brassroot",
-    "realistic_ores:deepslate_brassroot"
+    "better_ore_geology:brassroot",
+    "better_ore_geology:deepslate_brassroot"
   ]
 }

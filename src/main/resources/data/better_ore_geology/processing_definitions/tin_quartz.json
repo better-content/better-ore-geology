@@ -1,0 +1,105 @@
+{
+  "schema": "bc.better_ore_geology.processing.v3",
+  "family": "tin_quartz",
+  "primary": {
+    "material": "tin",
+    "output": {
+      "item": "better_ore_geology:tin_concentrate",
+      "count": 1
+    }
+  },
+  "stages": {
+    "chunk": "ore_chunk_tin_quartz",
+    "crushed": "crushed_tin_quartz",
+    "rinsed": "rinsed_tin_quartz"
+  },
+  "routes": {
+    "tech": {
+      "input_count": 4,
+      "pressure": 2.0,
+      "primary_count": 4,
+      "coproducts": [
+        {
+          "material": "quartz",
+          "grade": "major",
+          "nominal_chance": 1.0
+        },
+        {
+          "material": "aluminum",
+          "grade": "minor",
+          "nominal_chance": 0.5
+        },
+        {
+          "material": "amethyst",
+          "grade": "major",
+          "nominal_chance": 1.0
+        },
+        {
+          "material": "lapis",
+          "grade": "major",
+          "nominal_chance": 1.0
+        },
+        {
+          "material": "emerald",
+          "grade": "minor",
+          "nominal_chance": 0.5
+        }
+      ]
+    },
+    "hand_sifting": {
+      "input_count": 1,
+      "primary_units": 1
+    },
+    "dry_sifting": {
+      "input_count": 1,
+      "primary_units": 1
+    },
+    "waterlogged_zinc": {
+      "input_count": 1,
+      "grades": {
+        "major": 0.125,
+        "minor": 0.0625
+      }
+    },
+    "waterlogged_brass": {
+      "input_count": 1,
+      "grades": {
+        "major": 0.25,
+        "minor": 0.125,
+        "trace": 0.05,
+        "precious": 0.0125
+      }
+    },
+    "blood": {
+      "input_count": 1,
+      "primary_units": 2
+    },
+    "hexerei": {
+      "input_count": 4,
+      "primary_units": 8,
+      "diamond_assay": {
+        "input": "better_ore_geology:crushed_tin_quartz",
+        "input_count": 4,
+        "selenite_count": 4,
+        "water": 250,
+        "heat": "heated",
+        "output": "better_ore_geology:diamond_chip"
+      }
+    },
+    "ars": {
+      "input_count": 1,
+      "primary_units": 2,
+      "essence": "ars_nouveau:manipulation_essence",
+      "chance": 0.25,
+      "bonus": {
+        "item": "ars_nouveau:source_gem",
+        "chance": 0.0625
+      }
+    },
+    "occultism": {
+      "input_count": 1,
+      "primary_units": 2,
+      "uses_crusher_multiplier": true
+    }
+  }
+}

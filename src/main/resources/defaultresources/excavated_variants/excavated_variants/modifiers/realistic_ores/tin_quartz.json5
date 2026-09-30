@@ -1,8 +1,0 @@
-{
-  "filter": "ore:tin_quartz",
-  "tags": [
-    "minecraft:blocks/mineable/pickaxe",
-    "realistic_ores:blocks/deposit_ore_blocks/tin_quartz",
-    "realistic_ores:blocks/deposit_ore_blocks"
-  ]
-}

@@ -1,0 +1,10 @@
+{
+  "aspect.impact": { "sounds": ["better_ore_geology:aspect/impact"] },
+  "aspect.tempo": { "sounds": ["better_ore_geology:aspect/tempo"] },
+  "aspect.work": { "sounds": ["better_ore_geology:aspect/work"] },
+  "aspect.mobility": { "sounds": ["better_ore_geology:aspect/mobility"] },
+  "aspect.endurance": { "sounds": ["better_ore_geology:aspect/endurance"] },
+  "aspect.robustness": { "sounds": ["better_ore_geology:aspect/robustness"] },
+  "aspect.renewal": { "sounds": ["better_ore_geology:aspect/renewal"] },
+  "aspect.control": { "sounds": ["better_ore_geology:aspect/control"] }
+}

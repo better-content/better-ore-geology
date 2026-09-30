@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "realistic_ores:deepslate_ironstone",
-    "realistic_ores:ironstone"
+    "better_ore_geology:deepslate_ironstone",
+    "better_ore_geology:ironstone"
   ]
 }

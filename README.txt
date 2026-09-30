@@ -4,13 +4,13 @@ Forge 1.20.1 mod that adds JSON-defined ore blocks, optional Create crushing out
 and data-driven world generation overrides.
 
 Project layout
-- `src/main/java/com/bettercontent/realisticores/registry`: block and item registration
-- `src/main/java/com/bettercontent/realisticores/ore`: JSON definition models and loaders
-- `src/main/java/com/bettercontent/realisticores/worldgen`: biome modifier hooks for data-driven feature removal
-- `src/main/resources/data/realistic_ores/realistic_ores`: ore block definitions
-- `src/main/resources/data/realistic_ores/disabled_placed_features`: placed feature removal rules for vanilla or modded ore generation
-- `src/main/resources/data/realistic_ores/worldgen`: configured and placed features
-- `src/main/resources/data/realistic_ores/forge/biome_modifier`: biome modifiers for adding the features and applying removal rules
+- `src/main/java/com/bettercontent/betteroregeology/registry`: block and item registration
+- `src/main/java/com/bettercontent/betteroregeology/ore`: JSON definition models and loaders
+- `src/main/java/com/bettercontent/betteroregeology/worldgen`: biome modifier hooks for data-driven feature removal
+- `src/main/resources/data/better_ore_geology/better_ore_geology`: ore block definitions
+- `src/main/resources/data/better_ore_geology/disabled_placed_features`: placed feature removal rules for vanilla or modded ore generation
+- `src/main/resources/data/better_ore_geology/worldgen`: configured and placed features
+- `src/main/resources/data/better_ore_geology/forge/biome_modifier`: biome modifiers for adding the features and applying removal rules
 
 Notes
 - Block and item registration is driven from the ore definition JSON files.

@@ -1,0 +1,24 @@
+{
+  "type": "create:crushing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "type": "forge:nbt",
+      "item": "better_ore_geology:deepslate_hotstone"
+    }
+  ],
+  "processingTime": 250,
+  "results": [
+    {
+      "item": "better_ore_geology:ore_chunk_hotstone"
+    },
+    {
+      "item": "minecraft:deepslate"
+    }
+  ]
+}

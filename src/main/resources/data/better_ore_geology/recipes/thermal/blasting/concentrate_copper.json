@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "better_ore_geology:copper_concentrate"
+  },
+  "result": {
+    "item": "tconstruct:copper_nugget",
+    "count": 4
+  },
+  "experience": 0.2,
+  "cookingtime": 120
+}

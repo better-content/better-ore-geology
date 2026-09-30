@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "better_ore_geology:silver_concentrate"
+  },
+  "result": {
+    "item": "chemlib:silver_nugget",
+    "count": 4
+  },
+  "experience": 0.2,
+  "cookingtime": 240
+}

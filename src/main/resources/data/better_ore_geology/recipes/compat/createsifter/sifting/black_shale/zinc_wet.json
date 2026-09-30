@@ -1,0 +1,50 @@
+{
+  "type": "createsifter:sifting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "createsifter"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "better_ore_geology:crushed_black_shale"
+    },
+    {
+      "item": "createsifter:zinc_mesh"
+    }
+  ],
+  "processingTime": 500,
+  "results": [
+    {
+      "item": "minecraft:redstone",
+      "count": 2
+    },
+    {
+      "item": "better_ore_geology:copper_concentrate",
+      "count": 1,
+      "chance": 0.125
+    },
+    {
+      "item": "better_ore_geology:iron_concentrate",
+      "count": 1,
+      "chance": 0.0625
+    },
+    {
+      "item": "minecraft:soul_sand",
+      "count": 2,
+      "chance": 0.125
+    },
+    {
+      "item": "chemlib:sulfur",
+      "count": 2,
+      "chance": 0.0625
+    },
+    {
+      "item": "chemlib:vanadium",
+      "count": 1,
+      "chance": 0.025
+    }
+  ],
+  "waterlogged": true
+}

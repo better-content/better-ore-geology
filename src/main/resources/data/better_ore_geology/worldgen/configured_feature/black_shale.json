@@ -1,0 +1,30 @@
+{
+  "type": "better_ore_geology:geological_deposit",
+  "config": {
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:stone_ore_replaceables"
+        },
+        "state": {
+          "Name": "better_ore_geology:black_shale"
+        }
+      },
+      {
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:deepslate_ore_replaceables"
+        },
+        "state": {
+          "Name": "better_ore_geology:deepslate_black_shale"
+        }
+      }
+    ],
+    "morphology": "laminated_shale_stringers",
+    "block_budget": 16,
+    "budget_spread": 4,
+    "deposit_class": "home",
+    "discard_chance_on_air_exposure": 0.0
+  }
+}

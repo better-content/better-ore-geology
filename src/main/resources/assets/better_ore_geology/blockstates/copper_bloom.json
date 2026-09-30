@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "better_ore_geology:block/copper_bloom_0"
+      },
+      {
+        "model": "better_ore_geology:block/copper_bloom_1"
+      },
+      {
+        "model": "better_ore_geology:block/copper_bloom_2"
+      }
+    ]
+  }
+}

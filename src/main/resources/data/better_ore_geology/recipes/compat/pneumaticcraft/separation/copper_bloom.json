@@ -1,0 +1,35 @@
+{
+  "type": "pneumaticcraft:pressure_chamber",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "pneumaticcraft"
+    }
+  ],
+  "inputs": [
+    {
+      "type": "pneumaticcraft:stacked_item",
+      "item": "better_ore_geology:rinsed_copper_bloom",
+      "count": 4
+    }
+  ],
+  "pressure": 2.0,
+  "results": [
+    {
+      "item": "better_ore_geology:copper_concentrate",
+      "count": 4
+    },
+    {
+      "item": "chemlib:sulfur",
+      "count": 2
+    },
+    {
+      "item": "better_ore_geology:iron_concentrate",
+      "count": 1
+    },
+    {
+      "item": "better_ore_geology:gold_concentrate",
+      "count": 1
+    }
+  ]
+}

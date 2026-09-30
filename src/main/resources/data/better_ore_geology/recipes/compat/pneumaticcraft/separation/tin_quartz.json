@@ -1,0 +1,43 @@
+{
+  "type": "pneumaticcraft:pressure_chamber",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "pneumaticcraft"
+    }
+  ],
+  "inputs": [
+    {
+      "type": "pneumaticcraft:stacked_item",
+      "item": "better_ore_geology:rinsed_tin_quartz",
+      "count": 4
+    }
+  ],
+  "pressure": 2.0,
+  "results": [
+    {
+      "item": "better_ore_geology:tin_concentrate",
+      "count": 4
+    },
+    {
+      "item": "minecraft:quartz",
+      "count": 2
+    },
+    {
+      "item": "better_ore_geology:aluminum_concentrate",
+      "count": 1
+    },
+    {
+      "item": "better_ore_geology:amethyst_chip",
+      "count": 2
+    },
+    {
+      "item": "minecraft:lapis_lazuli",
+      "count": 2
+    },
+    {
+      "item": "better_ore_geology:emerald_chip",
+      "count": 2
+    }
+  ]
+}

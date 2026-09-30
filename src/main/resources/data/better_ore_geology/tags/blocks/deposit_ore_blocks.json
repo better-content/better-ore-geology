@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "#better_ore_geology:deposit_ore_blocks/coal_measures",
+    "#better_ore_geology:deposit_ore_blocks/ironstone",
+    "#better_ore_geology:deposit_ore_blocks/copper_bloom",
+    "#better_ore_geology:deposit_ore_blocks/tin_quartz",
+    "#better_ore_geology:deposit_ore_blocks/brassroot",
+    "#better_ore_geology:deposit_ore_blocks/evaporite_beds",
+    "#better_ore_geology:deposit_ore_blocks/hotstone",
+    "#better_ore_geology:deposit_ore_blocks/black_shale"
+  ]
+}

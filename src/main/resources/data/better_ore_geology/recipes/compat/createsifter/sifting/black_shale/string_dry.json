@@ -1,0 +1,24 @@
+{
+  "type": "createsifter:sifting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "createsifter"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "better_ore_geology:ore_chunk_black_shale"
+    },
+    {
+      "item": "createsifter:string_mesh"
+    }
+  ],
+  "processingTime": 500,
+  "results": [
+    {
+      "item": "minecraft:redstone",
+      "count": 2
+    }
+  ]
+}

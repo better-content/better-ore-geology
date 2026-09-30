@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "better_ore_geology:ore_chunk_ironstone"
+  },
+  "result": {
+    "item": "minecraft:iron_nugget",
+    "count": 4
+  },
+  "experience": 0.1,
+  "cookingtime": 120
+}

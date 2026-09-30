@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#realistic_ores:fallout_wasteland",
-  "features": "realistic_ores:fallout_ironstone_home",
-  "step": "underground_ores"
-}

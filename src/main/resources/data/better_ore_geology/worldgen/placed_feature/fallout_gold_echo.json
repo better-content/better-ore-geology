@@ -1,0 +1,47 @@
+{
+  "feature": {
+    "type": "better_ore_geology:geological_deposit",
+    "config": {
+      "targets": [
+        {
+          "target": {
+            "predicate_type": "minecraft:tag_match",
+            "tag": "better_ore_geology:fallout_wasteland_stone"
+          },
+          "state": {
+            "Name": "minecraft:gold_ore"
+          }
+        }
+      ],
+      "morphology": "lenticular_oolitic_bed",
+      "block_budget": 24,
+      "budget_spread": 8,
+      "deposit_class": "echo",
+      "discard_chance_on_air_exposure": 0.0
+    }
+  },
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 12
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "min_inclusive": {
+          "absolute": -50
+        },
+        "max_inclusive": {
+          "absolute": -17
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

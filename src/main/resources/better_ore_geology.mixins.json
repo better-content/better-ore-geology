@@ -1,0 +1,13 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "com.bettercontent.betteroregeology.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "SeaTerrorRawGoldRewardMixin",
+    "UnearthedRawOreDropMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

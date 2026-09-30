@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "better_ore_geology:gold_concentrate"
+  },
+  "result": {
+    "item": "minecraft:gold_nugget",
+    "count": 4
+  },
+  "experience": 0.2,
+  "cookingtime": 120
+}

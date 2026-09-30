@@ -6,7 +6,7 @@ import shutil
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA = ROOT / "src/main/resources/data/realistic_ores"
+DATA = ROOT / "src/main/resources/data/better_ore_geology"
 MANIFEST = ROOT / "tools/geological_worldgen.json"
 OWNERSHIP = ROOT / "tools/geological_worldgen.outputs.json"
 
@@ -17,7 +17,7 @@ def write(path: Path, value: object) -> None:
 
 
 def target(tag: str, state: str) -> dict:
-    block = state if ":" in state else f"realistic_ores:{state}"
+    block = state if ":" in state else f"better_ore_geology:{state}"
     return {
         "target": {"predicate_type": "minecraft:tag_match", "tag": tag},
         "state": {"Name": block},
@@ -64,7 +64,7 @@ def main() -> None:
         ])
         configured_targets = [target(entry["tag"], entry["state"]) for entry in targets]
         write(configured / f"{family}.json", {
-            "type": "realistic_ores:geological_deposit",
+            "type": "better_ore_geology:geological_deposit",
             "config": {
                 "targets": configured_targets,
                 "morphology": definition["morphology"],
@@ -89,9 +89,9 @@ def main() -> None:
                 {"type": "minecraft:biome"},
             ])
             # Echo features carry a larger memorable body without duplicating configuration files.
-            configured_ref = f"realistic_ores:{family}"
+            configured_ref = f"better_ore_geology:{family}"
             if profile == "echo":
-                configured_ref = {"type": "realistic_ores:geological_deposit", "config": {
+                configured_ref = {"type": "better_ore_geology:geological_deposit", "config": {
                     "targets": configured_targets,
                     "morphology": definition["morphology"],
                     "block_budget": definition["echo_budget"],
@@ -103,7 +103,7 @@ def main() -> None:
             write(modifiers / f"add_{feature}.json", {
                 "type": "forge:add_features",
                 "biomes": definition.get("biomes", "#minecraft:is_overworld"),
-                "features": f"realistic_ores:{feature}",
+                "features": f"better_ore_geology:{feature}",
                 "step": "underground_ores",
             })
     write(OWNERSHIP, sorted(definitions))

@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#twilightforest:in_twilight_forest",
-  "features": "realistic_ores:twilight_gold_echo",
-  "step": "underground_ores"
-}

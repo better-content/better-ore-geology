@@ -1,0 +1,25 @@
+{
+  "type": "createsifter:sifting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "createsifter"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "better_ore_geology:crushed_coal_measures"
+    },
+    {
+      "item": "createsifter:zinc_mesh"
+    }
+  ],
+  "processingTime": 500,
+  "results": [
+    {
+      "item": "minecraft:coal",
+      "count": 2
+    }
+  ],
+  "waterlogged": true
+}

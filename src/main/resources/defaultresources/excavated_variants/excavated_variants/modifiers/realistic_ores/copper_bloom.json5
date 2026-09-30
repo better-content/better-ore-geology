@@ -1,8 +1,0 @@
-{
-  "filter": "ore:copper_bloom",
-  "tags": [
-    "minecraft:blocks/mineable/pickaxe",
-    "realistic_ores:blocks/deposit_ore_blocks/copper_bloom",
-    "realistic_ores:blocks/deposit_ore_blocks"
-  ]
-}

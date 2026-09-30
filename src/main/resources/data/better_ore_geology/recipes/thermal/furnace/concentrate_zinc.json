@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "better_ore_geology:zinc_concentrate"
+  },
+  "result": {
+    "item": "chemlib:zinc_nugget",
+    "count": 4
+  },
+  "experience": 0.2,
+  "cookingtime": 240
+}

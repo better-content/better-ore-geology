@@ -35,7 +35,7 @@ public final class GenerateDepositTextures {
     }
 
     private static void reproduce(Path root, boolean write) throws IOException {
-        Path output = root.resolve("src/main/resources/assets/realistic_ores/textures/block");
+        Path output = root.resolve("src/main/resources/assets/better_ore_geology/textures/block");
         HostTextures hosts = hostTextures(root);
         int written = 0;
         for (String family : FAMILIES) {

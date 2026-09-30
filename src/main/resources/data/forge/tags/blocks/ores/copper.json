@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "realistic_ores:copper_bloom",
-    "realistic_ores:deepslate_copper_bloom"
+    "better_ore_geology:copper_bloom",
+    "better_ore_geology:deepslate_copper_bloom"
   ]
 }

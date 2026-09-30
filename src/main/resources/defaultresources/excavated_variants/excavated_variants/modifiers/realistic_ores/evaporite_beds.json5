@@ -1,8 +1,0 @@
-{
-  "filter": "ore:evaporite_beds",
-  "tags": [
-    "minecraft:blocks/mineable/pickaxe",
-    "realistic_ores:blocks/deposit_ore_blocks/evaporite_beds",
-    "realistic_ores:blocks/deposit_ore_blocks"
-  ]
-}

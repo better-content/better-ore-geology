@@ -1,0 +1,18 @@
+{
+  "type": "occultism:crushing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "occultism"
+    }
+  ],
+  "crushing_time": 200,
+  "ignore_crushing_multiplier": false,
+  "ingredient": {
+    "item": "better_ore_geology:ore_chunk_ironstone"
+  },
+  "result": {
+    "item": "better_ore_geology:iron_concentrate",
+    "count": 2
+  }
+}

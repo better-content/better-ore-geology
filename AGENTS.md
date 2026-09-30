@@ -2,9 +2,9 @@
 
 ## Project identity
 
-- Repository and artifact: `realistic-ores`
-- Mod ID and resource namespace: `realistic_ores`
-- Base package: `com.bettercontent.realisticores`
+- Repository and artifact: `better-ore-geology`
+- Mod ID and resource namespace: `better_ore_geology`
+- Base package: `com.bettercontent.betteroregeology`
 - Java: 17
 - Forge: 1.20.1-47.4.13
 

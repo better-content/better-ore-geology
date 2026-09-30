@@ -6,4 +6,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "realistic-ores"
+rootProject.name = "better-ore-geology"

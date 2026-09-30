@@ -1,0 +1,27 @@
+{
+  "type": "ars_nouveau:crush",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "ars_nouveau"
+    }
+  ],
+  "input": {
+    "item": "better_ore_geology:ore_chunk_hotstone"
+  },
+  "output": [
+    {
+      "item": "better_ore_geology:uranium_concentrate",
+      "count": 2,
+      "chance": 1.0,
+      "maxRange": 1
+    },
+    {
+      "chance": 0.25,
+      "count": 1,
+      "item": "ars_nouveau:fire_essence",
+      "maxRange": 1
+    }
+  ],
+  "skip_block_place": false
+}

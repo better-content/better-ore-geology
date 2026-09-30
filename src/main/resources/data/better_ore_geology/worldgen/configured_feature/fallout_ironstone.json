@@ -1,0 +1,21 @@
+{
+  "type": "better_ore_geology:geological_deposit",
+  "config": {
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "better_ore_geology:fallout_wasteland_stone"
+        },
+        "state": {
+          "Name": "better_ore_geology:ironstone"
+        }
+      }
+    ],
+    "morphology": "lenticular_oolitic_bed",
+    "block_budget": 34,
+    "budget_spread": 10,
+    "deposit_class": "home",
+    "discard_chance_on_air_exposure": 0.0
+  }
+}

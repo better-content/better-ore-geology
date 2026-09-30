@@ -1,0 +1,41 @@
+{
+  "id": "hotstone",
+  "display_name": "Hotstone Deposit",
+  "variants": [
+    {
+      "host": "stone",
+      "block_id": "hotstone",
+      "texture_mode": "cube_sided",
+      "textures": {
+        "north": "better_ore_geology:block/hotstone_0_north",
+        "east": "better_ore_geology:block/hotstone_0_east",
+        "south": "better_ore_geology:block/hotstone_0_south",
+        "west": "better_ore_geology:block/hotstone_0_west",
+        "up": "better_ore_geology:block/hotstone_0_up",
+        "down": "better_ore_geology:block/hotstone_0_down"
+      },
+      "copy_properties_from": "minecraft:stone"
+    },
+    {
+      "host": "deepslate",
+      "block_id": "deepslate_hotstone",
+      "texture_mode": "cube_sided",
+      "textures": {
+        "north": "better_ore_geology:block/deepslate_hotstone_0_north",
+        "east": "better_ore_geology:block/deepslate_hotstone_0_east",
+        "south": "better_ore_geology:block/deepslate_hotstone_0_south",
+        "west": "better_ore_geology:block/deepslate_hotstone_0_west",
+        "up": "better_ore_geology:block/deepslate_hotstone_0_up",
+        "down": "better_ore_geology:block/deepslate_hotstone_0_down"
+      },
+      "copy_properties_from": "minecraft:deepslate"
+    }
+  ],
+  "tags": [
+    "minecraft:mineable/pickaxe",
+    "forge:ores",
+    "forge:ores/uranium",
+    "forge:ores/thorium",
+    "forge:ores/titanium"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#better_ore_geology:fallout_wasteland",
+  "features": "better_ore_geology:fallout_gold_echo",
+  "step": "underground_ores"
+}

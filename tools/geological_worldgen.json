@@ -185,11 +185,11 @@
     "home_count": 8,
     "echo_count": 1,
     "baseline_supply": 432,
-    "biomes": "#realistic_ores:fallout_wasteland",
+    "biomes": "#better_ore_geology:fallout_wasteland",
     "targets": [
       {
-        "tag": "realistic_ores:fallout_wasteland_stone",
-        "state": "realistic_ores:coal_measures"
+        "tag": "better_ore_geology:fallout_wasteland_stone",
+        "state": "better_ore_geology:coal_measures"
       }
     ]
   },
@@ -210,11 +210,11 @@
     "home_count": 7,
     "echo_count": 1,
     "baseline_supply": 280,
-    "biomes": "#realistic_ores:fallout_wasteland",
+    "biomes": "#better_ore_geology:fallout_wasteland",
     "targets": [
       {
-        "tag": "realistic_ores:fallout_wasteland_stone",
-        "state": "realistic_ores:ironstone"
+        "tag": "better_ore_geology:fallout_wasteland_stone",
+        "state": "better_ore_geology:ironstone"
       }
     ]
   },
@@ -235,11 +235,11 @@
     "home_count": 7,
     "echo_count": 1,
     "baseline_supply": 240,
-    "biomes": "#realistic_ores:fallout_wasteland",
+    "biomes": "#better_ore_geology:fallout_wasteland",
     "targets": [
       {
-        "tag": "realistic_ores:fallout_wasteland_stone",
-        "state": "realistic_ores:copper_bloom"
+        "tag": "better_ore_geology:fallout_wasteland_stone",
+        "state": "better_ore_geology:copper_bloom"
       }
     ]
   },
@@ -260,11 +260,11 @@
     "home_count": 4,
     "echo_rarity": 2,
     "baseline_supply": 84,
-    "biomes": "#realistic_ores:fallout_wasteland",
+    "biomes": "#better_ore_geology:fallout_wasteland",
     "targets": [
       {
-        "tag": "realistic_ores:fallout_wasteland_stone",
-        "state": "realistic_ores:tin_quartz"
+        "tag": "better_ore_geology:fallout_wasteland_stone",
+        "state": "better_ore_geology:tin_quartz"
       }
     ]
   },
@@ -285,10 +285,10 @@
     "home_count": 2,
     "echo_rarity": 12,
     "baseline_supply": 18,
-    "biomes": "#realistic_ores:fallout_wasteland",
+    "biomes": "#better_ore_geology:fallout_wasteland",
     "targets": [
       {
-        "tag": "realistic_ores:fallout_wasteland_stone",
+        "tag": "better_ore_geology:fallout_wasteland_stone",
         "state": "minecraft:gold_ore"
       }
     ]

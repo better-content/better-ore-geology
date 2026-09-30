@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "realistic_ores:molten_thorium",
-    "realistic_ores:flowing_molten_thorium"
+    "better_ore_geology:molten_thorium",
+    "better_ore_geology:flowing_molten_thorium"
   ]
 }

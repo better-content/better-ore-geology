@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "better_ore_geology:block/deepslate_brassroot_0_south",
+    "north": "better_ore_geology:block/deepslate_brassroot_0_north",
+    "east": "better_ore_geology:block/deepslate_brassroot_0_east",
+    "south": "better_ore_geology:block/deepslate_brassroot_0_south",
+    "west": "better_ore_geology:block/deepslate_brassroot_0_west",
+    "up": "better_ore_geology:block/deepslate_brassroot_0_up",
+    "down": "better_ore_geology:block/deepslate_brassroot_0_down"
+  }
+}

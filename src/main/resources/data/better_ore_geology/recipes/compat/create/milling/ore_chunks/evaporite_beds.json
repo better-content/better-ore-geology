@@ -1,0 +1,21 @@
+{
+  "type": "create:milling",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "better_ore_geology:ore_chunk_evaporite_beds"
+    }
+  ],
+  "processingTime": 400,
+  "results": [
+    {
+      "item": "better_ore_geology:crushed_evaporite_beds",
+      "count": 2
+    }
+  ]
+}

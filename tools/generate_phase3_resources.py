@@ -15,10 +15,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RES = ROOT / "src/main/resources"
-NS = "realistic_ores"
-ORE_DIR = RES / "data/realistic_ores/realistic_ores"
-ASSETS = RES / "assets/realistic_ores"
-DATA = RES / "data/realistic_ores"
+NS = "better_ore_geology"
+ORE_DIR = RES / "data/better_ore_geology/better_ore_geology"
+ASSETS = RES / "assets/better_ore_geology"
+DATA = RES / "data/better_ore_geology"
 FAMILIES = [
     "coal_measures", "ironstone", "copper_bloom", "tin_quartz", "brassroot",
     "evaporite_beds", "hotstone", "black_shale",
@@ -41,15 +41,15 @@ MATERIALS = {
     "titanium": ("metal", "chemlib:titanium_ingot", "chemlib:titanium_nugget", "forge:molten_titanium"),
     "cobalt": ("metal", "chemlib:cobalt_ingot", "chemlib:cobalt_nugget", "forge:molten_cobalt"),
     "osmium": ("metal", "chemlib:osmium_ingot", "chemlib:osmium_nugget", "forge:molten_osmium"),
-    "diamond": ("gem", "minecraft:diamond", "realistic_ores:diamond_chip", None),
-    "emerald": ("gem", "minecraft:emerald", "realistic_ores:emerald_chip", None),
-    "amethyst": ("gem", "minecraft:amethyst_shard", "realistic_ores:amethyst_chip", None),
+    "diamond": ("gem", "minecraft:diamond", "better_ore_geology:diamond_chip", None),
+    "emerald": ("gem", "minecraft:emerald", "better_ore_geology:emerald_chip", None),
+    "amethyst": ("gem", "minecraft:amethyst_shard", "better_ore_geology:amethyst_chip", None),
     "uranium": ("metal", "chemlib:uranium_ingot", "chemlib:uranium_nugget", "forge:molten_uranium"),
     "thorium": ("metal", "chemlib:thorium_ingot", "chemlib:thorium_nugget", "forge:molten_thorium"),
     "redstone": ("bulk", "minecraft:redstone", None, None),
     "lapis": ("bulk", "minecraft:lapis_lazuli", None, None),
     "soul_sand": ("bulk", "minecraft:soul_sand", None, None),
-    "rock_salt": ("bulk", "realistic_ores:rock_salt", None, None),
+    "rock_salt": ("bulk", "better_ore_geology:rock_salt", None, None),
     "sodium_chloride": ("bulk", "chemlib:sodium_chloride", None, None),
     "saltpeter": ("bulk", "bloodmagic:saltpeter", None, None),
     "vanadium": ("element", "chemlib:vanadium", None, None),
@@ -244,7 +244,7 @@ def main() -> None:
     reset(DATA / "tags/items/crushed_feeds")
     reset(DATA / "tags/items/rinsed_feeds")
     reset(DATA / "loot_tables/blocks")
-    ev_modifiers = RES / "defaultresources/excavated_variants/excavated_variants/modifiers/realistic_ores"
+    ev_modifiers = RES / "defaultresources/excavated_variants/excavated_variants/modifiers/better_ore_geology"
     reset(ev_modifiers)
     ev_modifier_root = ev_modifiers.parent
     # Replace EV's broad default: hosted ore blocks retain mining classification, but
@@ -314,12 +314,12 @@ def main() -> None:
         write(DATA / f"tags/blocks/deposit_ore_blocks/{family}.json", {"replace": False, "values": hosted})
         write(ev_modifiers / f"{family}.json5", {
             "filter": f"ore:{family}",
-            "tags": ["minecraft:blocks/mineable/pickaxe", f"realistic_ores:blocks/deposit_ore_blocks/{family}", "realistic_ores:blocks/deposit_ore_blocks"],
+            "tags": ["minecraft:blocks/mineable/pickaxe", f"better_ore_geology:blocks/deposit_ore_blocks/{family}", "better_ore_geology:blocks/deposit_ore_blocks"],
         })
 
         primary, coproducts = TECHNICAL_ASSAYS[family]
         processing = {
-            "schema": "bc.realistic_ores.processing.v3",
+            "schema": "bc.better_ore_geology.processing.v3",
             "family": family,
             "primary": {"material": primary, "output": canonical_output(primary)},
             "stages": {"chunk": chunk, "crushed": crushed, "rinsed": rinsed},

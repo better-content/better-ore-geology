@@ -1,8 +1,0 @@
-{
-  "filter": "ore:black_shale",
-  "tags": [
-    "minecraft:blocks/mineable/pickaxe",
-    "realistic_ores:blocks/deposit_ore_blocks/black_shale",
-    "realistic_ores:blocks/deposit_ore_blocks"
-  ]
-}

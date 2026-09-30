@@ -1,0 +1,21 @@
+{
+  "type": "better_ore_geology:geological_deposit",
+  "config": {
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "better_ore_geology:fallout_wasteland_stone"
+        },
+        "state": {
+          "Name": "better_ore_geology:tin_quartz"
+        }
+      }
+    ],
+    "morphology": "steep_quartz_lode",
+    "block_budget": 18,
+    "budget_spread": 4,
+    "deposit_class": "home",
+    "discard_chance_on_air_exposure": 0.0
+  }
+}

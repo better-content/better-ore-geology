@@ -1,4 +1,0 @@
-{
-  "feature": {"type":"realistic_ores:geological_deposit","config":{"targets":[{"target":{"predicate_type":"minecraft:tag_match","tag":"minecraft:stone_ore_replaceables"},"state":{"Name":"realistic_ores:coal_measures"}}],"morphology":"broken_stratiform_seam","block_budget":30,"budget_spread":8,"deposit_class":"echo","discard_chance_on_air_exposure":0.0}},
-  "placement":[{"type":"minecraft:rarity_filter","chance":8},{"type":"minecraft:in_square"},{"type":"minecraft:height_range","height":{"type":"minecraft:uniform","min_inclusive":{"absolute":10},"max_inclusive":{"absolute":96}}},{"type":"minecraft:biome"}]
-}
