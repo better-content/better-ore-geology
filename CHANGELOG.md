@@ -4,6 +4,10 @@
 
 ### Changed
 
+- Surface samples and oil seep now pop off into their collected item like a flower: breaking
+  one drops the item, right-clicking one pops it off into the world instead of silently adding
+  it to the inventory, and losing the supporting block pops it off instead of vanishing.
+
 - Replaced symbolic six-face deposit art with the approved geology-v7 standalone-first suite:
   three edge-crossing ImageGen textures per family, direct nearest-neighbor reduction, canonical
   stone/deepslate compositing, and vanilla-style all-face reuse.

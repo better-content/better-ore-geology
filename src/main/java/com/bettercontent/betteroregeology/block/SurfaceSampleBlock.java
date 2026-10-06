@@ -23,6 +23,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -72,10 +74,9 @@ public final class SurfaceSampleBlock extends Block implements SimpleWaterlogged
             return InteractionResult.PASS;
         }
 
-        ItemStack collectedStack = new ItemStack(collectedItem);
-        if (!player.addItem(collectedStack)) {
-            popResource(level, position, collectedStack);
-        }
+        // Flower-like: the indicator pops off into its collected item instead of
+        // silently appearing in the player's inventory.
+        popResource(level, position, new ItemStack(collectedItem));
         if (depositFamily != null && player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
             DepositSurveyEpisodes.sampleRead(serverPlayer, depositFamily);
         }
@@ -110,9 +111,24 @@ public final class SurfaceSampleBlock extends Block implements SimpleWaterlogged
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(position, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        return direction == Direction.DOWN && !canSurvive(state, level, position)
-                ? net.minecraft.world.level.block.Blocks.AIR.defaultBlockState()
-                : super.updateShape(state, direction, neighbor, level, position, neighborPosition);
+        // Flower-like: schedule a support check instead of vanishing silently, so a
+        // lost support pops the indicator off into its collected item.
+        if (!canSurvive(state, level, position)) {
+            level.scheduleTick(position, this, 1);
+        }
+        return super.updateShape(state, direction, neighbor, level, position, neighborPosition);
+    }
+
+    @Override
+    public void tick(BlockState state, ServerLevel level, BlockPos position, RandomSource random) {
+        if (canSurvive(state, level, position)) {
+            return;
+        }
+        BlockState replacement = state.getValue(WATERLOGGED)
+                ? Blocks.WATER.defaultBlockState()
+                : Blocks.AIR.defaultBlockState();
+        dropResources(state, level, position);
+        level.setBlock(position, replacement, Block.UPDATE_ALL);
     }
 
     @Override

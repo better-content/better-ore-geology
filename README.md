@@ -190,8 +190,11 @@ Pack integration closes vanilla raw-ore generation and loot separately. It must 
 - Coal measures and ironstone deliberately share a sedimentary seam vocabulary, but coal's
   broken dark carbon seam and ironstone's rusty bedded band remain distinct. Their overlapping
   height bands are preserved; their worldgen features and ADLODS deposits remain independent.
-- Oil seep uses the same right-click collect/place behavior as surface samples, returning its
+- Oil seep uses the same right-click pop-off/place behavior as surface samples, returning its
   own BlockItem without entering any ore processing tag or conversion.
+- Surface samples and oil seep behave like flowers: breaking one drops its collected item,
+  right-clicking one pops it off into the world as its collected item instead of silently
+  pocketing it, and losing the supporting block pops it off as an item instead of vanishing.
 - Surface samples use the ore family's opaque raw-deposit texture on five deterministic,
   ore-specific fragment arrangements. They must read as host-rock fragments carrying
   mineralization, not as a crushed processing pile laid on the ground.
