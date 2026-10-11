@@ -273,13 +273,13 @@ each family and variant; do not generate an atlas.
 
    For a whole suite, create one labeled Herdr workspace and 24 tabs, one sheet per tab, and retain
    a mapping of family, variant, tab ID, pane ID, and absolute image path. Do not substitute one
-   tiny overview for per-texture inspection. The accepted geology-v7 bundle is retained under
-   `/home/dev/workspace_artifacts/reviews/better-ore-geology/20260910T111120Z-geology-v7-standalone-cubemaps/`
-   as a concrete layout and provenance example.
+   tiny overview for per-texture inspection. During the active review, identify the mapping in
+   a concise task-local README/checksum manifest; no historical bundle is a standing dependency.
+   After promoting only approved current authored inputs, dispose of review candidates, sheets
+   and manifests at handoff under the [shared policy](../../../better-content-modpack/docs/policies/generated-data.md).
+   Do not add a historical retention catalog to `workspace_artifacts/README.md`.
 
-   Before handoff, add a concise bundle README, regenerate its sorted relative-path checksum
-   manifest, and update `/home/dev/workspace_artifacts/README.md` so the candidate's retention and
-   approval status are explicit:
+   For checksums during the active review:
 
    ```sh
    (

@@ -1,5 +1,11 @@
 # Better Ore Geology
 
+## Scope and authority
+
+This repository owns its mod-specific behavior and authoring inputs. Read [local instructions](AGENTS.md)
+and the [shared documentation/policy index](../../better-content-modpack/docs/README.md).
+
+
 Pack-owned ore and deposit support mod for Forge `1.20.1`.
 
 The eight deposit families each own exactly one Systemic Salience aspect. Mining a native
