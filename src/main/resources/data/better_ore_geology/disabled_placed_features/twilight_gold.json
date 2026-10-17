@@ -1,5 +1,9 @@
 {
-  "biomes": "#twilightforest:in_twilight_forest",
-  "steps": ["underground_ores"],
-  "features": ["twilightforest:legacy_gold_ore"]
+  "biomes": "#better_ore_geology:twilight_biomes",
+  "steps": [
+    "underground_ores"
+  ],
+  "features": [
+    "twilightforest:legacy_gold_ore"
+  ]
 }

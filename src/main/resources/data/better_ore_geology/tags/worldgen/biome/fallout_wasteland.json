@@ -1,10 +1,25 @@
 {
   "replace": false,
   "values": [
-    "fallout_wastelands_:wasteland_badlands",
-    "fallout_wastelands_:wasteland_city",
-    "fallout_wastelands_:wasteland_dryland",
-    "fallout_wastelands_:wasteland_plains",
-    "fallout_wastelands_:wasteland_sea"
+    {
+      "id": "fallout_wastelands_:wasteland_badlands",
+      "required": false
+    },
+    {
+      "id": "fallout_wastelands_:wasteland_city",
+      "required": false
+    },
+    {
+      "id": "fallout_wastelands_:wasteland_dryland",
+      "required": false
+    },
+    {
+      "id": "fallout_wastelands_:wasteland_plains",
+      "required": false
+    },
+    {
+      "id": "fallout_wastelands_:wasteland_sea",
+      "required": false
+    }
   ]
 }

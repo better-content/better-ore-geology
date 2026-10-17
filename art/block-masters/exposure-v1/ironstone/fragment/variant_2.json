@@ -1,0 +1,10 @@
+{
+  "family": "ironstone",
+  "category": "fragment",
+  "variant": 2,
+  "source": "/home/dev/.local/share/codex-adhoc/generated_images/01a14718-a22c-7551-9bae-f1499618c0b2/exec-cf495d47-f4cd-42d6-8c23-c264d3cc0484.png",
+  "master": "masters/ironstone/fragment/variant_2.png",
+  "prompt": "Use case: stylized-concept\nAsset type: ONE square transparent Minecraft 16x16 ore overlay authored from large hard-edged square logical cells.\nPrimary request: Ironstone FRAGMENT independent variant 2. Depict a local, short oolitic sedimentary lens with a broad blunt shoulder and one sharply pinched stepped tip. Its left fuller shoulder contains a coherent dark oolitic grain pocket; the tip steps UP one logical row. ONE lens only, no attached second pod or full bed.\nScene/backdrop: real alpha-zero transparency outside the mineral, no host stone, deepslate, matte or checkerboard.\nStyle/medium: coarse 16x16 pixel art using large square opaque cells approximately 1/16 canvas width; flat earthy values, no fine painting.\nComposition/framing: a connected shape roughly FIVE logical cells long and TWO to THREE cells thick in the shoulder, tapering at the last two cells; target about 16–22 visible center-sampled cells, minimum 10 and at least 6 connected. Large clear empty canvas all around. This is a short partial patch, not a long horizontal route. Edge contact optional. Structurally differs from retained0 and new1 through upward stepped pinch and localized oolite pocket.\nMaterials/textures: subdued medium gray-ochre/brown #7b7366 and #8b7d69, a few darker oolitic cells inside the fuller shoulder. No orange blob or outlines.\nConstraints: one 1:1 square PNG >=1024x1024 with genuine transparent alpha, mineral only, no algorithmic repair, no label or panel.\nAvoid: too tiny 1–8-cell nugget, two linked pods, broad full-width stripe, bright rust border, confetti, halo, smooth gradient, glow.",
+  "generated_utc": "2026-10-17T01:27:43.883Z",
+  "disposition": "genuine retry after 8-cell undercoverage"
+}

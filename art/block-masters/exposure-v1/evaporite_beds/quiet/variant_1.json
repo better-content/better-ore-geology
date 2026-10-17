@@ -1,0 +1,10 @@
+{
+  "family": "evaporite_beds",
+  "category": "quiet",
+  "variant": 1,
+  "source": "/home/dev/.local/share/codex-adhoc/generated_images/01a14718-a22c-7551-9bae-f1499618c0b2/exec-7c382787-3c7d-4cc2-b225-8615eb151cf6.png",
+  "master": "masters/evaporite_beds/quiet/variant_1.png",
+  "prompt": "Use case: stylized-concept\nAsset type: one square transparent Minecraft mineral overlay.\nPrimary request: Evaporite Beds QUIET variant 1. A small, compact dirty-salt mineral inclusion from an evaporite deposit. Make a stepped uneven 2-by-3 logical-pixel cluster with one muted mudstone cell INSIDE it. This is just an incidental small exposed patch of halite and anhydrite, with no visible extended bed.\nBackground: real alpha-zero transparency everywhere except the mineral.\nStyle: coarse hard-edged Minecraft logical16x16 square pixels, mostly opaque.\nComposition: 6–10 visible center-sampled pixels, at least four connected in one cluster. The entire patch is only two to three logical cells wide and about three cells tall. Most canvas empty transparent. Different from variant0 and variant2 through its enclosed muddy square and compact upright shape.\nColor: dirty medium gray #8e8886, slight dusty pink-gray #a19791 within, no white or bright edge.\nConstraints: exactly one square PNG >=1024x1024, transparent mineral-only original, no scene, host rock, matte, checkerboard, text, shadow, gradient or glow.",
+  "generated_utc": "2026-10-17T01:47:07.350Z",
+  "disposition": "genuine structural retry after extended bedding strip"
+}

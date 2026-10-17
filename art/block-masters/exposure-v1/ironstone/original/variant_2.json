@@ -1,0 +1,9 @@
+{
+  "family": "ironstone",
+  "category": "original",
+  "variant": 2,
+  "retained_from": "/home/dev/mod_source/better-ore-geology/art/block-masters/geology-v7/ironstone/variant_2.png",
+  "provenance": "Existing tracked accepted geology-v7 source master; no new generation in this task",
+  "generation_prompt": "UNKNOWN: not reconstructed from the texture",
+  "sha256": "70a87e552e7d470aca4a70138fc17c9d327b8cb7bebfd662139b860b4973529c"
+}

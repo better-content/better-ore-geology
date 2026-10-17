@@ -1,0 +1,10 @@
+{
+  "family": "tin_quartz",
+  "category": "fragment",
+  "variant": 1,
+  "source": "/home/dev/.local/share/codex-adhoc/generated_images/01a14718-a22c-7551-9bae-f1499618c0b2/exec-bff5e55f-7060-45ed-a826-569cbd7073c6.png",
+  "master": "masters/tin_quartz/fragment/variant_1.png",
+  "prompt": "Use case: stylized-concept\nAsset type: ONE square transparent Minecraft Java ore overlay authored in large logical 16x16 pixels.\nPrimary request: Tin Quartz FRAGMENT independent variant 1, a substantial but SHORT dirty-gray quartz-cassiterite fissure filling. Draw two physically touching staggered thick segments: a lower 3-cell-thick blocky gray pocket and a narrower upper segment shifted one cell to the side, with a transparent notch at their joint. One sparse dark cassiterite cluster sits inside. This is a local greisen fissure window, not a gem or full vein.\nScene/backdrop: genuine fully clear RGBA alpha outside mineral, no stone, matte or checkerboard.\nStyle/medium: opaque hard-edged square logical pixels about 1/16 canvas, no subpixel detail.\nComposition/framing: Connected mineral body occupies roughly 5–6 logical cells in total height and 2–3 cells width locally, about 16–22 visible center-sampled cells. At least 10 visible and 6 connected. Keep the whole formation compact and off-center with large clear alpha. No edge contact required, no full-height vertical slash. Different from retained0 and sibling2 by its compact staggered pocket-and-neck structure.\nMaterials/textures: medium dirty gray quartz shades roughly #777673 to #8b8985, a few slightly paler MID-GRAY interior cells, dark cassiterite entirely internal. Absolutely no white/off-white, black outline or pale rail.\nConstraints: exactly one square PNG >=1024x1024, true transparent alpha, mineral-only original untouched, no frame/text.\nAvoid: 1–6-cell wisp, huge bright slash, smooth gradients, glow, antialiasing, haze.",
+  "generated_utc": "2026-10-17T01:36:30.217Z",
+  "disposition": "genuine retry after undercoverage"
+}

@@ -1,0 +1,10 @@
+{
+  "family": "tin_quartz",
+  "category": "quiet",
+  "variant": 2,
+  "source": "/home/dev/.local/share/codex-adhoc/generated_images/01a14718-a22c-7551-9bae-f1499618c0b2/exec-e4c5c5c3-0373-4f30-9309-472d766ab026.png",
+  "master": "masters/tin_quartz/quiet/variant_2.png",
+  "prompt": "Use case: stylized-concept\nAsset type: ONE square transparent Minecraft Java ore-overlay master on a coarse logical 16x16 grid.\nPrimary request: Tin Quartz QUIET independent variant 2. One compact short quartz-cassiterite fissure tip composed of two touching offset blocky gray groups, the upper group shifted one logical cell sideways. A tiny charcoal-brown cassiterite pair lies INSIDE the lower group. This is a localized greisen lode nick, not a long pale streak or crystal.\nScene/backdrop: actual alpha-zero transparency outside the mineral, no stone, matte, checkerboard or shadow.\nStyle/medium: hard square logical pixels each about 1/16 canvas, mostly opaque flat color, no tiny painterly detail.\nComposition/framing: compact stepped connected 2-cell-wide, 3–4-cell-long exposure, aiming 6–14 center-sampled pixels with >=4 connected. Vast clear alpha; no edge contact needed. Distinct from retained0 and sibling1 by the two touching offset groups and internal cassiterite location.\nMaterials/textures: ALL quartz cells medium DIRTY GRAY close to stone, roughly #777673 to #8b8985. Only two or three slightly lighter GRAY cells within the body, never off-white, cream, or white. Cassiterite dark gray-brown cells stay internal and sparse. No bright/dark rails.\nConstraints: one 1:1 square PNG >=1024x1024, genuine clear alpha, mineral-only, no crop, rescale, algorithmic edit, text or panel.\nAvoid: white slash, centered crystal, pale frame, lightning bolt, black outline, glow, gradient, antialiasing.",
+  "generated_utc": "2026-10-17T01:35:18.178Z",
+  "disposition": "genuine visual retry for gray partial lode"
+}

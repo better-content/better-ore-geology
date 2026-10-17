@@ -3,7 +3,64 @@
 Status: living art and implementation contract. Update this document whenever the accepted source,
 prompting method, reducer, host treatment, review gate, or shader/Excavated Variants contract changes.
 
-Last accepted suite: geology-v7, 2026-09-10. It contains three textures for each of eight families.
+Current approved suite: exposure-v1, 2026-10-17. It contains four exposure roles with three
+independently generated textures per role for each of eight families: 96 transparent masters.
+The geology-v7 suite remains the original full-strength role and preserves its old runtime paths.
+
+## Exposure-v1 production contract
+
+Each family has `quiet`, `fragment`, `richer`, and `original` roles in that order. Each role has
+three structurally independent patterns. A block is an incidental window into a deposit: the
+quiet and fragment roles carry partial mineral traces, and a patch conveys the complete geology
+through varied exposures. The original role retains the approved full-strength geology-v7
+textures. The user approved the suite after reviewing all three patterns in every role and a
+hybrid patch; that review's category weights were a demonstration until implemented in runtime.
+
+Untouched source PNGs and their exact prompts/provenance JSON live at
+`art/block-masters/exposure-v1/<family>/<role>/variant_<0..2>.{png,json}`. The 24 `original`
+PNGs are byte-identical to `art/block-masters/geology-v7/`.
+
+`java tools/GenerateDepositTextures.java --write` generates the original 288 opaque faces at
+their existing paths, plus 96 directly sampled RGBA overlays and 1,152 opaque stone/deepslate
+faces. The exposure paths are:
+
+```text
+textures/block/exposure/overlays/<family>/<role>_<variant>.png
+textures/block/exposure/<family>/<role>_<variant>_<face>.png
+textures/block/exposure/deepslate_<family>/<role>_<variant>_<face>.png
+```
+
+The generated `assets/better_ore_geology/exposure_masks.json` holds, per family, three 256-bit
+row-major strings for the `original` patterns. Each bit is 1 exactly when the center-point
+sampled overlay alpha is greater than zero. The mask is derived from the master, never drawn or
+repaired. All composites use the checked-in host textures and the existing truncating 8-bit
+SrcOver arithmetic. Stone uses the same host on all faces; deepslate uses its top host on up/down.
+
+The new sparse roles have a different acceptance contract from geology-v7. Their 16×16 sample
+must retain connected, materially visible mineral clusters: quiet at least five pixels with a
+four-pixel 8-neighbor component, fragment at least ten/six, richer at least ten/six. They need
+genuine alpha and distinct silhouettes, but no 50-pixel minimum or two-edge crossing. These
+checks protect nearest-neighbor readability without turning every block into a complete seam.
+The original role keeps the old 50–120-pixel and two-edge gate. Generated PNGs are always
+deterministic derivatives; only the approved ImageGen masters are authoritative art.
+
+Reproduce and check the approved suite with Java 17:
+
+```sh
+java tools/GenerateDepositTextures.java --validate-masters
+java tools/GenerateDepositTextures.java --validate-exposure-masters
+java tools/GenerateDepositTextures.java --write
+python3 -B tools/generate_exposure_models.py --write
+java tools/GenerateDepositTextures.java --check
+python3 -B tools/generate_exposure_models.py --check
+```
+
+For an isolated exposure preview, run `--preview-exposure FAMILY ROLE VARIANT OUTPUT_DIRECTORY`.
+This writes one sampled overlay and twelve host composites to the specified external directory.
+The legacy `--preview FAMILY VARIANT MASTER OUTPUT_DIRECTORY` still applies to geology-v7.
+
+The rest of this document records the geology-v7 original-role method and gates. Its
+standalone-block composition target and edge requirement do not apply to the three sparse roles.
 
 ## What the texture must communicate
 
@@ -11,7 +68,7 @@ An ore block is a one-block window into a deposit larger than the block. It is n
 containing a nugget, badge, gem, or centered object. Each texture must satisfy two views at once:
 
 1. Alone, one block has a deliberate, attractive composition with enough structure to identify it.
-2. In a wall of random variants, edge-crossing structures imply a larger seam, lens, lode,
+2. Across a patch of independent patterns, edge-crossing structures imply a larger seam, lens, lode,
    stockwork, replacement body, or breccia zone without requiring connected textures.
 
 Geological realism here means realistic morphology translated into stylized Minecraft pixel art.
@@ -19,24 +76,28 @@ It does not mean photorealistic rendering or high-frequency mineral photography.
 
 ## Canonical architecture
 
-- Each family has exactly three independently generated variants.
+- The original geology-v7 role has three independently generated variants per family.
 - Each variant is one square transparent mineral-overlay master under
   `art/block-masters/geology-v7/<family>/variant_<0..2>.png`.
 - The same reduced mineral texture is used on all six cube faces, matching vanilla ore blocks.
   This makes every face suitable when it is the only visible face and avoids hidden weak panels.
-- Vanilla random model selection supplies patch variation. Exact edge-to-edge CTM matching is not
-  required; the edge crossings create a continuation illusion.
+- A world-continuous, family-specific exposure field supplies within-face role selection and
+  patch-coherent pattern variation. It uses compact persisted style states, not a whole-block
+  model lottery. Exact mineral-grain CTM matching is not required.
 - Stone uses the canonical 1.20.1 stone host on every face. Deepslate uses its lateral host on the
   four sides and `deepslate_top` on up/down, so host sidedness remains correct.
-- Runtime textures are ordinary opaque 16×16 PNGs. Excavated Variants and shaders consume normal
-  block definitions; neither integration depends on the high-resolution art representation.
+- Rendered source composites are opaque 16×16 textures. The exposure loader uses cropped,
+  nonoverlapping normal baked quads, including EV-generated composites; it resolves inherited
+  cube geometry and face aliases before slot binding. Neither rendering nor shader integration
+  depends on the high-resolution art representation.
 
 ## What “reproduce” means
 
 There are two different reproducibility guarantees:
 
-- **Reproduce the shipped suite exactly:** the 24 accepted transparent masters and three host
-  textures are checked in. The Java generator deterministically recreates all 288 runtime PNGs,
+- **Reproduce the shipped suite exactly:** the 96 approved transparent exposure masters, 24
+  geology-v7 originals, and three host textures are checked in. The Java generator deterministically
+  recreates all 1,248 exposure PNGs, all 288 legacy face PNGs, and the original masks,
   pixel-for-pixel, without calling ImageGen.
 - **Create a replacement suite by the same method:** ImageGen is stochastic. Reusing an exact
   prompt reproduces the art direction and constraints, not identical source pixels. Preserve the
@@ -146,7 +207,7 @@ Stop if `git status --short` reports work that is not yours. Read the workspace 
 `AGENTS.md` files, inspect current agent claims, and coordinate before overlapping another change.
 Do not mutate the modpack as part of this source-art workflow.
 
-### A. Reproduce the current accepted textures exactly
+### A. Reproduce the approved textures exactly
 
 This is the shortest and fully deterministic path. It does not need ImageGen, GraphicsMagick, or
 the retained review bundle.
@@ -165,18 +226,22 @@ the retained review bundle.
    sha256sum art/host-textures/minecraft-1.20.1/*.png
    ```
 
-2. Validate all 24 geology-v7 alpha masters. This checks square dimensions of at least 1024px,
+2. Validate the 24 geology-v7 original masters and the 96 exposure masters. The original gate
+   checks square dimensions of at least 1024px,
    genuine transparent and solid areas, no opaque perimeter matte, 50–120 visible sampled pixels,
    at least two contacted edges, and a unique 16×16 silhouette for every variant:
 
    ```sh
    java tools/GenerateDepositTextures.java --validate-masters
+   java tools/GenerateDepositTextures.java --validate-exposure-masters
    ```
 
-3. Regenerate 8 families × 3 variants × 2 hosts × 6 faces = 288 runtime textures:
+3. Regenerate the 288 original faces, 1,248 exposure PNGs, original masks, and the 32 native
+   exposure blockstate/model resources:
 
    ```sh
    java tools/GenerateDepositTextures.java --write
+   python3 -B tools/generate_exposure_models.py --write
    ```
 
 4. Prove every generated pixel agrees with the masters and hosts, then run the complete repository
@@ -184,6 +249,7 @@ the retained review bundle.
 
    ```sh
    java tools/GenerateDepositTextures.java --check
+   python3 -B tools/generate_exposure_models.py --check
    ./gradlew verifyFull --rerun-tasks
    git diff --check
    git status --short

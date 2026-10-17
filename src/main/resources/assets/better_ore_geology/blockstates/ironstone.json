@@ -1,15 +1,7 @@
 {
   "variants": {
-    "": [
-      {
-        "model": "better_ore_geology:block/ironstone_0"
-      },
-      {
-        "model": "better_ore_geology:block/ironstone_1"
-      },
-      {
-        "model": "better_ore_geology:block/ironstone_2"
-      }
-    ]
+    "": {
+      "model": "better_ore_geology:block/ironstone_exposure"
+    }
   }
 }

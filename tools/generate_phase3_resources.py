@@ -5,7 +5,9 @@ Construct integration remains data-driven and disappears cleanly when either mod
 """
 from __future__ import annotations
 
+import argparse
 import colorsys
+from copy import deepcopy
 import json
 import shutil
 import struct
@@ -113,9 +115,80 @@ def sifting_recipe(feed: str, mesh: str, results: list[dict], waterlogged: bool)
     return recipe
 
 
+# These are shared resource domains, not optional provider mod IDs.
+CORE_DOMAINS = {"minecraft", "forge", "c", NS}
+
+
+def recipe_domains(value: object) -> set[str]:
+    """Find serializer, ingredient and result providers, excluding condition expressions."""
+    domains = set()
+    if isinstance(value, dict):
+        for key, child in value.items():
+            if key == "conditions":
+                continue
+            if key in {"type", "item", "fluid", "tag"} and isinstance(child, str) and ":" in child:
+                domain = child.removeprefix("#").split(":", 1)[0]
+                if domain not in CORE_DOMAINS:
+                    domains.add(domain)
+            domains.update(recipe_domains(child))
+    elif isinstance(value, list):
+        for child in value:
+            domains.update(recipe_domains(child))
+    return domains
+
+
+def guard_optional_recipe(value: dict) -> dict:
+    guarded = deepcopy(value)
+    conditions = guarded.get("conditions", [])
+    existing = {condition.get("modid") for condition in conditions
+                if condition.get("type") == "forge:mod_loaded"}
+    missing = sorted(recipe_domains(guarded) - existing)
+    if missing:
+        guarded["conditions"] = conditions + [
+            {"type": "forge:mod_loaded", "modid": domain} for domain in missing]
+    return guarded
+
+
+def guard_optional_tag(value: dict) -> dict:
+    guarded = deepcopy(value)
+    entries = []
+    for entry in guarded.get("values", []):
+        identifier = entry if isinstance(entry, str) else entry["id"]
+        domain = identifier.removeprefix("#").split(":", 1)[0]
+        if domain not in CORE_DOMAINS:
+            entry = {"id": entry, "required": False} if isinstance(entry, str) else {**entry, "required": False}
+        entries.append(entry)
+    guarded["values"] = entries
+    return guarded
+
+
+def guarded_data(path: Path, value: object) -> object:
+    if path.is_relative_to(DATA / "recipes"):
+        return guard_optional_recipe(value)
+    if path.is_relative_to(DATA / "tags"):
+        return guard_optional_tag(value)
+    return value
+
+
 def write(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
+    path.write_text(json.dumps(guarded_data(path, value), indent=2) + "\n", encoding="utf-8")
+
+
+def guard_optional_data(check: bool = False) -> None:
+    """Reconcile only owned recipes/tags, including hand-authored dimension host tags."""
+    changed = {"recipes": 0, "tags": 0}
+    for directory in changed:
+        for path in sorted((DATA / directory).rglob("*.json")):
+            original = json.loads(path.read_text())
+            guarded = guarded_data(path, original)
+            if original != guarded:
+                changed[directory] += 1
+                if not check:
+                    write(path, guarded)
+    if check and any(changed.values()):
+        raise RuntimeError(f"Optional data guards missing: {changed}")
+    print(f"optional data guards {'checked' if check else 'updated'}: {changed}")
 
 
 def reset(path: Path) -> None:
@@ -603,7 +676,18 @@ def main() -> None:
         write(DATA / f"tags/blocks/radioactive_forms/{element}/hosted_ore_blocks.json", {"replace": False, "values": blocks})
 
     write(lang_path, dict(sorted(lang.items())))
+    guard_optional_data()
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--guard-optional-data", action="store_true",
+                      help="Update only owned recipe conditions and optional tag references")
+    mode.add_argument("--check-optional-data", action="store_true",
+                      help="Check owned recipe/tag guards without writing resources")
+    args = parser.parse_args()
+    if args.guard_optional_data or args.check_optional_data:
+        guard_optional_data(check=args.check_optional_data)
+    else:
+        main()

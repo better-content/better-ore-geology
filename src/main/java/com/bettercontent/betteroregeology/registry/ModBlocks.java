@@ -3,6 +3,7 @@ package com.bettercontent.betteroregeology.registry;
 import com.bettercontent.betteroregeology.RealisticOresMod;
 import com.bettercontent.betteroregeology.block.SurfaceSampleBlock;
 import com.bettercontent.betteroregeology.block.HotstoneBlock;
+import com.bettercontent.betteroregeology.block.GeologicalOreBlock;
 import com.bettercontent.betteroregeology.ore.OreDefinition;
 import com.bettercontent.betteroregeology.ore.OreDefinitionLoader;
 import java.util.Collection;
@@ -89,7 +90,7 @@ public final class ModBlocks {
 
     private static Block newDepositBlock(String family, String copyPropertiesFrom) {
         BlockBehaviour.Properties properties = copyProperties(copyPropertiesFrom);
-        return family.equals("hotstone") ? new HotstoneBlock(properties) : new Block(properties);
+        return family.equals("hotstone") ? new HotstoneBlock(properties) : new GeologicalOreBlock(family, properties);
     }
 
     private static String key(String oreId, String host) {

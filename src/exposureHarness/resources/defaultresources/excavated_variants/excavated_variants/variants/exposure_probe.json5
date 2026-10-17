@@ -1,0 +1,14 @@
+{
+  "mod_id": "better_ore_exposure_probe",
+  "provided_stones": [],
+  "provided_ores": [
+    {
+      "id": "exposure_probe_unrelated",
+      "stone": ["stone"],
+      "block_id": ["minecraft:iron_ore"],
+      "lang": {"en_us": "Unrelated Ore Negative Control"},
+      "types": ["stone"],
+      "orename": []
+    }
+  ]
+}

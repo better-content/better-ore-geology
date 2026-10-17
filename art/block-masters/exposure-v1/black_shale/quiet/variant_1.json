@@ -1,0 +1,10 @@
+{
+  "family": "black_shale",
+  "category": "quiet",
+  "variant": 1,
+  "source": "/home/dev/.local/share/codex-adhoc/generated_images/01a14718-a22c-7551-9bae-f1499618c0b2/exec-7803c8a3-66ec-4393-b109-ee48bfd20839.png",
+  "master": "masters/black_shale/quiet/variant_1.png",
+  "prompt": "Use case: stylized-concept\nAsset type: ONE square transparent Minecraft ore overlay made on a coarse logical16x16 pixel grid.\nPrimary request: Black Shale QUIET independent variant1. A SHORT crenulated carbonaceous fissility fragment with a distinct SHALLOW S-BEND: two square cells run obliquely up-right, the film steps sideways around one clear host square, then two cells turn steeper upward. Taper at both ends. This is one small folded slaty film, structurally unlike the retained variant0 straight steep diagonal.\nBackground: real alpha-zero transparent canvas outside mineral; no stone/matte/checkerboard.\nStyle: hard-edged square logical pixels ~1/16 canvas, flat opaque medium colors, no hairline detail.\nComposition: one compact 2-by-4-cell neighborhood, about7–11 center-sampled pixels, >=5 visible and>=4 connected; off-center and mostly clear alpha. No second parallel seam, no edge contact requirement.\nColor: quiet medium charcoal-gray #686c73 and #797b83 with at most one subdued violet-gray #757480 interior square. No jet black or purple ribbon.\nConstraints: one square PNG >=1024x1024 genuine alpha, mineral only, untouched source, no text/panel.\nAvoid: straight steep diagonal identical to variant0, coal horizontal bar, black blotch, long route, glow, gradient, antialiasing.",
+  "generated_utc": "2026-10-17T01:58:23.233Z",
+  "disposition": "genuine structural retry for distinct local fissility"
+}

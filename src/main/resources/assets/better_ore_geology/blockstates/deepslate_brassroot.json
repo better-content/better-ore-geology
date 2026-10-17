@@ -1,15 +1,7 @@
 {
   "variants": {
-    "": [
-      {
-        "model": "better_ore_geology:block/deepslate_brassroot_0"
-      },
-      {
-        "model": "better_ore_geology:block/deepslate_brassroot_1"
-      },
-      {
-        "model": "better_ore_geology:block/deepslate_brassroot_2"
-      }
-    ]
+    "": {
+      "model": "better_ore_geology:block/deepslate_brassroot_exposure"
+    }
   }
 }

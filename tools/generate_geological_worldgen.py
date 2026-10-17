@@ -10,6 +10,48 @@ DATA = ROOT / "src/main/resources/data/better_ore_geology"
 MANIFEST = ROOT / "tools/geological_worldgen.json"
 OWNERSHIP = ROOT / "tools/geological_worldgen.outputs.json"
 
+# Keep optional foreign tags behind bound, owned selectors even without their provider.
+OPTIONAL_BIOME_TAGS = {
+    "aether_biomes": "aether:is_aether",
+    "twilight_biomes": "twilightforest:in_twilight_forest",
+}
+OPTIONAL_BIOME_SELECTORS = (
+    "forge/biome_modifier/add_ironstone_aether.json",
+    "forge/biome_modifier/add_twilight_gold_home.json",
+    "forge/biome_modifier/add_twilight_gold_echo.json",
+    "forge/biome_modifier/add_tin_quartz_twilight.json",
+    "forge/biome_modifier/add_coal_measures_twilight.json",
+    "forge/biome_modifier/add_ironstone_twilight.json",
+    "forge/biome_modifier/add_copper_bloom_twilight.json",
+    "disabled_placed_features/twilight_gold.json",
+)
+
+
+def optional_biome_selector(selector: str) -> str:
+    for name, provider in OPTIONAL_BIOME_TAGS.items():
+        if selector == "#" + provider:
+            return "#better_ore_geology:" + name
+    return selector
+
+
+def generate_optional_biome_boundaries() -> None:
+    for name, provider in OPTIONAL_BIOME_TAGS.items():
+        write(DATA / f"tags/worldgen/biome/{name}.json", {
+            "replace": False,
+            "values": [{"id": "#" + provider, "required": False}],
+        })
+    # These dimension resources also include hand-authored selectors outside the
+    # home/echo family generator. Own only their selector field, never feature payloads.
+    for relative in OPTIONAL_BIOME_SELECTORS:
+        path = DATA / relative
+        if not path.exists():
+            continue
+        value = json.loads(path.read_text(encoding="utf-8"))
+        selector = optional_biome_selector(value["biomes"])
+        if selector != value["biomes"]:
+            value["biomes"] = selector
+            write(path, value)
+
 
 def write(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -106,6 +148,7 @@ def main() -> None:
                 "features": f"better_ore_geology:{feature}",
                 "step": "underground_ores",
             })
+    generate_optional_biome_boundaries()
     write(OWNERSHIP, sorted(definitions))
 
 

@@ -1,0 +1,10 @@
+{
+  "family": "brassroot",
+  "category": "quiet",
+  "variant": 1,
+  "source": "/home/dev/.local/share/codex-adhoc/generated_images/01a14718-a22c-7551-9bae-f1499618c0b2/exec-f12f0501-7e5e-49c1-98d2-969256f8036c.png",
+  "master": "masters/brassroot/quiet/variant_1.png",
+  "prompt": "Use case: stylized-concept\nAsset type: ONE square transparent Minecraft Java 16x16 mineral-overlay master.\nPrimary request: Brassroot QUIET independent variant 1, a tiny carbonate-hosted sphalerite joint-fill exposed as ONE compact stepped gray-brown group. A two-cell-thick slanted joint stub turns into a two-cell bedding nub, then stops. This is a partial mineral opening, not a branching root or specimen.\nScene/backdrop: real alpha-zero transparency everywhere outside the mineral; no stone, matte, checkerboard or shadow.\nStyle/medium: coarse hard-edged square logical pixels, each about 1/16 canvas width, flat opaque grouped color.\nComposition/framing: compact 2-by-3 or 2-by-4 logical-cell cluster, around 7–12 visible sampled pixels with >=4 connected. Off-center, no edge contact required, vast clear alpha. Structurally different from retained0 and sibling2 through a bent joint-to-bedding turn, not a longer line.\nMaterials/textures: almost monochrome warm GRAY-BROWN sulfide #837d75 and #948980, subtle close values, slightly brown but ZERO yellow/gold pixels. No saturated amber, brass sparkle, pale rail or dark outline.\nConstraints: one 1:1 square PNG >=1024x1024, untouched genuine transparent alpha, mineral only, no text/panel.\nAvoid: yellow-orange gold, luminous honey, 15+ pixel long route, root icon, branching web, halo, gradient, antialiasing.",
+  "generated_utc": "2026-10-17T01:40:29.610Z",
+  "disposition": "genuine visual retry after bright gold and overextended shape"
+}

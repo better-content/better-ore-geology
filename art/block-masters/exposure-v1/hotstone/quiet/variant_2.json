@@ -1,0 +1,10 @@
+{
+  "family": "hotstone",
+  "category": "quiet",
+  "variant": 2,
+  "source": "/home/dev/.local/share/codex-adhoc/generated_images/01a14718-a22c-7551-9bae-f1499618c0b2/exec-ed9e8d8b-8bf8-4d91-b49c-23c91e31ce27.png",
+  "master": "masters/hotstone/quiet/variant_2.png",
+  "prompt": "Use case: stylized-concept\nAsset type: ONE square transparent Minecraft geological mineral overlay.\nPrimary request: Hotstone QUIET independent variant 2, a compact angular clast-margin junction as TWO touching offset gray-brown square groups forming a short stepped Z-like bend. The body has a small transparent bite on one side. This is one partial local breccia-matrix exposure, not a full crack.\nBackground: genuine RGBA alpha zero outside mineral.\nStyle: hard-edged opaque logical16x16 square pixels, about1/16 canvas width, few close flat medium colors.\nComposition: one compact connected cluster about7–12 sampled pixels and >=4 connected, maximum4 logical cells in any direction; vast clear alpha. Different from retained0 and sibling1 through its offset Z-bend and external notch.\nColor: subdued gray-brown #7c7471 #8c7971, at most one muted rust #896f66 internal cell, no saturated red.\nConstraints: square>=1024x1024 transparent mineral-only PNG, no host stone, matte, checkerboard, panel or text.\nAvoid: broad body, long crack route, lava, glow, dark rail, smooth gradient.",
+  "generated_utc": "2026-10-17T01:52:11.523Z",
+  "disposition": "genuine structural retry for partial clast-margin role"
+}

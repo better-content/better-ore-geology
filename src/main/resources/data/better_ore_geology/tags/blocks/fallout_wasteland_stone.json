@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "fallout_wastelands_:wasteland_stone"
+    {
+      "id": "fallout_wastelands_:wasteland_stone",
+      "required": false
+    }
   ]
 }

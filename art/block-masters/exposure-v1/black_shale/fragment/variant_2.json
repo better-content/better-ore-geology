@@ -1,0 +1,10 @@
+{
+  "family": "black_shale",
+  "category": "fragment",
+  "variant": 2,
+  "source": "/home/dev/.local/share/codex-adhoc/generated_images/01a14718-a22c-7551-9bae-f1499618c0b2/exec-64fcdf14-57e5-4f25-9371-467bad0d90bf.png",
+  "master": "masters/black_shale/fragment/variant_2.png",
+  "prompt": "Use case: stylized-concept\nAsset type: ONE square transparent Minecraft geological overlay, coarse logical16x16 hard square pixels.\nPrimary request: Black Shale FRAGMENT independent variant2. A locally exposed folded organic-shale fissility patch made of TWO short touching tapered oblique films. The first climbs three logical cells, then a small crenulated bend connects into a second steeper three-cell film. The two films anastomose for two cells and taper at their ends, forming one coherent slaty fabric in a compact area. It is not a long straight vein or coal bed.\nBackground: true RGBA alpha zero everywhere outside mineral, no stone, matte or checkerboard.\nStyle: opaque hard square cells about1/16 canvas, flat medium values, no thin antialiased hairlines.\nComposition: make the connected fissility group about THREE logical cells thick at its folded center and FIVE to SIX cells long overall, targeting 14–20 visible center-sampled cells, minimum10 and >=6 connected. Keep all mineral within a compact local window off-center; most face clear, no edge contact required. Different from retained0 and sibling1 through the folded anastomosing center.\nColor: subdued charcoal-gray #686c73 and #797b83, barely violet-gray #757480 inside only, no jet black or bright purple.\nConstraints: one square>=1024x1024 transparent PNG, mineral-only untouched, no label/panel.\nAvoid: tiny 1–6 cell wisp, face-wide diagonal, coal bar, black blob, fracture network, glow, gradient.",
+  "generated_utc": "2026-10-17T01:59:34.355Z",
+  "disposition": "genuine retry after six-cell undercoverage"
+}

@@ -3,7 +3,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.imageio.ImageIO;
 
 /** Reproduces the approved standalone-first deposit textures from transparent ImageGen masters. */
@@ -13,6 +15,7 @@ public final class GenerateDepositTextures {
             "coal_measures", "ironstone", "copper_bloom", "tin_quartz",
             "brassroot", "evaporite_beds", "hotstone", "black_shale");
     private static final List<String> FACES = List.of("north", "east", "south", "west", "up", "down");
+    private static final List<String> ROLES = List.of("quiet", "fragment", "richer", "original");
 
     private GenerateDepositTextures() {}
 
@@ -22,16 +25,179 @@ public final class GenerateDepositTextures {
             validateMasterSuite(root);
             return;
         }
+        if (args.length == 1 && args[0].equals("--validate-exposure-masters")) {
+            validateExposureMasterSuite(root);
+            return;
+        }
         if (args.length == 5 && args[0].equals("--preview")) {
             preview(root, args[1], Integer.parseInt(args[2]), Path.of(args[3]), Path.of(args[4]));
             return;
         }
+        if (args.length == 5 && args[0].equals("--preview-exposure")) {
+            previewExposure(root, args[1], args[2], Integer.parseInt(args[3]), Path.of(args[4]));
+            return;
+        }
         if (args.length != 1 || !(args[0].equals("--write") || args[0].equals("--check"))) {
             throw new IllegalArgumentException(
-                    "usage: --write | --check | --validate-masters"
-                            + " | --preview FAMILY VARIANT MASTER OUTPUT_DIRECTORY");
+                    "usage: --write | --check | --validate-masters | --validate-exposure-masters"
+                            + " | --preview FAMILY VARIANT MASTER OUTPUT_DIRECTORY"
+                            + " | --preview-exposure FAMILY ROLE VARIANT OUTPUT_DIRECTORY");
         }
         reproduce(root, args[0].equals("--write"));
+        reproduceExposure(root, args[0].equals("--write"));
+    }
+
+    private static void reproduceExposure(Path root, boolean write) throws IOException {
+        Path assets = root.resolve("src/main/resources/assets/better_ore_geology");
+        Path output = assets.resolve("textures/block/exposure");
+        HostTextures hosts = hostTextures(root);
+        StringBuilder masks = new StringBuilder("{\n");
+        int written = 0;
+        for (int familyIndex = 0; familyIndex < FAMILIES.size(); familyIndex++) {
+            String family = FAMILIES.get(familyIndex);
+            masks.append("  \"").append(family).append("\": [\n");
+            for (int variant = 0; variant < 3; variant++) {
+                BufferedImage original = exposureOverlay(root, family, "original", variant);
+                masks.append("    \"").append(alphaMask(original)).append('"');
+                masks.append(variant == 2 ? "\n" : ",\n");
+            }
+            masks.append(familyIndex == FAMILIES.size() - 1 ? "  ]\n" : "  ],\n");
+            for (String role : ROLES) for (int variant = 0; variant < 3; variant++) {
+                BufferedImage overlay = exposureOverlay(root, family, role, variant);
+                Path overlayPath = output.resolve("overlays").resolve(family)
+                        .resolve(role + "_" + variant + ".png");
+                writeOrCheck(overlay, overlayPath, write);
+                written++;
+                for (String host : List.of("stone", "deepslate")) for (String face : FACES) {
+                    String prefix = host.equals("stone") ? "" : "deepslate_";
+                    Path path = output.resolve(prefix + family).resolve(role + "_" + variant + "_" + face + ".png");
+                    writeOrCheck(composite(hosts.forFace(host, face), overlay), path, write);
+                    written++;
+                }
+            }
+        }
+        masks.append("}\n");
+        Path maskPath = assets.resolve("exposure_masks.json");
+        if (write) Files.writeString(maskPath, masks.toString());
+        else if (!masks.toString().equals(Files.readString(maskPath))) {
+            throw new IOException("original exposure masks differ: " + maskPath);
+        }
+        System.out.println((write ? "wrote" : "verified") + " " + written
+                + " exposure PNGs and 24 original alpha masks from 96 approved masters");
+    }
+
+    private static void writeOrCheck(BufferedImage expected, Path path, boolean write) throws IOException {
+        if (write) {
+            Files.createDirectories(path.getParent());
+            if (!ImageIO.write(expected, "png", path.toFile())) throw new IOException("cannot write " + path);
+        } else assertEqual(expected, ImageIO.read(path.toFile()), path);
+    }
+
+    private static void previewExposure(Path root, String family, String role, int variant, Path output)
+            throws IOException {
+        if (!FAMILIES.contains(family) || !ROLES.contains(role) || variant < 0 || variant > 2) {
+            throw new IOException("unknown exposure family, role, or variant");
+        }
+        BufferedImage overlay = exposureOverlay(root, family, role, variant);
+        HostTextures hosts = hostTextures(root);
+        Files.createDirectories(output);
+        writeOrCheck(overlay, output.resolve("overlay.png"), true);
+        for (String host : List.of("stone", "deepslate")) for (String face : FACES) {
+            writeOrCheck(composite(hosts.forFace(host, face), overlay),
+                    output.resolve(host + "_" + face + ".png"), true);
+        }
+        System.out.println("previewed " + family + " " + role + " " + variant + " with "
+                + visiblePixels(overlay) + "/256 materially visible pixels");
+    }
+
+    private static void validateExposureMasterSuite(Path root) throws IOException {
+        int count = 0;
+        Set<String> silhouettes = new HashSet<>();
+        for (String family : FAMILIES) for (String role : ROLES) for (int variant = 0; variant < 3; variant++) {
+            BufferedImage overlay = exposureOverlay(root, family, role, variant);
+            if (!silhouettes.add(alphaMask(overlay))) {
+                throw new IOException("duplicate exposure silhouette: " + family + "/" + role + "/" + variant);
+            }
+            count++;
+        }
+        System.out.println("validated " + count + " exposure masters with distinct sampled silhouettes");
+    }
+
+    private static BufferedImage exposureOverlay(Path root, String family, String role, int variant)
+            throws IOException {
+        Path path = root.resolve("art/block-masters/exposure-v1").resolve(family).resolve(role)
+                .resolve("variant_" + variant + ".png");
+        if (role.equals("original")) {
+            // The original category retains the accepted full-strength geology-v7 contract.
+            return reduce(validateMaster(path));
+        }
+        BufferedImage source = ImageIO.read(path.toFile());
+        if (source == null || source.getWidth() != source.getHeight() || source.getWidth() < 1024
+                || !source.getColorModel().hasAlpha()) {
+            throw new IOException("exposure master needs square 1024px+ genuine RGBA: " + path);
+        }
+        long clear = 0;
+        long perimeter = 0;
+        long perimeterSolid = 0;
+        int inset = Math.max(4, source.getWidth() / 160);
+        for (int y = 0; y < source.getHeight(); y++) for (int x = 0; x < source.getWidth(); x++) {
+            int alpha = source.getRGB(x, y) >>> 24;
+            if (alpha <= 16) clear++;
+            if (x < inset || y < inset || x >= source.getWidth() - inset
+                    || y >= source.getHeight() - inset) {
+                perimeter++;
+                if (alpha >= 224) perimeterSolid++;
+            }
+        }
+        long pixels = (long) source.getWidth() * source.getHeight();
+        if (clear < pixels * 35 / 100 || perimeterSolid > perimeter * 70 / 100) {
+            throw new IOException("exposure master has a matte or too little clear alpha: " + path);
+        }
+        BufferedImage overlay = reduce(source);
+        int visible = visiblePixels(overlay);
+        int connected = largestVisibleComponent(overlay);
+        if (role.equals("quiet") && (visible < 5 || connected < 4)
+                || role.equals("fragment") && (visible < 10 || connected < 6)
+                || role.equals("richer") && (visible < 10 || connected < 6)) {
+            throw new IOException("sampled exposure lacks a readable cluster (" + visible + ", "
+                    + connected + "): " + path);
+        }
+        return overlay;
+    }
+
+    private static int largestVisibleComponent(BufferedImage image) {
+        boolean[] visited = new boolean[SIZE * SIZE];
+        int largest = 0;
+        for (int start = 0; start < visited.length; start++) {
+            if (visited[start] || (image.getRGB(start % SIZE, start / SIZE) >>> 24) < 128) continue;
+            int[] queue = new int[SIZE * SIZE];
+            int first = 0, last = 0;
+            queue[last++] = start;
+            visited[start] = true;
+            while (first < last) {
+                int cell = queue[first++];
+                int x = cell % SIZE, y = cell / SIZE;
+                for (int dy = -1; dy <= 1; dy++) for (int dx = -1; dx <= 1; dx++) {
+                    int nx = x + dx, ny = y + dy;
+                    if (nx < 0 || ny < 0 || nx >= SIZE || ny >= SIZE) continue;
+                    int next = ny * SIZE + nx;
+                    if (!visited[next] && (image.getRGB(nx, ny) >>> 24) >= 128) {
+                        visited[next] = true;
+                        queue[last++] = next;
+                    }
+                }
+            }
+            largest = Math.max(largest, last);
+        }
+        return largest;
+    }
+
+    private static String alphaMask(BufferedImage image) {
+        StringBuilder mask = new StringBuilder(SIZE * SIZE);
+        for (int y = 0; y < SIZE; y++) for (int x = 0; x < SIZE; x++) {
+            mask.append((image.getRGB(x, y) >>> 24) > 0 ? '1' : '0');
+        }
+        return mask.toString();
     }
 
     private static void reproduce(Path root, boolean write) throws IOException {

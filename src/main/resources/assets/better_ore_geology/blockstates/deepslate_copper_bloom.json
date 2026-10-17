@@ -1,15 +1,7 @@
 {
   "variants": {
-    "": [
-      {
-        "model": "better_ore_geology:block/deepslate_copper_bloom_0"
-      },
-      {
-        "model": "better_ore_geology:block/deepslate_copper_bloom_1"
-      },
-      {
-        "model": "better_ore_geology:block/deepslate_copper_bloom_2"
-      }
-    ]
+    "": {
+      "model": "better_ore_geology:block/deepslate_copper_bloom_exposure"
+    }
   }
 }

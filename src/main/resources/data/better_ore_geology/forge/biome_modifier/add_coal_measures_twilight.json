@@ -1,1 +1,6 @@
-{"type":"forge:add_features","biomes":"#twilightforest:in_twilight_forest","features":"better_ore_geology:coal_measures_twilight","step":"underground_ores"}
+{
+  "type": "forge:add_features",
+  "biomes": "#better_ore_geology:twilight_biomes",
+  "features": "better_ore_geology:coal_measures_twilight",
+  "step": "underground_ores"
+}

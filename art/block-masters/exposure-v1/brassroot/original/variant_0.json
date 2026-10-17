@@ -1,0 +1,9 @@
+{
+  "family": "brassroot",
+  "category": "original",
+  "variant": 0,
+  "retained_from": "/home/dev/mod_source/better-ore-geology/art/block-masters/geology-v7/brassroot/variant_0.png",
+  "provenance": "Existing tracked accepted geology-v7 source master; no new generation in this task",
+  "generation_prompt": "UNKNOWN: not reconstructed from the texture",
+  "sha256": "4d4b2061b6853e164782ee9707c303dc69964e4825dacd41f9b979e459b6e39b"
+}

@@ -13,21 +13,31 @@ The canonical 144×18 badge strip is rendered only on interaction surfaces. Worl
 
 ## Deposit block art
 
-`tools/GenerateDepositTextures.java` reproduces all 288 shipped 16×16 resource faces from the
-approved geology-v7 suite. One square transparent ImageGen master supplies each variant; the same
-directly reduced morphology is reused on all cube faces like a vanilla ore block. Stone uses one
-host on all faces, while deepslate preserves its lateral/top host direction.
+`tools/GenerateDepositTextures.java` reproduces the 288 existing geology-v7 faces and the 1,248
+exposure-v1 PNGs (96 transparent overlays and 1,152 opaque host composites). One square
+transparent ImageGen master supplies each pattern; the same directly reduced morphology is reused
+on all cube faces like a vanilla ore block. Stone uses one host on all faces, while deepslate
+preserves its lateral/top host direction.
 
 The complete 24-master suite lives under
 `art/block-masters/geology-v7/<family>/variant_<n>.png`. The validator requires every family and all
 three variants; partial suites cannot pass. Candidate art stays outside this accepted directory
 until its isolated-block and family-patch review is approved.
 
+The approved 96-master exposure suite and each exact prompt/provenance JSON live under
+`art/block-masters/exposure-v1/<family>/<quiet|fragment|richer|original>/variant_<n>.{png,json}`.
+The original-role PNGs match geology-v7 byte for byte. Sparse roles are partial deposit windows,
+so their sampled clusters use category-aware survival checks instead of the old 50-pixel and
+two-edge requirements. The generator also writes original-role sampled alpha masks to
+`assets/better_ore_geology/exposure_masks.json` for runtime exposure composition.
+
 ```sh
 java tools/GenerateDepositTextures.java --write
 java tools/GenerateDepositTextures.java --check
 java tools/GenerateDepositTextures.java --preview coal_measures 0 /path/to/master.png build/preview
 java tools/GenerateDepositTextures.java --validate-masters
+java tools/GenerateDepositTextures.java --validate-exposure-masters
+java tools/GenerateDepositTextures.java --preview-exposure coal_measures quiet 0 /path/to/preview
 ```
 
 Source masters are generated one standalone texture at a time with built-in ImageGen on transparent

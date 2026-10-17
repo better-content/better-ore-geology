@@ -1,0 +1,13 @@
+{
+  "family": "copper_bloom",
+  "variant": 0,
+  "role": "RICHER",
+  "source": "/home/dev/.local/share/codex-adhoc/generated_images/01a14718-a22c-7551-9bae-f1499618c0b2/exec-c887398d-4a8f-43d6-a204-be9fa8e2dc17.png",
+  "master": "masters/copper_bloom/variant_2.png",
+  "prompt": "Use case: stylized-concept\nAsset type: ONE standalone square transparent mineral-overlay master for reduction to a 16x16 Minecraft ore-block texture.\nPrimary request: Copper Bloom, variant 2, RICHER deposit role. One modest broken fracture segment with one short offset side trace near a junction; subdued brassy mineral and at most two tiny dull oxidation spots. Most face clear. Geology: fracture-hosted porphyry copper sulfides with sparse supergene oxidation. This is one incidental small window into a larger deposit; family identity emerges across many varied blocks in a patch.\nScene/backdrop: genuine transparent RGBA; every region outside actual mineral clusters alpha zero. No rendered stone, deepslate, matte, checkerboard or scene.\nStyle/medium: intentional Minecraft Java 16x16-style square pixel clusters authored at high resolution, hard crisp stepped edges, a few flat medium values, no soft painting.\nComposition/framing: LOCALLY richer but modest: target 25\u201345 visible pixels of 256 after reduction, one partial main exposure and at most one sparse associated trace occupying roughly 10\u201318% of the face. Broad clear gaps. Do not show an entire seam, network, geological diagram, or standalone composition in this block.\nMaterials/textures: muted olive-brassy gray sulfide, tiny rare dull green/brown oxidation; no bright copper, no white quartz frame. Mostly opaque mineral cluster pixels in medium values close to stone, restrained local contrast. No blanket opacity fade; no dark outlining, highlight rails or raised/carved relief.\nConstraints: exactly one 1:1 square PNG at least 1024x1024 with real transparent alpha; one mineral overlay only; no host pixels; no frame, panel, text, label or watermark.\nAvoid: continuous colored routes, X, radial hub, green confetti, outlined quartz stockwork; whole-face composition, complete repeated structures, decorative speckles, drawn checkerboard, gray/color backdrop, haze, vignette, shadow, glow, gradients, antialiasing, smooth painting, photorealism.",
+  "generated_utc": "2026-10-17T00:29:17.369Z",
+  "disposition": "Retained unchanged as first pattern within category; active human review",
+  "category": "richer",
+  "retained_from": "/home/dev/workspace_artifacts/reviews/clearer-ore-hybrid-20261017T005119Z/masters/copper_bloom/variant_2.png",
+  "retained_previous_slot": 2
+}

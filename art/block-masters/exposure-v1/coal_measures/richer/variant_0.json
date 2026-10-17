@@ -1,0 +1,13 @@
+{
+  "family": "coal_measures",
+  "variant": 0,
+  "role": "RICHER",
+  "source": "/home/dev/.local/share/codex-adhoc/generated_images/01a14718-a22c-7551-9bae-f1499618c0b2/exec-18161e46-83f6-472a-bc4b-f4553d785c97.png",
+  "master": "masters/coal_measures/variant_2.png",
+  "prompt": "Use case: stylized-concept\nAsset type: ONE standalone square transparent mineral-overlay master for reduction to a 16x16 Minecraft ore-block texture.\nPrimary request: Coal Measures, variant 2, RICHER deposit role. One modest horizontal broken coal bench occupies one local zone, with a small offset fragment lower down. It ends within the face; broad clear rock gaps interrupt it. Geology: sedimentary coal benches split by siltstone partings. This block is only an incidental small window into a larger deposit; the deposit identity appears across a tiled patch, not on this individual face.\nScene/backdrop: genuine transparent RGBA; all space outside actual mineral clusters has alpha zero. No rendered stone, deepslate, matte, checkerboard or scene.\nStyle/medium: intentional Minecraft Java 16x16-style square pixel clusters drawn at high resolution, hard crisp stepped edges, a few flat medium values, no soft painting or antialiasing.\nComposition/framing: LOCALLY richer but still modest: target 25\u201345 materially visible pixels of 256 after reduction, about 10\u201318% of the face. Only one partial main exposure and at most one sparse associated trace. Vast clear alpha remains. Do not compose a complete ore specimen or a fully explained geology illustration inside this block.\nMaterials/textures: matte medium charcoal coal, close to dark stone, a small dull gray-brown silt parting; no jet black or pale rail. Mostly opaque mineral cluster pixels, medium local values close to stone; no blanket opacity fade, no bright or dark outlining, no highlight rails or raised/carved relief.\nConstraints: exactly one 1:1 square PNG at least 1024x1024 with real transparent alpha; one overlay only; no host pixels; no frame, panel, text, label or watermark.\nAvoid: Black Shale's steep hairline cleavage, glossy black bars, broad repeated seams; whole-face composition, multiple complete structures, decorative speckles, drawn checkerboard, colored or gray backdrop, haze, vignette, shadow, glow, gradients, smooth painting, photorealism.",
+  "generated_utc": "2026-10-17T00:25:56.347Z",
+  "disposition": "Retained unchanged as first pattern within category; active human review",
+  "category": "richer",
+  "retained_from": "/home/dev/workspace_artifacts/reviews/clearer-ore-hybrid-20261017T005119Z/masters/coal_measures/variant_2.png",
+  "retained_previous_slot": 2
+}

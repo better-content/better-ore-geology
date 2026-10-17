@@ -1,0 +1,9 @@
+{
+  "family": "copper_bloom",
+  "category": "original",
+  "variant": 0,
+  "retained_from": "/home/dev/mod_source/better-ore-geology/art/block-masters/geology-v7/copper_bloom/variant_0.png",
+  "provenance": "Existing tracked accepted geology-v7 source master; no new generation in this task",
+  "generation_prompt": "UNKNOWN: not reconstructed from the texture",
+  "sha256": "f0c717db10a6aae671ea17571b8207058c1205c5c74d3394287d05a15b51c0c6"
+}

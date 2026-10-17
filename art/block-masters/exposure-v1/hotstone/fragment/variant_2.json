@@ -1,0 +1,10 @@
+{
+  "family": "hotstone",
+  "category": "fragment",
+  "variant": 2,
+  "source": "/home/dev/.local/share/codex-adhoc/generated_images/01a14718-a22c-7551-9bae-f1499618c0b2/exec-fb20d78d-4a98-46c6-8404-f857d9741504.png",
+  "master": "masters/hotstone/fragment/variant_2.png",
+  "prompt": "Use case: stylized-concept\nAsset type: ONE square transparent Minecraft-style mineral overlay on a logical16x16 pixel grid.\nPrimary request: Hotstone FRAGMENT independent variant2. A LOCALIZED angular hydrothermal breccia matrix patch surrounding one single transparent triangular host-clast notch. Draw a compact L-shaped cluster of touching gray-brown square mineral pixels, roughly 3 logical cells wide by 5 cells tall. It is one little fragment of matrix in rock, not a line crossing the whole block.\nBackground: real RGBA alpha-zero transparency everywhere outside the compact mineral patch, no stone or matte.\nStyle: large hard-edged opaque square logical pixels, each ~1/16 canvas width, flat medium earth colors.\nComposition: one cohesive approximately 14–22-cell formation, minimum10 sampled visible and6 connected, all confined to a compact 3-by-5-cell neighborhood near one side of the face. No edge contact needed, vast clear alpha. The triangular notch and compact L-bend make it structurally different from retained0 and sibling1.\nColor: quiet gray-brown #7c7471 and #8c7971, at most one dull rust #896f66 cell, no glowing red or black outline.\nConstraints: exactly one square PNG >=1024x1024 with true alpha, mineral-only source untouched, no text or panel.\nAvoid: long diagonal route, 6-plus-cell continuous crack, complete web, lava, glow, gradient, smooth painting.",
+  "generated_utc": "2026-10-17T01:54:06.946Z",
+  "disposition": "genuine structural retry after long diagonal crack"
+}

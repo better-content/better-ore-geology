@@ -7,9 +7,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 /** A deposit that teaches its energetic character before the player learns its assay. */
-public final class HotstoneBlock extends Block {
+public final class HotstoneBlock extends GeologicalOreBlock {
     public HotstoneBlock(Properties properties) {
-        super(properties.lightLevel(state -> 6));
+        super("hotstone", properties.lightLevel(state -> 6));
     }
 
     @Override

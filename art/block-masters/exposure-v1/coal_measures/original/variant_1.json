@@ -1,0 +1,9 @@
+{
+  "family": "coal_measures",
+  "category": "original",
+  "variant": 1,
+  "retained_from": "/home/dev/mod_source/better-ore-geology/art/block-masters/geology-v7/coal_measures/variant_1.png",
+  "provenance": "Existing tracked accepted geology-v7 source master; no new generation in this task",
+  "generation_prompt": "UNKNOWN: not reconstructed from the texture",
+  "sha256": "6e28a0aabb0a9f67b55c4a03086eb3e5b44c1ebdf025301ebe29a12662b471c4"
+}

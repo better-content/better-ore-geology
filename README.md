@@ -23,69 +23,48 @@ result; update the living document whenever the workflow changes.
 
 ### Core language
 
-- Depict geological deposits, not vanilla-style isolated ore spots. Each family has a
-  recognizable morphology: a seam, branching vein, disseminated grains, nodules, or
-  sparse crystals.
-- Keep the authored stone and deepslate ores as ordinary, finished Minecraft blocks.
-  Realistic Ores establishes their morphology, coverage, variants, and host treatment;
-  Hyle and Unearthed provide the broader rock strata; Excavated Variants reads those
-  normal block definitions and derives the matching host-specific ore blocks.
-- Express that contract through ordinary vanilla-format blockstates, models, and
-  textures. Do not hand-author a matrix of Realistic Ores composites for every Unearthed
-  stone, add custom integration code when normal definitions suffice, or simplify the
-  canonical ore art to compensate for hypothetical generated hosts.
-- Keep the host rock visually dominant. The accepted geology-v7 overlays retain 50–120 materially
-  visible pixels of 256 after direct reduction; composition and negative space matter more than a
-  single target percentage.
-- Use crisp 16x16 pixel art produced by direct point sampling of approved transparent ImageGen
-  masters. Preserve the sampled RGBA and composite it into fully opaque runtime textures.
-- Make identity depend on silhouette and value structure as well as hue. A texture must
-  remain recognizable in low light and under shaders; increasing saturation is not a
-  substitute for preserving its deposit shape.
-- Preserve unequal clustering and negative space. Do not distribute mineral pixels
-  uniformly, add one-pixel confetti, or recolor a shared generic mineral layout.
-- Variants are alternate arrangements of the same geology. They may move, fork, shorten,
-  or thicken clusters while retaining the family's morphology, coverage, palette, and
-  overall light/dark balance. Rotation or mirroring alone does not count as a texture
-  variant.
-- Each visual family has exactly three equally weighted model variants: canonical
-  variant `0` and alternate variants `1` and `2`.
+- Depict geological deposits through each family's seams, branching veins, grains, nodules,
+  or sparse crystals. Keep the host rock dominant and the family recognizable by silhouette
+  and value structure as well as hue.
+- Each family has four visual roles: quiet, fragment, richer, and original. Each role has
+  three independently authored patterns; rotation, mirroring, or recoloring alone is not a
+  new pattern. Sparse roles intentionally expose less mineral than the original artwork.
+- Direct point sampling reduces approved transparent masters to crisp 16×16 overlays.
+  Preserve the sampled RGBA and composite onto the host with the authored integer blend.
 
-### Host treatment
+### World appearance and host treatment
 
-- Both stone and deepslate variants are complete opaque runtime textures derived from one approved
-  transparent mineral master per variant. Reuse the same morphology on all cube faces, matching
-  vanilla ore blocks and guaranteeing that every exposed face works alone.
-- Edge crossings imply continuation under random block variants; exact CTM joins are not required.
-- Corresponding stone and deepslate variants share pixel-identical mineral geometry.
-- Stone faces are finished opaque textures using the normal stone host, with the mineral
-  embedded in the rock rather than drawn as a floating outline or decal.
-- Deepslate faces are finished opaque textures retaining the directional deepslate side
-  treatment on lateral faces and the appropriate top or bottom treatment vertically.
-  Preserve that host directionality while allowing all six mineral arrangements to differ.
-- Balance all three variants as a set; structure must differ, not merely rotation or recoloring.
-- Host contrast may shift naturally between stone and deepslate, but the mineral palette
-  and family silhouette stay recognizable. Do not brighten deep variants merely to make
-  them as luminous as their stone versions.
-- Keep all block textures fully opaque. Shader integration classifies every canonical and
-  Excavated Variants deposit as a modded ore, allowing mineral pixels to glow without
-  painting transparent or full-face emissive pixels into the texture. Hotstone additionally
-  communicates heat through block light and contact behaviour.
+Ore blocks persist one `geological_style` property with 64 values: eight quantized
+structural directions × eight occurrence phases. A globally continuous family field uses
+that style and world position to choose exposure within each face. Pattern selection is
+patch coherent and independent for each of the four roles, with three patterns per role;
+it does not roll a complete random texture independently for every block or face.
+
+The renderer crops opaque source quads into non-overlapping rectangles, preserving their
+UVs and the original rich mineral pixels wherever the field exposes them. Stone and
+deepslate share mineral geometry while retaining the host's own face treatment, including
+directional deepslate sides and tops. The shared geometry cache is bounded at 32,768 quads.
+Hotstone retains its light and contact behavior.
+
+World generation supplies the compact style without changing ore positions or budgets.
+Placement chooses a stable appearance from family and position. The design uses no ore
+block entities, custom chunk NBT, custom network payloads, or item NBT. Inventory models
+and surface samples intentionally retain their legacy canonical artwork. Already generated
+chunks whose states lack `geological_style` use its default value, `0`; no regeneration or
+migration is implemented. Drops, recipes, and other ore mechanics remain unchanged.
 
 ### Excavated Variants contract
 
-The authored stone and deepslate blocks are canonical reference implementations, not the
-complete host catalogue. During world generation, Hyle/Unearthed establishes the local
-rock type and Excavated Variants derives the corresponding ore block by inspecting its
-registered stone and ore definitions. Realistic Ores must therefore expose conventional,
-finished models and textures rather than a private intermediate art representation.
+Hyle/Unearthed supplies the rock strata; Excavated Variants synthesizes host-specific ore
+textures. Its public resource-provider API receives our explicit-alpha overlays in an
+ordered set of 12: four roles × three patterns. Narrow, version-pinned property and model
+mixins preserve `geological_style` through host conversion and connect generated models
+to the same exposure renderer. The integration targets EV 3.0.9 and DAG 4.2.2.
 
 Keep `defaultresources/excavated_variants/excavated_variants/variants/better_ore_geology.json5`
-as the declarative mapping boundary. New art should require only normal Minecraft asset
-definitions plus that existing mapping; it should not require bespoke generated textures
-for each Unearthed stone. Validation should sample several light, dark, coarse, and
-directional Unearthed hosts to confirm that all three canonical variants remain legible
-after synthesis.
+as the declarative host mapping boundary. Host synthesis does not require an authored
+matrix of composites for every Unearthed stone. Review representative light, dark, coarse,
+and directional hosts alongside native stone and deepslate.
 
 ### Deposit families
 
@@ -216,16 +195,16 @@ upscale, beside every other family, and in a representative stone/deepslate cave
 normal lighting and shaders. Confirm that:
 
 1. The family is identifiable without its tooltip.
-2. Mineral coverage and value balance remain close to the canonical texture.
+2. Coverage fits the selected quiet, fragment, richer, or original role, while palette
+   and morphology remain recognizable.
 3. The arrangement is genuinely new and does not create obvious tiling or face-edge
    artifacts in a cluster of blocks.
-4. All six stone faces and all six deepslate faces form coherent sided models, with adjacent
-   edge crossings aligned and no duplicated or mirrored opposite faces.
+4. All six faces preserve their host treatment and the world-position exposure field
+   remains coherent across adjacent blocks.
 5. No variant can be confused with another family, vanilla ore, or exposed surface-sample
    rubble.
-6. Inventory/JEI continues to use one stable canonical model while world blocks select
-   complete sided variants through equally weighted static blockstate models. Faces
-   are never selected or randomized independently.
+6. Inventory/JEI and surface samples retain their canonical appearance while world
+   faces combine the four roles and three patterns through the shared field.
 
 ## Common commands
 
@@ -235,7 +214,35 @@ normal lighting and shaders. Confirm that:
 ./gradlew stageRuntimeJar
 ```
 
-`verifyFull` adds `verifyItemTextures` to the fast lane, checking curated item sprites against their 1024px masters. The repository does not currently ship Forge GameTests.
+`verifyFull` runs the fast checks plus item-texture, original/exposure-master, block-texture,
+exposure model/blockstate reproducibility, optional-data guard, and pure-logic coverage gates. `stageRuntimeJar` stages the reobfuscated production artifact.
+
+The separate `exposureHarness` source set contains the nonshipping native server/client
+probe. With runtime testing authorized, prepare its pinned dependencies and launch
+descriptors, then run the bounded controller:
+
+```bash
+./gradlew prepareExposureLaunch
+python3 -B tools/run_exposure_probe.py
+# Each selected family gets an independent two-launch fixture:
+python3 -B tools/run_exposure_probe.py --family coal_measures --fixture-id fresh-scene
+# Separate dedicated-server classloading/startup smoke with no optional integrations:
+python3 -B tools/run_standalone_smoke.py
+```
+
+The controller uses disposable `run-exposure/` fixtures, a real client under Xvfb/software
+rendering, and a second launch of the same world to check persistence. It checks all 288
+scene blocks across six faces before and after resource reload; selected-family fixtures live
+under `run-exposure/families/<family>/`. Run each of the eight supported family selectors for
+full renderer coverage. `--fixture-id` requires an absent named directory, preventing accidental
+reuse of an old scene. Registry/conversion/placement and native mining assertions cover all
+families on every server launch. Each launch records pre-start config absences and verified pinned
+asset inputs. The strict diagnostic classifier rejects unknown warnings/errors, and its negative
+contracts run in `verifyFull`; it does not change the full-pack diagnostic policy. The standalone
+smoke checks dedicated-server startup only, not client rendering. Reports/screenshots apply only
+to the current invocation;
+compilation and focused contracts do not establish native acceptance or gameplay performance.
+The production JAR excludes the entire companion fixture source set.
 
 ## Release artifact
 

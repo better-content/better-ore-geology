@@ -1,0 +1,10 @@
+{
+  "family": "evaporite_beds",
+  "category": "quiet",
+  "variant": 2,
+  "source": "/home/dev/.local/share/codex-adhoc/generated_images/01a14718-a22c-7551-9bae-f1499618c0b2/exec-aed8d0a0-6f85-4f55-86a5-cb8d487a7fda.png",
+  "master": "masters/evaporite_beds/quiet/variant_2.png",
+  "prompt": "Use case: stylized-concept\nAsset type: one square transparent Minecraft mineral overlay.\nPrimary request: Evaporite Beds QUIET variant 2. Show a small compact irregular gypsum-and-salt nodule from an evaporite bed, with a tiny angular stepped indentation on one side. It is a very local mineral patch rather than a visible bed stripe. Build it from a few touching square logical pixels in a 3-by-3 neighborhood.\nBackground: clear RGBA alpha zero outside the physical mineral patch, no host stone.\nStyle: coarse hard-edged logical16x16 square pixels, opaque flat color blocks.\nComposition: 6–10 center-sampled pixels, at least four connected. Entire mineral patch three logical cells wide and no more than three tall, off-center with vast transparent canvas. Different from retained0's short bed trace and variant1's muddy inclusion by the indented nodular shape.\nColor: muted dirty medium gray #8e8886 and faint dusty pink-gray #a19791. No white, ivory, highlight rail or saturated color.\nConstraints: one 1:1 square PNG >=1024x1024, true transparent alpha, mineral-only, no matte, checkerboard, host pixels, panel, text, shadow, glow or gradient.",
+  "generated_utc": "2026-10-17T01:47:35.095Z",
+  "disposition": "genuine structural retry after extended bedding strip"
+}

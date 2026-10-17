@@ -1,0 +1,9 @@
+{
+  "family": "evaporite_beds",
+  "category": "original",
+  "variant": 0,
+  "retained_from": "/home/dev/mod_source/better-ore-geology/art/block-masters/geology-v7/evaporite_beds/variant_0.png",
+  "provenance": "Existing tracked accepted geology-v7 source master; no new generation in this task",
+  "generation_prompt": "UNKNOWN: not reconstructed from the texture",
+  "sha256": "d58b56d08bdf5ecc7349f57942c5aebcf4fa276362611b4d3296d1fb080bf74a"
+}

@@ -1,15 +1,7 @@
 {
   "variants": {
-    "": [
-      {
-        "model": "better_ore_geology:block/hotstone_0"
-      },
-      {
-        "model": "better_ore_geology:block/hotstone_1"
-      },
-      {
-        "model": "better_ore_geology:block/hotstone_2"
-      }
-    ]
+    "": {
+      "model": "better_ore_geology:block/hotstone_exposure"
+    }
   }
 }

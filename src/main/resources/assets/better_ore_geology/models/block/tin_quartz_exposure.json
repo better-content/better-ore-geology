@@ -1,0 +1,139 @@
+{
+  "loader": "better_ore_geology:exposure",
+  "family": "tin_quartz",
+  "ambientocclusion": true,
+  "textures": {
+    "particle": "better_ore_geology:block/exposure/tin_quartz/original_0_south",
+    "slot0_north": "better_ore_geology:block/exposure/tin_quartz/quiet_0_north",
+    "slot0_east": "better_ore_geology:block/exposure/tin_quartz/quiet_0_east",
+    "slot0_south": "better_ore_geology:block/exposure/tin_quartz/quiet_0_south",
+    "slot0_west": "better_ore_geology:block/exposure/tin_quartz/quiet_0_west",
+    "slot0_up": "better_ore_geology:block/exposure/tin_quartz/quiet_0_up",
+    "slot0_down": "better_ore_geology:block/exposure/tin_quartz/quiet_0_down",
+    "slot1_north": "better_ore_geology:block/exposure/tin_quartz/quiet_1_north",
+    "slot1_east": "better_ore_geology:block/exposure/tin_quartz/quiet_1_east",
+    "slot1_south": "better_ore_geology:block/exposure/tin_quartz/quiet_1_south",
+    "slot1_west": "better_ore_geology:block/exposure/tin_quartz/quiet_1_west",
+    "slot1_up": "better_ore_geology:block/exposure/tin_quartz/quiet_1_up",
+    "slot1_down": "better_ore_geology:block/exposure/tin_quartz/quiet_1_down",
+    "slot2_north": "better_ore_geology:block/exposure/tin_quartz/quiet_2_north",
+    "slot2_east": "better_ore_geology:block/exposure/tin_quartz/quiet_2_east",
+    "slot2_south": "better_ore_geology:block/exposure/tin_quartz/quiet_2_south",
+    "slot2_west": "better_ore_geology:block/exposure/tin_quartz/quiet_2_west",
+    "slot2_up": "better_ore_geology:block/exposure/tin_quartz/quiet_2_up",
+    "slot2_down": "better_ore_geology:block/exposure/tin_quartz/quiet_2_down",
+    "slot3_north": "better_ore_geology:block/exposure/tin_quartz/fragment_0_north",
+    "slot3_east": "better_ore_geology:block/exposure/tin_quartz/fragment_0_east",
+    "slot3_south": "better_ore_geology:block/exposure/tin_quartz/fragment_0_south",
+    "slot3_west": "better_ore_geology:block/exposure/tin_quartz/fragment_0_west",
+    "slot3_up": "better_ore_geology:block/exposure/tin_quartz/fragment_0_up",
+    "slot3_down": "better_ore_geology:block/exposure/tin_quartz/fragment_0_down",
+    "slot4_north": "better_ore_geology:block/exposure/tin_quartz/fragment_1_north",
+    "slot4_east": "better_ore_geology:block/exposure/tin_quartz/fragment_1_east",
+    "slot4_south": "better_ore_geology:block/exposure/tin_quartz/fragment_1_south",
+    "slot4_west": "better_ore_geology:block/exposure/tin_quartz/fragment_1_west",
+    "slot4_up": "better_ore_geology:block/exposure/tin_quartz/fragment_1_up",
+    "slot4_down": "better_ore_geology:block/exposure/tin_quartz/fragment_1_down",
+    "slot5_north": "better_ore_geology:block/exposure/tin_quartz/fragment_2_north",
+    "slot5_east": "better_ore_geology:block/exposure/tin_quartz/fragment_2_east",
+    "slot5_south": "better_ore_geology:block/exposure/tin_quartz/fragment_2_south",
+    "slot5_west": "better_ore_geology:block/exposure/tin_quartz/fragment_2_west",
+    "slot5_up": "better_ore_geology:block/exposure/tin_quartz/fragment_2_up",
+    "slot5_down": "better_ore_geology:block/exposure/tin_quartz/fragment_2_down",
+    "slot6_north": "better_ore_geology:block/exposure/tin_quartz/richer_0_north",
+    "slot6_east": "better_ore_geology:block/exposure/tin_quartz/richer_0_east",
+    "slot6_south": "better_ore_geology:block/exposure/tin_quartz/richer_0_south",
+    "slot6_west": "better_ore_geology:block/exposure/tin_quartz/richer_0_west",
+    "slot6_up": "better_ore_geology:block/exposure/tin_quartz/richer_0_up",
+    "slot6_down": "better_ore_geology:block/exposure/tin_quartz/richer_0_down",
+    "slot7_north": "better_ore_geology:block/exposure/tin_quartz/richer_1_north",
+    "slot7_east": "better_ore_geology:block/exposure/tin_quartz/richer_1_east",
+    "slot7_south": "better_ore_geology:block/exposure/tin_quartz/richer_1_south",
+    "slot7_west": "better_ore_geology:block/exposure/tin_quartz/richer_1_west",
+    "slot7_up": "better_ore_geology:block/exposure/tin_quartz/richer_1_up",
+    "slot7_down": "better_ore_geology:block/exposure/tin_quartz/richer_1_down",
+    "slot8_north": "better_ore_geology:block/exposure/tin_quartz/richer_2_north",
+    "slot8_east": "better_ore_geology:block/exposure/tin_quartz/richer_2_east",
+    "slot8_south": "better_ore_geology:block/exposure/tin_quartz/richer_2_south",
+    "slot8_west": "better_ore_geology:block/exposure/tin_quartz/richer_2_west",
+    "slot8_up": "better_ore_geology:block/exposure/tin_quartz/richer_2_up",
+    "slot8_down": "better_ore_geology:block/exposure/tin_quartz/richer_2_down",
+    "slot9_north": "better_ore_geology:block/exposure/tin_quartz/original_0_north",
+    "slot9_east": "better_ore_geology:block/exposure/tin_quartz/original_0_east",
+    "slot9_south": "better_ore_geology:block/exposure/tin_quartz/original_0_south",
+    "slot9_west": "better_ore_geology:block/exposure/tin_quartz/original_0_west",
+    "slot9_up": "better_ore_geology:block/exposure/tin_quartz/original_0_up",
+    "slot9_down": "better_ore_geology:block/exposure/tin_quartz/original_0_down",
+    "slot10_north": "better_ore_geology:block/exposure/tin_quartz/original_1_north",
+    "slot10_east": "better_ore_geology:block/exposure/tin_quartz/original_1_east",
+    "slot10_south": "better_ore_geology:block/exposure/tin_quartz/original_1_south",
+    "slot10_west": "better_ore_geology:block/exposure/tin_quartz/original_1_west",
+    "slot10_up": "better_ore_geology:block/exposure/tin_quartz/original_1_up",
+    "slot10_down": "better_ore_geology:block/exposure/tin_quartz/original_1_down",
+    "slot11_north": "better_ore_geology:block/exposure/tin_quartz/original_2_north",
+    "slot11_east": "better_ore_geology:block/exposure/tin_quartz/original_2_east",
+    "slot11_south": "better_ore_geology:block/exposure/tin_quartz/original_2_south",
+    "slot11_west": "better_ore_geology:block/exposure/tin_quartz/original_2_west",
+    "slot11_up": "better_ore_geology:block/exposure/tin_quartz/original_2_up",
+    "slot11_down": "better_ore_geology:block/exposure/tin_quartz/original_2_down"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#north",
+          "cullface": "north"
+        },
+        "east": {
+          "texture": "#east",
+          "cullface": "east"
+        },
+        "south": {
+          "texture": "#south",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#west",
+          "cullface": "west"
+        },
+        "up": {
+          "texture": "#up",
+          "cullface": "up"
+        },
+        "down": {
+          "texture": "#down",
+          "cullface": "down"
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    }
+  }
+}

@@ -18,6 +18,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final class OreMorphologyContractTest {
     private static final Path MASTERS = Path.of("art/block-masters/geology-v7");
+    private static final Path EXPOSURE_MASTERS = Path.of("art/block-masters/exposure-v1");
+    private static final Path EXPOSURE_ASSETS = Path.of("src/main/resources/assets/better_ore_geology");
+    private static final String[] EXPOSURE_ROLES = {"quiet", "fragment", "richer", "original"};
     private static final Map<String, String> MORPHOLOGIES = Map.of(
         "hotstone", "asymmetric_breccia_pipe_with_radial_fissures",
         "copper_bloom", "branching_stockwork_with_oxidation_halos",
@@ -71,6 +74,42 @@ final class OreMorphologyContractTest {
         }
     }
 
+    @Test
+    void exposureCategoriesRetainIndependentReadableClustersAndExactOriginalMasks() throws Exception {
+        JsonObject originalMasks = JsonParser.parseString(Files.readString(
+                EXPOSURE_ASSETS.resolve("exposure_masks.json"))).getAsJsonObject();
+        assertEquals(MORPHOLOGIES.keySet(), originalMasks.keySet());
+        Set<String> silhouettes = new HashSet<>();
+        for (String family : MORPHOLOGIES.keySet()) {
+            for (String role : EXPOSURE_ROLES) for (int variant = 0; variant < 3; variant++) {
+                Path path = EXPOSURE_MASTERS.resolve(family).resolve(role)
+                        .resolve("variant_" + variant + ".png");
+                BufferedImage master = ImageIO.read(path.toFile());
+                assertTrue(master != null && master.getColorModel().hasAlpha(), path.toString());
+                assertTrue(master.getWidth() == master.getHeight() && master.getWidth() >= 1024,
+                        path.toString());
+                boolean[] visibleMask = reduceMask(master);
+                int visible = count(visibleMask);
+                if (role.equals("quiet")) {
+                    assertTrue(visible >= 5 && largestComponent(visibleMask) >= 4, path.toString());
+                } else if (role.equals("fragment")) {
+                    assertTrue(visible >= 10 && largestComponent(visibleMask) >= 6, path.toString());
+                } else if (role.equals("richer")) {
+                    assertTrue(visible >= 10 && largestComponent(visibleMask) >= 6, path.toString());
+                } else {
+                    assertTrue(visible >= 50 && visible <= 120 && touchedEdges(visibleMask) >= 2,
+                            path.toString());
+                    assertTrue(Arrays.equals(Files.readAllBytes(path), Files.readAllBytes(MASTERS
+                            .resolve(family).resolve("variant_" + variant + ".png"))), path.toString());
+                    assertEquals(sampledAlphaMask(master), originalMasks.getAsJsonArray(family)
+                            .get(variant).getAsString(), path.toString());
+                }
+                assertTrue(silhouettes.add(sampledAlphaMask(master)), path + " duplicate silhouette");
+            }
+        }
+        assertEquals(96, silhouettes.size());
+    }
+
     private static boolean[] mask(String family, int variant) throws Exception {
         return reduceMask(ImageIO.read(MASTERS.resolve(family)
                 .resolve("variant_" + variant + ".png").toFile()));
@@ -86,6 +125,45 @@ final class OreMorphologyContractTest {
             }
         }
         return result;
+    }
+
+    private static String sampledAlphaMask(BufferedImage source) {
+        StringBuilder result = new StringBuilder(256);
+        for (int y = 0; y < 16; y++) {
+            int sourceY = (int) (((long) (2 * y + 1) * source.getHeight()) / 32L);
+            for (int x = 0; x < 16; x++) {
+                int sourceX = (int) (((long) (2 * x + 1) * source.getWidth()) / 32L);
+                result.append((source.getRGB(sourceX, sourceY) >>> 24) > 0 ? '1' : '0');
+            }
+        }
+        return result.toString();
+    }
+
+    private static int largestComponent(boolean[] mask) {
+        boolean[] visited = new boolean[256];
+        int largest = 0;
+        for (int start = 0; start < 256; start++) {
+            if (!mask[start] || visited[start]) continue;
+            int[] queue = new int[256];
+            int first = 0, last = 0;
+            queue[last++] = start;
+            visited[start] = true;
+            while (first < last) {
+                int cell = queue[first++];
+                int x = cell % 16, y = cell / 16;
+                for (int dy = -1; dy <= 1; dy++) for (int dx = -1; dx <= 1; dx++) {
+                    int nx = x + dx, ny = y + dy;
+                    if (nx < 0 || ny < 0 || nx >= 16 || ny >= 16) continue;
+                    int next = ny * 16 + nx;
+                    if (mask[next] && !visited[next]) {
+                        visited[next] = true;
+                        queue[last++] = next;
+                    }
+                }
+            }
+            largest = Math.max(largest, last);
+        }
+        return largest;
     }
 
     private static int count(boolean[] mask) {

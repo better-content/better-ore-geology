@@ -1,0 +1,9 @@
+{
+  "family": "hotstone",
+  "category": "original",
+  "variant": 1,
+  "retained_from": "/home/dev/mod_source/better-ore-geology/art/block-masters/geology-v7/hotstone/variant_1.png",
+  "provenance": "Existing tracked accepted geology-v7 source master; no new generation in this task",
+  "generation_prompt": "UNKNOWN: not reconstructed from the texture",
+  "sha256": "1477d9c21b7f5b05ec704a299e3ed585523b2e5c0273a66ffb1166cb0849e6ad"
+}

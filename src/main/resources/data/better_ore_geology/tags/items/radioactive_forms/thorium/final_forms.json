@@ -1,7 +1,13 @@
 {
   "replace": false,
   "values": [
-    "chemlib:thorium_ingot",
-    "chemlib:thorium_nugget"
+    {
+      "id": "chemlib:thorium_ingot",
+      "required": false
+    },
+    {
+      "id": "chemlib:thorium_nugget",
+      "required": false
+    }
   ]
 }

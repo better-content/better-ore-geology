@@ -1,0 +1,10 @@
+{
+  "family": "brassroot",
+  "category": "quiet",
+  "variant": 2,
+  "source": "/home/dev/.local/share/codex-adhoc/generated_images/01a14718-a22c-7551-9bae-f1499618c0b2/exec-dc1cb4b7-3f91-4e9f-a6c7-d9b9329a0c66.png",
+  "master": "masters/brassroot/quiet/variant_2.png",
+  "prompt": "Use case: stylized-concept\nAsset type: ONE square transparent Minecraft Java 16x16 mineral-overlay master.\nPrimary request: Brassroot QUIET independent variant 2. One small asymmetric carbonate replacement bleb attached to the short blunt tip of a sphalerite-filled joint. The bleb is a compact stepped gray-brown 2-by-3 logical-cell pocket with a one-cell host notch and a very short adjoining joint pixel group. It is not a vein route or gold nugget.\nScene/backdrop: true alpha-zero transparency everywhere outside mineral; no host rock, matte, checkerboard or shadow.\nStyle/medium: chunky hard-edged square logical pixels about 1/16 canvas, flat opaque clustered values, no fine painting.\nComposition/framing: one connected cluster around 7–12 visible center-sampled cells, >=4 connected, off-center. Keep a large empty transparent field and no edge contact. Structurally differs from retained0 and sibling1 through a replacement bleb with a notch instead of a joint-to-bedding bend.\nMaterials/textures: muted warm GRAY-BROWN sulfide #837d75 and #948980, two close internal values with slight earthiness. NO yellow, gold, amber or brass highlight. No bright outline or dark border.\nConstraints: exactly one square PNG >=1024x1024 with real transparent alpha, mineral only, no edits or labels.\nAvoid: gold nugget icon, root/trunk, extended line, orange/yellow pixels, glow, shadow, gradient, antialiasing.",
+  "generated_utc": "2026-10-17T01:40:52.953Z",
+  "disposition": "genuine visual retry after bright gold and overextended shape"
+}

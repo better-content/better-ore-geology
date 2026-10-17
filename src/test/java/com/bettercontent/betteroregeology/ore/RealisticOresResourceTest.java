@@ -31,6 +31,7 @@ final class RealisticOresResourceTest {
     private static final Path RESOURCE_ROOT = Path.of("src/main/resources");
     private static final Path ASSET_ROOT = RESOURCE_ROOT.resolve("assets/better_ore_geology");
     private static final Set<String> FACES = Set.of("north", "east", "south", "west", "up", "down");
+    private static final List<String> EXPOSURE_ROLES = List.of("quiet", "fragment", "richer", "original");
     private static final Set<String> SALIENT_FAMILIES = Set.of(
             "coal_measures", "ironstone", "copper_bloom", "tin_quartz", "brassroot",
             "evaporite_beds", "hotstone", "black_shale");
@@ -107,7 +108,7 @@ final class RealisticOresResourceTest {
     }
 
     @Test
-    void everyOreBlockHasThreeUnrotatedSidedModelsAndValidFinalTextures() throws IOException {
+    void everyOreBlockHasExposureModelAndRetainedCanonicalItemTextures() throws IOException {
         JsonObject canonicalHashes = read(Path.of("src/test/resources/canonical_ore_texture_hashes.json"), JsonObject.class);
 
         try (var paths = Files.list(DATA_ROOT.resolve("better_ore_geology"))) {
@@ -120,7 +121,7 @@ final class RealisticOresResourceTest {
                     String blockId = oreVariant.blockId();
                     String textureBlockId = blockId;
                     assertCanonicalDefinitionTextures(oreVariant, textureBlockId);
-                    assertWeightedBlockstate(blockId);
+                    assertExposureBlockstate(blockId, definition.id(), oreVariant.host());
                     assertItemUsesCanonicalModel(blockId);
                     assertFalse(Files.exists(ASSET_ROOT.resolve("models/block/" + blockId + ".json")), blockId);
 
@@ -166,15 +167,64 @@ final class RealisticOresResourceTest {
         }
     }
 
-    private static void assertWeightedBlockstate(String blockId) {
+    private static void assertExposureBlockstate(String blockId, String family, String host) throws IOException {
         Path statePath = ASSET_ROOT.resolve("blockstates/" + blockId + ".json");
-        JsonArray variants = read(statePath, JsonObject.class).getAsJsonObject("variants").getAsJsonArray("");
-        assertEquals(3, variants.size(), statePath.toString());
-        for (int index = 0; index < variants.size(); index++) {
-            JsonObject entry = variants.get(index).getAsJsonObject();
-            assertEquals(Set.of("model"), entry.keySet(), "rotations, mirrors, and explicit weights are forbidden: " + statePath);
-            assertEquals("better_ore_geology:block/" + blockId + "_" + index, entry.get("model").getAsString(), statePath.toString());
+        JsonObject state = read(statePath, JsonObject.class);
+        assertEquals(Set.of("variants"), state.keySet(), statePath.toString());
+        JsonObject variants = state.getAsJsonObject("variants");
+        assertEquals(Set.of(""), variants.keySet(), statePath.toString());
+        JsonObject entry = variants.getAsJsonObject("");
+        assertEquals(Set.of("model"), entry.keySet(),
+                "rotations, mirrors, and explicit weights are forbidden: " + statePath);
+        assertEquals("better_ore_geology:block/" + blockId + "_exposure",
+                entry.get("model").getAsString(), statePath.toString());
+
+        Path modelPath = ASSET_ROOT.resolve("models/block/" + blockId + "_exposure.json");
+        JsonObject model = read(modelPath, JsonObject.class);
+        assertEquals("better_ore_geology:exposure", model.get("loader").getAsString(), modelPath.toString());
+        assertEquals(family, model.get("family").getAsString(), modelPath.toString());
+        assertFalse(model.has("parent"), "exposure model must supply its own cube: " + modelPath);
+        JsonArray elements = model.getAsJsonArray("elements");
+        assertEquals(1, elements.size(), modelPath.toString());
+        JsonObject cube = elements.get(0).getAsJsonObject();
+        assertEquals(Set.of("from", "to", "faces"), cube.keySet(), modelPath.toString());
+        assertEquals(List.of(0, 0, 0), cube.getAsJsonArray("from").asList().stream()
+                .map(JsonElement::getAsInt).toList(), modelPath.toString());
+        assertEquals(List.of(16, 16, 16), cube.getAsJsonArray("to").asList().stream()
+                .map(JsonElement::getAsInt).toList(), modelPath.toString());
+        JsonObject faces = cube.getAsJsonObject("faces");
+        assertEquals(FACES, faces.keySet(), modelPath.toString());
+        for (String face : FACES) {
+            JsonObject faceModel = faces.getAsJsonObject(face);
+            assertEquals(Set.of("texture", "cullface"), faceModel.keySet(), modelPath + " " + face);
+            assertEquals("#" + face, faceModel.get("texture").getAsString(), modelPath + " " + face);
+            assertEquals(face, faceModel.get("cullface").getAsString(), modelPath + " " + face);
         }
+
+        JsonObject textures = model.getAsJsonObject("textures");
+        assertEquals(1 + EXPOSURE_ROLES.size() * 3 * FACES.size(), textures.size(), modelPath.toString());
+        assertEquals(exposureTextureRef(blockId, "original", 0, "south"),
+                textures.get("particle").getAsString(), modelPath.toString());
+        for (int roleIndex = 0; roleIndex < EXPOSURE_ROLES.size(); roleIndex++) {
+            String role = EXPOSURE_ROLES.get(roleIndex);
+            for (int variant = 0; variant < 3; variant++) {
+                Map<String, String> faceHashes = new java.util.HashMap<>();
+                for (String face : FACES) {
+                    String slot = "slot" + (roleIndex * 3 + variant) + "_" + face;
+                    String expected = exposureTextureRef(blockId, role, variant, face);
+                    assertEquals(expected, textures.get(slot).getAsString(), modelPath + " " + slot);
+                    Path texturePath = ASSET_ROOT.resolve("textures/block/exposure/" + blockId + "/"
+                            + role + "_" + variant + "_" + face + ".png");
+                    assertFinalTexture(texturePath);
+                    faceHashes.put(face, sha256(texturePath));
+                }
+                assertAllFaceReuseContract(host, faceHashes, modelPath);
+            }
+        }
+    }
+
+    private static String exposureTextureRef(String blockId, String role, int variant, String face) {
+        return "better_ore_geology:block/exposure/" + blockId + "/" + role + "_" + variant + "_" + face;
     }
 
     private static void assertItemUsesCanonicalModel(String blockId) {

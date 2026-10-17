@@ -160,7 +160,7 @@
     "home_count": 2,
     "echo_rarity": 12,
     "baseline_supply": 18,
-    "biomes": "#twilightforest:in_twilight_forest",
+    "biomes": "#better_ore_geology:twilight_biomes",
     "targets": [
       {
         "tag": "minecraft:stone_ore_replaceables",

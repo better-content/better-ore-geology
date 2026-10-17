@@ -1,0 +1,13 @@
+{
+  "family": "copper_bloom",
+  "variant": 0,
+  "role": "quiet",
+  "source": "/home/dev/.local/share/codex-adhoc/generated_images/01a14718-a22c-7551-9bae-f1499618c0b2/exec-9bc230b7-47b3-48a0-83b3-fc8f4480b348.png",
+  "master": "masters/copper_bloom/variant_0.png",
+  "prompt": "Use case: stylized-concept\nAsset type: ONE SQUARE transparent Minecraft mineral overlay authored as coarse LOGICAL 16x16 pixel art.\nPrimary request: Copper Bloom QUIET variant, a short natural gray-olive sulfide exposure on one fracture tip. Draw ONE solid connected stepped formation of eight to ten large square logical cells, each about 1/16 canvas width: a 2-cell-thick, 4-cell-long irregular bend, with one slightly offset terminal cell. This is a partial mineralized fracture, not a centered nugget or complete vein network.\nScene/backdrop: genuine alpha-zero transparency on almost the entire square; only the mineral formation has color. No rendered host rock, matte, checkerboard, shadow or glow.\nStyle/medium: Minecraft Java 16x16 hard square pixel clusters at high resolution, crisp flat cells, no subpixel scratches, no hairlines, no antialiasing.\nComposition/framing: The grouped sulfide cells are opaque and MUST remain a connected 6\u201310-cell physical shape when sampled at exact centers of a 16x16 grid. Put it off-center, with no edge contact required and broad clear space all around. The formation covers only about 3\u20135% of the block. Do not make the cells smaller to signify subtlety; quietness comes from limited area and close medium colors.\nMaterials/textures: two close muted gray-olive sulfide values around #797c69 and #8a876e within the connected formation; at most one subdued oxidation cell attached to it. No saturated yellow or green, no high-contrast border, no white quartz.\nConstraints: exactly one 1:1 PNG at least 1024x1024, hard-edged mostly opaque mineral pixels, true transparent alpha outside, no cropping/rescaling, no stone/deepslate, text, watermark or panel.\nAvoid: 1\u20133 pixel speck, thin diagonal scratch, disconnected confetti, bright brass, turquoise, green dots, full stockwork, X, outline rails, glow, gradient, smooth painting.",
+  "generated_utc": "2026-10-17T01:06:57.956Z",
+  "disposition": "Retained unchanged as first pattern within category; active human review",
+  "category": "quiet",
+  "retained_from": "/home/dev/workspace_artifacts/reviews/clearer-ore-hybrid-20261017T005119Z/masters/copper_bloom/variant_0.png",
+  "retained_previous_slot": 0
+}

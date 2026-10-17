@@ -66,7 +66,7 @@ final class GeologicalWorldgenResourceTest {
                 String name = path.getFileName().toString();
                 String biomes = read(path).get("biomes").getAsString();
                 if (name.equals("add_ironstone_aether.json")) {
-                    assertEquals("#aether:is_aether", biomes);
+                    assertEquals("#better_ore_geology:aether_biomes", biomes);
                 } else if (name.startsWith("add_fallout_")) {
                     assertEquals("#better_ore_geology:fallout_wasteland", biomes);
                 } else if (name.equals("add_twilight_gold_home.json")
@@ -75,7 +75,7 @@ final class GeologicalWorldgenResourceTest {
                         || name.equals("add_coal_measures_twilight.json")
                         || name.equals("add_ironstone_twilight.json")
                         || name.equals("add_copper_bloom_twilight.json")) {
-                    assertEquals("#twilightforest:in_twilight_forest", biomes);
+                    assertEquals("#better_ore_geology:twilight_biomes", biomes);
                 } else {
                     assertEquals("#minecraft:is_overworld", biomes, path.toString());
                 }
@@ -143,10 +143,13 @@ final class GeologicalWorldgenResourceTest {
                 "fallout_wastelands_:wasteland_dryland", "fallout_wastelands_:wasteland_plains",
                 "fallout_wastelands_:wasteland_sea"),
                 falloutBiomes.getAsJsonArray("values").asList().stream()
-                        .map(value -> value.getAsString()).collect(Collectors.toSet()));
+                        .map(value -> value.getAsJsonObject().get("id").getAsString()).collect(Collectors.toSet()));
+        falloutBiomes.getAsJsonArray("values").forEach(value ->
+                assertFalse(value.getAsJsonObject().get("required").getAsBoolean()));
         JsonObject falloutHost = read(DATA.resolve("tags/blocks/fallout_wasteland_stone.json"));
         assertEquals("fallout_wastelands_:wasteland_stone",
-                falloutHost.getAsJsonArray("values").get(0).getAsString());
+                falloutHost.getAsJsonArray("values").get(0).getAsJsonObject().get("id").getAsString());
+        assertFalse(falloutHost.getAsJsonArray("values").get(0).getAsJsonObject().get("required").getAsBoolean());
 
         JsonObject falloutDisabled = read(DATA.resolve("disabled_placed_features/fallout_wasteland.json"));
         assertEquals("#better_ore_geology:fallout_wasteland", falloutDisabled.get("biomes").getAsString());
@@ -175,9 +178,24 @@ final class GeologicalWorldgenResourceTest {
         assertFalse(falloutDisabledIds.contains("fallout_wastelands_:wasteland_aluminum_ore"));
 
         JsonObject goldDisabled = read(DATA.resolve("disabled_placed_features/twilight_gold.json"));
-        assertEquals("#twilightforest:in_twilight_forest", goldDisabled.get("biomes").getAsString());
+        assertEquals("#better_ore_geology:twilight_biomes", goldDisabled.get("biomes").getAsString());
         assertEquals("twilightforest:legacy_gold_ore",
                 goldDisabled.getAsJsonArray("features").get(0).getAsString());
+    }
+
+    @Test void optionalDimensionBiomeWrappersContainOnlyTheOptionalProviderTag() {
+        for (var entry : java.util.Map.of(
+                "aether_biomes", "#aether:is_aether",
+                "twilight_biomes", "#twilightforest:in_twilight_forest").entrySet()) {
+            JsonObject wrapper = read(DATA.resolve("tags/worldgen/biome/" + entry.getKey() + ".json"));
+            assertFalse(wrapper.get("replace").getAsBoolean());
+            var values = wrapper.getAsJsonArray("values");
+            assertEquals(1, values.size(), "Wrapper must preserve exactly the provider's membership");
+            JsonObject reference = values.get(0).getAsJsonObject();
+            assertEquals(entry.getValue(), reference.get("id").getAsString());
+            assertFalse(reference.get("required").getAsBoolean(),
+                    "Absent provider must leave a bound empty wrapper instead of an undefined selector");
+        }
     }
 
     private static void assertDimensionDeposit(String feature, String family, String morphology) {

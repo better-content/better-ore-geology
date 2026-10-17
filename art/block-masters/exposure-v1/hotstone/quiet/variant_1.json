@@ -1,0 +1,10 @@
+{
+  "family": "hotstone",
+  "category": "quiet",
+  "variant": 1,
+  "source": "/home/dev/.local/share/codex-adhoc/generated_images/01a14718-a22c-7551-9bae-f1499618c0b2/exec-07c162e9-6fe3-4553-9828-3927ae9a80d6.png",
+  "master": "masters/hotstone/quiet/variant_1.png",
+  "prompt": "Use case: stylized-concept\nAsset type: ONE square transparent Minecraft pixel-art mineral overlay.\nPrimary request: Hotstone QUIET independent variant 1, one compact angular hydrothermal breccia-matrix CORNER. Three coarse square gray-brown mineral cells form the short upper side and three form a short side descending one logical row; a small clear notch at the inside corner suggests an angular host clast. This is one small local rock fragment, not a winding fissure.\nBackground: true alpha-zero RGBA transparency outside the mineral.\nStyle: hard opaque logical16x16 square pixels, each about1/16 canvas width, flat close medium earth values.\nComposition: connected shape around7–12 center-sampled cells, >=4 connected, width and height no more than four logical cells, off-center with vast clear area. Different from retained0 and sibling2 through its single L-corner shape.\nColor: gray-brown #7c7471 and #8c7971, at most one dull rust #896f66 cell. No orange, glow or black outline.\nConstraints: one square>=1024x1024 PNG, transparent mineral-only, no host, checkerboard, panel or text.\nAvoid: long diagonal route, crack web, lava, star, gradient, shadow.",
+  "generated_utc": "2026-10-17T01:51:41.800Z",
+  "disposition": "genuine structural retry for partial clast-margin role"
+}

@@ -34,6 +34,14 @@ java {
 
 mixin { config("better_ore_geology.mixins.json") }
 
+// Native review fixture is never included in the production JAR.
+val exposureHarness by sourceSets.creating {
+    compileClasspath += sourceSets.main.get().output + sourceSets.main.get().compileClasspath
+    runtimeClasspath += sourceSets.main.get().output
+}
+configurations[exposureHarness.implementationConfigurationName].extendsFrom(configurations.implementation.get())
+configurations[exposureHarness.runtimeOnlyConfigurationName].extendsFrom(configurations.runtimeOnly.get())
+
 minecraft {
     mappings("official", minecraftVersion)
 
@@ -49,15 +57,30 @@ minecraft {
             }
         }
 
-        create("client") {
+        val baseClient = create("client") {
             property("forge.enabledGameTestNamespaces", modId)
         }
 
-        create("server") {
+        val baseServer = create("server") {
             property("forge.enabledGameTestNamespaces", modId)
             arg("--nogui")
         }
 
+        create("exposureServer") {
+            parent(baseServer)
+            workingDirectory(project.file("run-exposure/server"))
+            property("better_ore_geology.exposureProbe", "true")
+            jvmArgs("-Xmx3G", "-XX:ActiveProcessorCount=4")
+            arg("--nogui")
+            mods { create("better_ore_exposure_probe") { source(exposureHarness) } }
+        }
+        create("exposureClient") {
+            parent(baseClient)
+            workingDirectory(project.file("run-exposure/client"))
+            jvmArgs("-Xmx4G", "-XX:ActiveProcessorCount=4")
+            args("--quickPlayMultiplayer", "127.0.0.1:25585", "--width", "1280", "--height", "900")
+            mods { create("better_ore_exposure_probe") { source(exposureHarness) } }
+        }
         create("data") {
             args(
                 "--mod", modId,
@@ -77,6 +100,11 @@ dependencies {
     minecraft("net.minecraftforge:forge:$minecraftVersion-$forgeVersion")
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
     compileOnly(fg.deobf("curse.maven:excavated-variants-577411:5166315"))
+    compileOnly(fg.deobf("curse.maven:dynamic-asset-generator-577096:5008421"))
+    add(exposureHarness.implementationConfigurationName, fg.deobf("curse.maven:excavated-variants-577411:5166315"))
+    add(exposureHarness.implementationConfigurationName, fg.deobf("curse.maven:dynamic-asset-generator-577096:5008421"))
+    add(exposureHarness.runtimeOnlyConfigurationName, fg.deobf("curse.maven:unearthed-406825:7742307"))
+    add(exposureHarness.runtimeOnlyConfigurationName, fg.deobf("curse.maven:hyle-609850:7736352"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
     testImplementation("com.google.code.gson:gson:2.10.1")
 }
@@ -97,6 +125,50 @@ tasks.processResources {
 
 tasks.withType<JavaCompile>().configureEach {
     options.release.set(17)
+}
+
+tasks.register("prepareExposureLaunch") {
+    group = "verification"
+    description = "Prepares nonshipping native probes and exports direct Java launches (no concurrent Gradle runtimes)."
+    dependsOn("prepareRunExposureServer", "prepareRunExposureClient", "prepareRunServer", "prepareRunClient", "exposureHarnessClasses")
+    doLast {
+        for (side in listOf("Server", "Client", "StandaloneServer", "StandaloneClient")) {
+            val baseSide = side.removePrefix("Standalone")
+            val taskName = if (side.startsWith("Standalone")) "run$baseSide" else "runExposure$side"
+            val run = tasks.named<JavaExec>(taskName).get()
+            // ForgeGradle assembles JavaExec inputs only inside exec(); use its pinned token resolver
+            // to export the same launch without holding a Gradle invocation open beside Minecraft.
+            val generator = net.minecraftforge.gradle.common.util.runs.RunConfigGenerator::class.java
+            fun resolve(name: String, vararg arguments: Any): Any {
+                val method = generator.declaredMethods.single { it.name == name && it.parameterCount == arguments.size }
+                method.isAccessible = true
+                return requireNotNull(method.invoke(null, *arguments))
+            }
+            val config = (run.javaClass.getMethod("getRunConfig").invoke(run)
+                as org.gradle.api.provider.Property<net.minecraftforge.gradle.common.util.RunConfig>).get()
+            if (config.main == null) config.mergeParents()
+            check(config.main != null) { "Missing native main for ${config.name}; parents=${config.parents.map { it.name + ":" + it.main }}; base=${minecraft.runs.getByName(baseSide.lowercase()).main}" }
+            val tokens = resolve("configureTokensLazy", project, config,
+                resolve("mapModClassesToGradle", project, config),
+                resolve("getMinecraftArtifacts", project), resolve("getRuntimeClasspathArtifacts", project)) as Map<String, *>
+            val gameArgs = (resolve("getArgsStream", config, tokens, false) as java.util.stream.Stream<*>).map { it.toString() }.toList()
+            val additional = if (side.endsWith("Client")) {
+                val getter = run.javaClass.getMethod("getAdditionalClientArgs")
+                (getter.invoke(run) as org.gradle.api.provider.ListProperty<*>).get().map { config.replace(tokens, it.toString()) }
+            } else emptyList()
+            val properties = config.properties.map { (name, value) -> "-D$name=${config.replace(tokens, value)}" }
+            val classpath = files(config.allSources.map { it.runtimeClasspath }).asPath
+            val command = listOf(run.javaLauncher.get().executablePath.asFile.absolutePath) +
+                run.allJvmArgs + config.jvmArgs.map { config.replace(tokens, it) } + additional + properties +
+                listOf("-cp", classpath, config.main) + gameArgs
+            val output = layout.buildDirectory.file("exposure-launch/${side.lowercase()}.json").get().asFile
+            output.parentFile.mkdirs()
+            output.writeText(groovy.json.JsonOutput.toJson(mapOf(
+                "command" to command, "cwd" to config.workingDirectory,
+                "environment" to config.environment.mapValues { config.replace(tokens, it.value) }
+            )))
+        }
+    }
 }
 
 tasks.named<Jar>("jar") {
@@ -165,6 +237,37 @@ val verifyBlockMasters by tasks.registering(Exec::class) {
     )
 }
 
+val verifyExposureMasters by tasks.registering(Exec::class) {
+    group = "verification"
+    description = "Validates all 96 approved independent exposure masters."
+    commandLine(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(17)) }
+        .get().executablePath.asFile.absolutePath, "tools/GenerateDepositTextures.java", "--validate-exposure-masters")
+}
+
+val verifyExposureResources by tasks.registering(Exec::class) {
+    group = "verification"
+    description = "Rejects drift in native exposure blockstates and models."
+    commandLine("python3", "-B", "tools/generate_exposure_models.py", "--check")
+}
+
+val verifyWorldgenGenerator by tasks.registering(Exec::class) {
+    group = "verification"
+    description = "Tests worldgen output ownership and optional-biome selector equivalence."
+    commandLine("python3", "-B", "tools/test_generate_geological_worldgen.py")
+}
+
+val verifyExposureDiagnostics by tasks.registering(Exec::class) {
+    group = "verification"
+    description = "Tests strict isolated-native diagnostic classification and rejection boundaries."
+    commandLine("python3", "-B", "tools/test_exposure_diagnostics.py")
+}
+
+val verifyOptionalData by tasks.registering(Exec::class) {
+    group = "verification"
+    description = "Rejects drift in optional-mod recipe and tag guards."
+    commandLine("python3", "-B", "tools/generate_phase3_resources.py", "--check-optional-data")
+}
+
 val verifyBlockTextures by tasks.registering(Exec::class) {
     group = "verification"
     description = "Verifies all shipped block textures against the approved geology-v7 masters."
@@ -184,6 +287,7 @@ tasks.register("verifyFull") {
     dependsOn(verifyItemTextures)
     dependsOn(verifyBlockMasters)
     dependsOn(verifyBlockTextures)
+    dependsOn(verifyExposureMasters, verifyExposureResources, verifyOptionalData, verifyExposureDiagnostics, verifyWorldgenGenerator)
 }
 
 jacoco {
@@ -194,7 +298,10 @@ val coveredModelClasses = listOf(
     "com.bettercontent.betteroregeology.ore.OreDefinition",
     "com.bettercontent.betteroregeology.ore.OreDefinition\$VariantDefinition",
     "com.bettercontent.betteroregeology.ore.OreDefinition\$TextureMode",
-    "com.bettercontent.betteroregeology.ore.DisabledFeaturesDefinition"
+    "com.bettercontent.betteroregeology.ore.DisabledFeaturesDefinition",
+    "com.bettercontent.betteroregeology.visual.ExposureField",
+    "com.bettercontent.betteroregeology.compat.exposure.ExcavatedExposureModels",
+    "com.bettercontent.betteroregeology.compat.exposure.ExposureComposite"
 )
 val coveredModelFiles = sourceSets.main.get().output.classesDirs.asFileTree.matching {
     include(coveredModelClasses.map { it.replace('.', '/') + ".class" })

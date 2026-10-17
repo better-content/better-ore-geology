@@ -1,0 +1,9 @@
+{
+  "family": "black_shale",
+  "category": "original",
+  "variant": 2,
+  "retained_from": "/home/dev/mod_source/better-ore-geology/art/block-masters/geology-v7/black_shale/variant_2.png",
+  "provenance": "Existing tracked accepted geology-v7 source master; no new generation in this task",
+  "generation_prompt": "UNKNOWN: not reconstructed from the texture",
+  "sha256": "e08615a85ea7ef9493aa7e000f776da611ae940e09e2857ffd91f40dc025ed8b"
+}

@@ -1,0 +1,9 @@
+{
+  "family": "tin_quartz",
+  "category": "original",
+  "variant": 0,
+  "retained_from": "/home/dev/mod_source/better-ore-geology/art/block-masters/geology-v7/tin_quartz/variant_0.png",
+  "provenance": "Existing tracked accepted geology-v7 source master; no new generation in this task",
+  "generation_prompt": "UNKNOWN: not reconstructed from the texture",
+  "sha256": "572246eb72e778e97274fb594be51d8ac022ac8e33cfba4c870fa26242a87e56"
+}

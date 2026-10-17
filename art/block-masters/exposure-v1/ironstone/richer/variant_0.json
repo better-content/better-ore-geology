@@ -1,0 +1,13 @@
+{
+  "family": "ironstone",
+  "variant": 0,
+  "role": "RICHER",
+  "source": "/home/dev/.local/share/codex-adhoc/generated_images/01a14718-a22c-7551-9bae-f1499618c0b2/exec-1ecabf5f-5000-4854-9bfa-9b3b8edd83e4.png",
+  "master": "masters/ironstone/variant_2.png",
+  "prompt": "Use case: stylized-concept\nAsset type: ONE standalone square transparent mineral-overlay master for reduction to a 16x16 Minecraft ore-block texture.\nPrimary request: Ironstone, variant 2, RICHER deposit role. One modest flattened interrupted oolitic lens in the lower half and one tiny nearby satellite pocket; much clear host space. Geology: oolitic ironstone in discontinuous sedimentary lenses. This is one incidental small window into a larger deposit; family identity emerges across many varied blocks in a patch.\nScene/backdrop: genuine transparent RGBA; every region outside actual mineral clusters alpha zero. No rendered stone, deepslate, matte, checkerboard or scene.\nStyle/medium: intentional Minecraft Java 16x16-style square pixel clusters authored at high resolution, hard crisp stepped edges, a few flat medium values, no soft painting.\nComposition/framing: LOCALLY richer but modest: target 25\u201345 visible pixels of 256 after reduction, one partial main exposure and at most one sparse associated trace occupying roughly 10\u201318% of the face. Broad clear gaps. Do not show an entire seam, network, geological diagram, or standalone composition in this block.\nMaterials/textures: medium gray-brown, subdued ochre and muted rust; small darker oolitic grains, no strong orange. Mostly opaque mineral cluster pixels in medium values close to stone, restrained local contrast. No blanket opacity fade; no dark outlining, highlight rails or raised/carved relief.\nConstraints: exactly one 1:1 square PNG at least 1024x1024 with real transparent alpha; one mineral overlay only; no host pixels; no frame, panel, text, label or watermark.\nAvoid: orange blobs, coins, bars, metallic outlines; whole-face composition, complete repeated structures, decorative speckles, drawn checkerboard, gray/color backdrop, haze, vignette, shadow, glow, gradients, antialiasing, smooth painting, photorealism.",
+  "generated_utc": "2026-10-17T00:27:44.421Z",
+  "disposition": "Retained unchanged as first pattern within category; active human review",
+  "category": "richer",
+  "retained_from": "/home/dev/workspace_artifacts/reviews/clearer-ore-hybrid-20261017T005119Z/masters/ironstone/variant_2.png",
+  "retained_previous_slot": 2
+}

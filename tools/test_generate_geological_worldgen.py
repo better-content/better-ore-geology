@@ -20,6 +20,43 @@ class GeologicalWorldgenGeneratorTest(unittest.TestCase):
         owned = json.loads(GENERATOR.OWNERSHIP.read_text(encoding="utf-8"))
         self.assertEqual(sorted(manifest), owned)
 
+    def test_optional_biome_boundary_regeneration_preserves_selectors_and_membership(self):
+        Path.home().joinpath(".tmp").mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=Path.home() / ".tmp") as temporary:
+            data = Path(temporary) / "data"
+            before = {}
+            for relative in GENERATOR.OPTIONAL_BIOME_SELECTORS:
+                path = data / relative
+                original = json.loads((GENERATOR.DATA / relative).read_text())
+                provider = "#aether:is_aether" if "aether" in relative else "#twilightforest:in_twilight_forest"
+                original["biomes"] = provider
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(json.dumps(original))
+                before[relative] = original
+            unowned = data / "forge/biome_modifier/custom.json"
+            unowned.write_text('{"biomes":"#aether:is_aether","keep":true}')
+            with patch.object(GENERATOR, "DATA", data):
+                GENERATOR.generate_optional_biome_boundaries()
+            self.assertEqual('{"biomes":"#aether:is_aether","keep":true}', unowned.read_text())
+            for relative, original in before.items():
+                expected = dict(original, biomes=GENERATOR.optional_biome_selector(original["biomes"]))
+                self.assertEqual(expected, json.loads((data / relative).read_text()))
+            first = {str(path.relative_to(data)): path.read_bytes() for path in data.rglob("*.json")}
+            with patch.object(GENERATOR, "DATA", data):
+                GENERATOR.generate_optional_biome_boundaries()
+            self.assertEqual(first, {str(path.relative_to(data)): path.read_bytes() for path in data.rglob("*.json")})
+            for name, provider in GENERATOR.OPTIONAL_BIOME_TAGS.items():
+                wrapper = json.loads((data / f"tags/worldgen/biome/{name}.json").read_text())
+                self.assertEqual({"replace": False, "values": [{"id": "#" + provider, "required": False}]}, wrapper)
+                # A single optional nested tag has exactly its provider's membership,
+                # including a present empty tag; an absent provider binds to empty.
+                for members in [set(), {"test:first_biome", "test:second_biome"}]:
+                    present = {provider: members}
+                    resolved = set().union(*(present.get(entry["id"][1:], set()) for entry in wrapper["values"]))
+                    self.assertEqual(members, resolved)
+                absent = {}
+                self.assertEqual(set(), set().union(*(absent.get(entry["id"][1:], set()) for entry in wrapper["values"])))
+
     def test_regeneration_preserves_unowned_resources(self):
         Path.home().joinpath(".tmp").mkdir(parents=True, exist_ok=True)
         with tempfile.TemporaryDirectory(dir=Path.home() / ".tmp") as temporary:

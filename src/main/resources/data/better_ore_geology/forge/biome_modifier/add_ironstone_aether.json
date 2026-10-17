@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "#aether:is_aether",
+  "biomes": "#better_ore_geology:aether_biomes",
   "features": "better_ore_geology:ironstone_aether",
   "step": "underground_ores"
 }

@@ -1,7 +1,13 @@
 {
   "replace": false,
   "values": [
-    "chemlib:uranium_ingot",
-    "chemlib:uranium_nugget"
+    {
+      "id": "chemlib:uranium_ingot",
+      "required": false
+    },
+    {
+      "id": "chemlib:uranium_nugget",
+      "required": false
+    }
   ]
 }
