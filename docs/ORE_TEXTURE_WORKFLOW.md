@@ -341,8 +341,9 @@ each family and variant; do not generate an atlas.
    a mapping of family, variant, tab ID, pane ID, and absolute image path. Do not substitute one
    tiny overview for per-texture inspection. During the active review, identify the mapping in
    a concise task-local README/checksum manifest; no historical bundle is a standing dependency.
-   After promoting only approved current authored inputs, dispose of review candidates, sheets
-   and manifests at handoff under the [shared policy](../../../better-content-modpack/docs/policies/generated-data.md).
+   After promoting only approved current authored inputs, retain review candidates, sheets
+   and manifests across handoffs by default under the [shared retention policy](../../../better-content-modpack/docs/policies/generated-data.md).
+   Finishing activity deletes nothing; purge is separately gated.
    Do not add a historical retention catalog to `workspace_artifacts/README.md`.
 
    For checksums during the active review:
