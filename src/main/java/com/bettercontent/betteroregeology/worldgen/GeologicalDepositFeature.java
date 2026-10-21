@@ -1,6 +1,8 @@
 package com.bettercontent.betteroregeology.worldgen;
 
 import com.mojang.serialization.Codec;
+import com.bettercontent.betteroregeology.diagnostics.PlaytestDiagnostics;
+import com.bettercontent.betteroregeology.diagnostics.PlaytestLog;
 import com.bettercontent.betteroregeology.visual.ExposureField;
 import com.bettercontent.betteroregeology.visual.ExposureState;
 import java.util.function.Function;
@@ -25,24 +27,32 @@ public final class GeologicalDepositFeature extends Feature<GeologicalOreConfigu
         BlockPos origin = context.origin();
         int budget = new DepositBudget(config.blockBudget(), config.budgetSpread()).sample(random);
         long occurrenceSalt = random.nextLong();
-        int placed = 0;
+        int placed = 0, candidates = 0, unavailable = 0, nativeReturnsTrue = 0;
 
         DepositSampleContext sampleContext = new DepositSampleContext(
                 level.getSeed(), origin, occurrenceSalt, budget, config.depositClass());
         int style = ExposureField.style(config.morphology().structuralStrike(sampleContext), occurrenceSalt);
         for (BlockPos offset : config.morphology().sample(sampleContext)) {
             BlockPos pos = origin.offset(offset);
-            if (level.isOutsideBuildHeight(pos) || !level.ensureCanWrite(pos)) continue;
+            candidates++;
+            if (level.isOutsideBuildHeight(pos) || !level.ensureCanWrite(pos)) { unavailable++; continue; }
             BlockState current = level.getBlockState(pos);
             for (OreConfiguration.TargetBlockState target : config.targets()) {
                 if (canPlace(current, level::getBlockState, random, target, pos, config.discardChanceOnAirExposure())) {
                     BlockState state = target.state.hasProperty(ExposureState.STYLE)
                             ? target.state.setValue(ExposureState.STYLE, style) : target.state;
-                    level.setBlock(pos, state, 2);
+                    if (level.setBlock(pos, state, 2)) nativeReturnsTrue++;
                     placed++;
                     break;
                 }
             }
+        }
+        var log = PlaytestDiagnostics.LOG;
+        if (log.enabled("worldgen")) {
+            final int calls = placed, candidateCount = candidates, unavailableCount = unavailable, returnedTrue = nativeReturnsTrue;
+            log.event("worldgen", "geology.occurrence", "server", calls > 0 ? "observed" : "rejected",
+                calls > 0 ? "native_placement_calls" : "no_placement", () -> PlaytestLog.fields("deposit_class", config.depositClass(), "budget", budget) +
+                    com.bettercontent.betteroregeology.diagnostics.FeatureObservation.fields(candidateCount, unavailableCount, calls, returnedTrue));
         }
         return placed > 0;
     }

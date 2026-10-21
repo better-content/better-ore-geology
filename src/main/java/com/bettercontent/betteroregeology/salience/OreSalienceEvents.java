@@ -1,6 +1,8 @@
 package com.bettercontent.betteroregeology.salience;
 
 import com.bettercontent.betteroregeology.RealisticOresMod;
+import com.bettercontent.betteroregeology.diagnostics.PlaytestDiagnostics;
+import com.bettercontent.betteroregeology.diagnostics.PlaytestLog;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
@@ -47,5 +49,9 @@ public final class OreSalienceEvents {
         player.getPersistentData().put(Player.PERSISTED_NBT_TAG, persistent);
         player.connection.send(new ClientboundSoundPacket(Holder.direct(ModSounds.get(identity)), SoundSource.BLOCKS,
                 x, y, z, .18f, 1.0f, player.getRandom().nextLong()));
+        if (PlaytestDiagnostics.LOG.enabled("salience")) PlaytestDiagnostics.LOG.debug("salience", "geology.cue",
+            PlaytestLog.Context.server(player.serverLevel().dimension().location().toString(), player.serverLevel().getGameTime()),
+            "dispatched", "miner_packet_sent", () -> PlaytestLog.fields("family", identity.family(), "cue", identity.name(),
+                "client_playback", "not_observed"));
     }
 }

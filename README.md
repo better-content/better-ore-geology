@@ -1,5 +1,22 @@
 # Better Ore Geology
 
+## Playtest diagnostics
+
+`bc.playtest.better_ore_geology.worldgen` aggregates candidates, bounds/write vetoes,
+host-or-exposure vetoes, placement calls and native returned-true counts per occurrence.
+The existing sampler, target short-circuit checks and RNG sequence are unchanged; no
+seed/salt or per-block details are logged. `salience` reports only the native miner sound
+packet dispatch after the existing operation; packet send is not observed hearing or
+client playback. No player names, inventories or NBT are emitted.
+
+INFO startup supplies enabled/version/EV presence and exact own-artifact source metadata
+when available (UNKNOWN otherwise). The repository-local Java17 helper shares120 DEBUG/
+TRACE details/minute, burst20,256 keys and2048-character records. Native END ticks summarize
+30-second windows; server stop clears aggregation without rearming TRACE or the bucket.
+Standalone remains native INFO; pack profile chooses scoped DEBUG/`bc.playtest.level`.
+Common six-case and placement-call-versus-native-return projection tests run alongside
+existing deterministic/resource/source gates. Logging is not rendering/worldgen acceptance.
+
 ## Scope and authority
 
 This repository owns its mod-specific behavior and authoring inputs. Read [local instructions](AGENTS.md)
