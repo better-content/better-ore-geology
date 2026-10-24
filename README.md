@@ -17,11 +17,7 @@ Standalone remains native INFO; pack profile chooses scoped DEBUG/`bc.playtest.l
 Common six-case and placement-call-versus-native-return projection tests run alongside
 existing deterministic/resource/source gates. Logging is not rendering/worldgen acceptance.
 
-## Scope and authority
-
-This repository owns its mod-specific behavior and authoring inputs. Read [local instructions](AGENTS.md)
-and the [shared documentation/policy index](../../better-content-modpack/docs/README.md).
-
+## Scope
 
 Pack-owned ore and deposit support mod for Forge `1.20.1`.
 

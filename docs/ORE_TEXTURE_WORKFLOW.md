@@ -203,9 +203,6 @@ java -version
 git status --short
 ```
 
-Stop if `git status --short` reports work that is not yours. Read the workspace and repository
-`AGENTS.md` files, inspect current agent claims, and coordinate before overlapping another change.
-Do not mutate the modpack as part of this source-art workflow.
 
 ### A. Reproduce the approved textures exactly
 
@@ -341,10 +338,6 @@ each family and variant; do not generate an atlas.
    a mapping of family, variant, tab ID, pane ID, and absolute image path. Do not substitute one
    tiny overview for per-texture inspection. During the active review, identify the mapping in
    a concise task-local README/checksum manifest; no historical bundle is a standing dependency.
-   After promoting only approved current authored inputs, retain review candidates, sheets
-   and manifests across handoffs by default under the [shared retention policy](../../../better-content-modpack/docs/policies/generated-data.md).
-   Finishing activity deletes nothing; purge is separately gated.
-   Do not add a historical retention catalog to `workspace_artifacts/README.md`.
 
    For checksums during the active review:
 
@@ -398,30 +391,6 @@ each family and variant; do not generate an atlas.
     Do not update hashes simply to make a failing test green. Variants 1 and 2 are still fully
     protected by `--check` and the resource tests even though the JSON is a compact variant-0
     visual spot check.
-
-11. **Run the required source gate and commit only owned paths:**
-
-    ```sh
-    ./gradlew verifyFull --rerun-tasks
-    git diff --check
-    git status --short
-    git add docs/ORE_TEXTURE_WORKFLOW.md \
-      "art/block-masters/geology-v7/$FAMILY/variant_$VARIANT.png" \
-      src/main/resources/assets/better_ore_geology/textures/block \
-      src/test/resources/canonical_ore_texture_hashes.json
-    git diff --cached --stat
-    git commit -m "Refresh approved ore texture art"
-    git push
-    ```
-
-    Adjust the explicit `git add` list to the actually approved scope. Never use `git add -A` in a
-    shared workspace.
-
-12. **Keep deployment a separate authorization boundary.** A clean, pushed source commit is not a
-    modpack deployment. Change the modpack, deploy a JAR, run packwiz, or build a fresh distribution
-    only when the user explicitly orders that work and after coordinating a clean handoff. When a
-    fresh distribution is ordered, follow the modpack's documented `release.main.kts` workflow
-    instead of hand-copying one development artifact.
 
 ## Reduction and host compositing
 
