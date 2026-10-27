@@ -1,4 +1,5 @@
 import javax.xml.parsers.DocumentBuilderFactory
+import java.util.UUID
 
 plugins {
     jacoco
@@ -42,6 +43,15 @@ val exposureHarness by sourceSets.creating {
 configurations[exposureHarness.implementationConfigurationName].extendsFrom(configurations.implementation.get())
 configurations[exposureHarness.runtimeOnlyConfigurationName].extendsFrom(configurations.runtimeOnly.get())
 
+val gameTestFixtures by sourceSets.creating {
+    compileClasspath += sourceSets.main.get().output + sourceSets.main.get().compileClasspath
+    runtimeClasspath += sourceSets.main.get().output
+}
+configurations[gameTestFixtures.implementationConfigurationName].extendsFrom(configurations.implementation.get())
+configurations[gameTestFixtures.runtimeOnlyConfigurationName].extendsFrom(configurations.runtimeOnly.get())
+
+val sampleGameTestDirectory = layout.buildDirectory.dir("gametest/${UUID.randomUUID()}")
+
 minecraft {
     mappings("official", minecraftVersion)
 
@@ -64,6 +74,16 @@ minecraft {
         val baseServer = create("server") {
             property("forge.enabledGameTestNamespaces", modId)
             arg("--nogui")
+        }
+
+        create("gameTestServer") {
+            workingDirectory(sampleGameTestDirectory.get().asFile)
+            property("forge.enabledGameTestNamespaces", modId)
+            property("forge.enableGameTest", "true")
+            property("forge.gameTestServer", "true")
+            arg("--nogui")
+            jvmArgs("-Xmx2G", "-XX:ActiveProcessorCount=2")
+            mods { named(modId) { source(gameTestFixtures) } }
         }
 
         create("exposureServer") {
@@ -278,6 +298,24 @@ val verifyBlockTextures by tasks.registering(Exec::class) {
         "tools/GenerateDepositTextures.java",
         "--check"
     )
+}
+
+tasks.matching { it.name == "runGameTestServer" }.configureEach {
+    doFirst {
+        val directory = sampleGameTestDirectory.get().asFile
+        directory.mkdirs()
+        directory.resolve("server.properties").writeText("# Isolated surface sample fixture\n")
+        copy {
+            from("src/gameTestFixtures/resources/gameteststructures")
+            into(directory.resolve("gameteststructures"))
+        }
+    }
+    doLast {
+        val log = sampleGameTestDirectory.get().file("logs/latest.log").asFile.readText()
+        check(log.contains("All 1 required tests passed") && log.contains("1 GAME TESTS COMPLETE")) {
+            "Missing surface-sample native completion in ${sampleGameTestDirectory.get()}"
+        }
+    }
 }
 
 tasks.register("verifyFull") {
