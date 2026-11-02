@@ -119,6 +119,7 @@ sourceSets.main {
 dependencies {
     minecraft("net.minecraftforge:forge:$minecraftVersion-$forgeVersion")
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
+    compileOnly(fg.deobf("curse.maven:emi-580555:8081375"))
     compileOnly(fg.deobf("curse.maven:excavated-variants-577411:5166315"))
     compileOnly(fg.deobf("curse.maven:dynamic-asset-generator-577096:5008421"))
     add(exposureHarness.implementationConfigurationName, fg.deobf("curse.maven:excavated-variants-577411:5166315"))
