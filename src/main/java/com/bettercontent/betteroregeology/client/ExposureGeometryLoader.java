@@ -1,6 +1,7 @@
 package com.bettercontent.betteroregeology.client;
 
 import com.bettercontent.betteroregeology.visual.ExposureField;
+import com.bettercontent.betteroregeology.visual.ExposureState;
 import com.google.gson.*;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -36,7 +37,13 @@ public final class ExposureGeometryLoader implements IGeometryLoader<ExposureGeo
         Map<BakedModel, BakedModel> wrappers = new IdentityHashMap<>();
         event.getModels().replaceAll((location, model) -> {
             if (!(location instanceof ModelResourceLocation state)
-                    || !state.getVariant().contains("geological_style=")) return model;
+                    || !state.getNamespace().equals("excavated_variants")) return model;
+            // EV 3.0.9 emits blockstate keys "" (or facing/axis), not keys for
+            // properties copied from the source ore. The old style-key filter
+            // therefore never wrapped its generated weighted parent.
+            var block = net.minecraftforge.registries.ForgeRegistries.BLOCKS.getValue(
+                    new ResourceLocation(state.getNamespace(), state.getPath()));
+            if (block == null || ExposureState.family(block) == null) return model;
             return wrappers.computeIfAbsent(model, original -> new net.minecraftforge.client.model.BakedModelWrapper<BakedModel>(original) {
                 @Override public net.minecraftforge.client.model.data.ModelData getModelData(
                         net.minecraft.world.level.BlockAndTintGetter level, net.minecraft.core.BlockPos pos,
