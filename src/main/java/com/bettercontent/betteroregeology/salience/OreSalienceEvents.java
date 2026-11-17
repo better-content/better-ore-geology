@@ -36,7 +36,7 @@ public final class OreSalienceEvents {
         long now = System.currentTimeMillis();
         CompoundTag persistent = player.getPersistentData().getCompound(Player.PERSISTED_NBT_TAG);
         CompoundTag root = persistent.getCompound(ROOT_KEY);
-        String key = identity.name();
+        String key = identity.familiarityKey();
         FamiliarityState state = FamiliarityState.load(root.getCompound(key), now);
         if (!state.mayCue(now)) {
             root.put(key, state.save());
@@ -51,7 +51,7 @@ public final class OreSalienceEvents {
                 x, y, z, .18f, 1.0f, player.getRandom().nextLong()));
         if (PlaytestDiagnostics.LOG.enabled("salience")) PlaytestDiagnostics.LOG.debug("salience", "geology.cue",
             PlaytestLog.Context.server(player.serverLevel().dimension().location().toString(), player.serverLevel().getGameTime()),
-            "dispatched", "miner_packet_sent", () -> PlaytestLog.fields("family", identity.family(), "cue", identity.name(),
+            "dispatched", "miner_packet_sent", () -> PlaytestLog.fields("family", identity.family(), "cue", identity.aspect().name(),
                 "client_playback", "not_observed"));
     }
 }
