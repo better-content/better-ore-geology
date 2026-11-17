@@ -3,26 +3,33 @@ package com.bettercontent.betteroregeology.salience;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.Optional;
 
-/** The exact one-deposit-to-one-aspect identity contract. */
+/** Eight deposit families retain distinct extraction/material episodes; each cues one of five aspects. */
 public enum DepositIdentity {
-    IMPACT("hotstone"),
-    TEMPO("copper_bloom"),
-    WORK("tin_quartz"),
-    MOBILITY("brassroot"),
-    ENDURANCE("coal_measures"),
-    ROBUSTNESS("ironstone"),
-    RENEWAL("evaporite_beds"),
-    CONTROL("black_shale");
+    HOTSTONE("hotstone", SalienceAspect.POWER, "IMPACT"),
+    COPPER_BLOOM("copper_bloom", SalienceAspect.MOTION, "TEMPO"),
+    TIN_QUARTZ("tin_quartz", SalienceAspect.POWER, "WORK"),
+    BRASSROOT("brassroot", SalienceAspect.MOTION, "MOBILITY"),
+    COAL_MEASURES("coal_measures", SalienceAspect.ENDURANCE, "ENDURANCE"),
+    IRONSTONE("ironstone", SalienceAspect.ENDURANCE, "ROBUSTNESS"),
+    EVAPORITE_BEDS("evaporite_beds", SalienceAspect.RENEWAL, "RENEWAL"),
+    BLACK_SHALE("black_shale", SalienceAspect.CONTROL, "CONTROL");
 
     private final String family;
+    private final SalienceAspect aspect;
+    private final String familiarityKey;
 
-    DepositIdentity(String family) { this.family = family; }
+    DepositIdentity(String family, SalienceAspect aspect, String familiarityKey) {
+        this.family = family;
+        this.aspect = aspect;
+        this.familiarityKey = familiarityKey;
+    }
 
     public String family() { return family; }
-    public String soundPath() { return "aspect." + name().toLowerCase(Locale.ROOT); }
+    public SalienceAspect aspect() { return aspect; }
+    /** Keep the existing per-deposit cooldown key in player data; this is not an aspect ID. */
+    public String familiarityKey() { return familiarityKey; }
 
     public static Optional<DepositIdentity> fromBlockId(ResourceLocation id) {
         String path = id.getPath();
