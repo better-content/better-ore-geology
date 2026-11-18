@@ -7,7 +7,7 @@
     },
     {
       "type": "forge:mod_loaded",
-      "modid": "chemlib"
+      "modid": "bloodmagic"
     }
   ],
   "ingredients": [
@@ -25,7 +25,7 @@
       "count": 1
     },
     {
-      "item": "chemlib:sulfur",
+      "item": "bloodmagic:sulfur",
       "count": 2,
       "chance": 0.25
     },

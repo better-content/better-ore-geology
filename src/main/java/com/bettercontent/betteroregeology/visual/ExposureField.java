@@ -6,7 +6,9 @@ import java.util.List;
 public final class ExposureField {
     public static final List<String> FAMILIES = List.of("coal_measures", "ironstone", "copper_bloom",
             "tin_quartz", "brassroot", "evaporite_beds", "hotstone", "black_shale");
+    // Keep legacy quiet resource slots stable, but never select them for rendering.
     public static final List<String> ROLES = List.of("quiet", "fragment", "richer", "original");
+    public static final int MIN_VISIBLE_ROLE = 1; // fragment
     private ExposureField() {}
 
     public static long mix(long value) {
@@ -53,7 +55,7 @@ public final class ExposureField {
             case "black_shale" -> 0.78 * (1 - Math.abs(Math.sin(y * 1.87 + v * 0.27 + 0.3 * Math.sin(u * 0.31) + phase))) + 0.22 * pocket;
             default -> throw new IllegalArgumentException("Unknown deposit family " + family);
         };
-        return strength >= 0.94 ? 3 : strength >= 0.79 ? 2 : strength >= 0.60 ? 1 : 0;
+        return strength >= 0.94 ? 3 : strength >= 0.79 ? 2 : MIN_VISIBLE_ROLE;
     }
 
     /** Independent pattern identities per role and geological patch, not per-block noise. */

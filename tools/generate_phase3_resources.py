@@ -29,32 +29,32 @@ FAMILIES = [
 MATERIALS = {
     "coal": ("bulk", "minecraft:coal", None, None),
     "iron": ("metal", "minecraft:iron_ingot", "minecraft:iron_nugget", "forge:molten_iron"),
-    "nickel": ("metal", "chemlib:nickel_ingot", "chemlib:nickel_nugget", "forge:molten_nickel"),
+    "nickel": ("metal", None, None, "forge:molten_nickel"),
     "copper": ("metal", "minecraft:copper_ingot", "tconstruct:copper_nugget", "forge:molten_copper"),
-    "sulfur": ("bulk", "chemlib:sulfur", None, None),
+    "sulfur": ("bulk", "bloodmagic:sulfur", None, None),
     "gold": ("metal", "minecraft:gold_ingot", "minecraft:gold_nugget", "forge:molten_gold"),
-    "tin": ("metal", "chemlib:tin_ingot", "chemlib:tin_nugget", "forge:molten_tin"),
+    "tin": ("metal", None, None, "forge:molten_tin"),
     "quartz": ("bulk", "minecraft:quartz", None, None),
-    "zinc": ("metal", "chemlib:zinc_ingot", "chemlib:zinc_nugget", "forge:molten_zinc"),
-    "lead": ("metal", "chemlib:lead_ingot", "chemlib:lead_nugget", "forge:molten_lead"),
-    "cadmium": ("metal", "chemlib:cadmium_ingot", "chemlib:cadmium_nugget", "forge:molten_cadmium"),
-    "silver": ("metal", "chemlib:silver_ingot", "chemlib:silver_nugget", "forge:molten_silver"),
-    "aluminum": ("metal", "chemlib:aluminum_ingot", "chemlib:aluminum_nugget", "forge:molten_aluminum"),
-    "titanium": ("metal", "chemlib:titanium_ingot", "chemlib:titanium_nugget", "forge:molten_titanium"),
-    "cobalt": ("metal", "chemlib:cobalt_ingot", "chemlib:cobalt_nugget", "forge:molten_cobalt"),
-    "osmium": ("metal", "chemlib:osmium_ingot", "chemlib:osmium_nugget", "forge:molten_osmium"),
+    "zinc": ("metal", "create:zinc_ingot", "create:zinc_nugget", "forge:molten_zinc"),
+    "lead": ("metal", "fallout_wastelands_:lead_ingot", "fallout_wastelands_:lead_nugget", "forge:molten_lead"),
+    "cadmium": ("metal", None, None, "forge:molten_cadmium"),
+    "silver": ("metal", "occultism:silver_ingot", "occultism:silver_nugget", "forge:molten_silver"),
+    "aluminum": ("metal", "fallout_wastelands_:aluminum_ingot", None, "forge:molten_aluminum"),
+    "titanium": ("metal", None, None, "forge:molten_titanium"),
+    "cobalt": ("metal", "tconstruct:cobalt_ingot", "tconstruct:cobalt_nugget", "forge:molten_cobalt"),
+    "osmium": ("metal", None, None, "forge:molten_osmium"),
     "diamond": ("gem", "minecraft:diamond", "better_ore_geology:diamond_chip", None),
     "emerald": ("gem", "minecraft:emerald", "better_ore_geology:emerald_chip", None),
     "amethyst": ("gem", "minecraft:amethyst_shard", "better_ore_geology:amethyst_chip", None),
-    "uranium": ("metal", "chemlib:uranium_ingot", "chemlib:uranium_nugget", "forge:molten_uranium"),
-    "thorium": ("metal", "chemlib:thorium_ingot", "chemlib:thorium_nugget", "forge:molten_thorium"),
+    "uranium": ("metal", None, "alexscaves:uranium_shard", "forge:molten_uranium"),
+    "thorium": ("metal", None, None, "forge:molten_thorium"),
     "redstone": ("bulk", "minecraft:redstone", None, None),
     "lapis": ("bulk", "minecraft:lapis_lazuli", None, None),
     "soul_sand": ("bulk", "minecraft:soul_sand", None, None),
     "rock_salt": ("bulk", "better_ore_geology:rock_salt", None, None),
-    "sodium_chloride": ("bulk", "chemlib:sodium_chloride", None, None),
+    "sodium_chloride": ("bulk", None, None, None),
     "saltpeter": ("bulk", "bloodmagic:saltpeter", None, None),
-    "vanadium": ("element", "chemlib:vanadium", None, None),
+    "vanadium": ("element", None, None, None),
 }
 
 GRADE = {"major": 1.0, "minor": .5, "trace": .2, "precious": .05}
@@ -86,6 +86,8 @@ ARS_ESSENCES = {
 
 HEAT = {"copper": 500, "tin": 700, "zinc": 700}
 CONCENTRATE_MATERIALS = tuple(material for material, values in MATERIALS.items() if values[0] == "metal")
+# These chemical coproducts have no matching non-ChemLib item provider.
+RETIRED_COPRODUCTS = {"sodium_chloride", "vanadium"}
 
 
 def canonical_output(material: str, units: int = 1, chance: float | None = None) -> dict:
@@ -96,6 +98,8 @@ def canonical_output(material: str, units: int = 1, chance: float | None = None)
     elif kind in ("bulk", "gem"):
         result = {"item": fraction if fraction is not None else output, "count": units * 2}
     else:
+        if output is None:
+            raise ValueError(f"No item provider for {material}")
         result = {"item": output, "count": units}
     if chance is not None:
         result["chance"] = chance
@@ -403,7 +407,7 @@ def main() -> None:
                     "primary_count": 4,
                     "coproducts": [
                         {"material": material, "grade": grade, "nominal_chance": GRADE[grade]}
-                        for material, grade in coproducts
+                        for material, grade in coproducts if material not in RETIRED_COPRODUCTS
                     ],
                 },
                 "hand_sifting": {"input_count": 1, "primary_units": 1},
@@ -448,15 +452,17 @@ def main() -> None:
             if mesh == "zinc":
                 wet_results += [canonical_output(material, chance=GRADE[grade] / 8)
                                 for material, grade in coproducts
-                                if grade in ("major", "minor") or family == "black_shale" and grade == "trace"]
+                                if material not in RETIRED_COPRODUCTS
+                                and (grade in ("major", "minor") or family == "black_shale" and grade == "trace")]
             elif mesh == "brass":
                 wet_results += [canonical_output(material, chance=GRADE[grade] / 4)
-                                for material, grade in coproducts]
+                                for material, grade in coproducts if material not in RETIRED_COPRODUCTS]
             write(family_sifting / f"{mesh}_wet.json",
                   sifting_recipe(feed_id, mesh, wet_results, True))
 
         tech_results = [canonical_output(primary, 4)]
-        tech_results += [canonical_output(material) for material, _ in coproducts]
+        tech_results += [canonical_output(material) for material, _ in coproducts
+                         if material not in RETIRED_COPRODUCTS]
         write(recipes / f"compat/pneumaticcraft/separation/{family}.json", {
             "type": "pneumaticcraft:pressure_chamber",
             "conditions": [{"type": "forge:mod_loaded", "modid": "pneumaticcraft"}],
@@ -531,7 +537,7 @@ def main() -> None:
         })
 
         kind, output, fraction, fluid = MATERIALS[primary]
-        if kind == "metal":
+        if kind == "metal" and fraction is not None:
             for recipe_type, cooking_time in (("furnace", 240), ("blasting", 120)):
                 write(recipes / f"thermal/{recipe_type}/{family}_chunk.json", {
                     "type": "minecraft:smelting" if recipe_type == "furnace" else "minecraft:blasting",
@@ -577,36 +583,22 @@ def main() -> None:
         require_curated_item_texture(item_textures, item)
         lang[f"item.{NS}.{item}"] = f"{material.replace('_', ' ').title()} Concentrate"
         kind, output, fraction, fluid = MATERIALS[material]
-        for recipe_type, cooking_time in (("furnace", 240), ("blasting", 120)):
-            write(recipes / f"thermal/{recipe_type}/concentrate_{material}.json", {
-                "type": "minecraft:smelting" if recipe_type == "furnace" else "minecraft:blasting",
-                "ingredient": {"item": f"{NS}:{item}"},
-                "result": {"item": fraction, "count": 4},
-                "experience": .2,
-                "cookingtime": cooking_time,
-            })
+        if fraction is not None:
+            for recipe_type, cooking_time in (("furnace", 240), ("blasting", 120)):
+                write(recipes / f"thermal/{recipe_type}/concentrate_{material}.json", {
+                    "type": "minecraft:smelting" if recipe_type == "furnace" else "minecraft:blasting",
+                    "ingredient": {"item": f"{NS}:{item}"},
+                    "result": {"item": fraction, "count": 4},
+                    "experience": .2,
+                    "cookingtime": cooking_time,
+                })
         if fluid:
             result = ({"tag": fluid, "amount": 40} if fluid.startswith("forge:") else {"fluid": fluid, "amount": 40})
             temperature = HEAT.get(material, 950)
             write(recipes / f"compat/tconstruct/melting/concentrate_{material}.json", {"type": "tconstruct:melting", "conditions": [{"type": "forge:mod_loaded", "modid": "tconstruct"}], "ingredient": {"item": f"{NS}:{item}"}, "result": result, "temperature": temperature, "time": 120})
 
-    for material in ("titanium", "thorium"):
-        _, ingot, nugget, fluid = MATERIALS[material]
-        condition = [{"type": "forge:mod_loaded", "modid": "tconstruct"}]
-        for form, output, amount, cooling in (
-                ("ingot", ingot, 90, 60), ("nugget", nugget, 10, 20)):
-            for cast_kind, consumed in (("multi_use", False), ("single_use", True)):
-                recipe = {
-                    "type": "tconstruct:casting_table",
-                    "conditions": condition,
-                    "cast": {"tag": f"tconstruct:casts/{cast_kind}/{form}"},
-                    "cooling_time": cooling,
-                    "fluid": {"amount": amount, "tag": fluid},
-                    "result": {"item": output},
-                }
-                if consumed:
-                    recipe["cast_consumed"] = True
-                write(recipes / f"compat/tconstruct/casting/{material}/{form}_{cast_kind}.json", recipe)
+    # Retain titanium/thorium melting and fluid tags, but there is no registered
+    # castable ingot or nugget for either material without ChemLib.
 
     for index, (gem, output) in enumerate((("diamond", "minecraft:diamond"), ("emerald", "minecraft:emerald"), ("amethyst", "minecraft:amethyst_shard"))):
         item = f"{gem}_chip"
@@ -671,7 +663,10 @@ def main() -> None:
         write(DATA / f"tags/items/radioactive_forms/{element}/crushed_feed.json", {"replace": False, "values": [f"{NS}:crushed_{family}"]})
         write(DATA / f"tags/items/radioactive_forms/{element}/rinsed_feed.json", {"replace": False, "values": [f"{NS}:rinsed_{family}"]})
         write(DATA / f"tags/items/radioactive_forms/{element}/concentrate.json", {"replace": False, "values": [f"{NS}:{element}_concentrate"]})
-        write(DATA / f"tags/items/radioactive_forms/{element}/final_forms.json", {"replace": False, "values": [f"chemlib:{element}_ingot", f"chemlib:{element}_nugget"]})
+        # Alex Caves tags the shard as forge:nuggets/uranium (9 per uranium raw
+        # item); neither that raw item nor thorium is a valid final ingot.
+        final_forms = ["alexscaves:uranium_shard"] if element == "uranium" else []
+        write(DATA / f"tags/items/radioactive_forms/{element}/final_forms.json", {"replace": False, "values": final_forms})
         blocks = [f"{NS}:{variant['block_id']}" for variant in by_family[family]["variants"]]
         write(DATA / f"tags/blocks/radioactive_forms/{element}/hosted_ore_blocks.json", {"replace": False, "values": blocks})
 

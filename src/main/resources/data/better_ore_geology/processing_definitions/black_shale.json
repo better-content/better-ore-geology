@@ -40,11 +40,6 @@
           "nominal_chance": 0.5
         },
         {
-          "material": "vanadium",
-          "grade": "trace",
-          "nominal_chance": 0.2
-        },
-        {
           "material": "gold",
           "grade": "precious",
           "nominal_chance": 0.05

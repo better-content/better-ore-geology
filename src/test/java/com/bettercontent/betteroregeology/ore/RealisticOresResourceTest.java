@@ -510,8 +510,8 @@ final class RealisticOresResourceTest {
                 assertEquals(2, millingResults.get(0).getAsJsonObject().get("count").getAsInt(),
                         chunkMillingPath.toString());
 
-                boolean metalPrimary = !Set.of("coal_measures", "evaporite_beds", "black_shale")
-                        .contains(definition.id());
+                boolean metalPrimary = !Set.of("coal_measures", "evaporite_beds", "black_shale", "tin_quartz")
+                        .contains(definition.id()); // Tin Quartz's unavailable four-nugget route is retired.
                 for (String recipeType : List.of("furnace", "blasting")) {
                     Path chunkCookPath = resources.resolve("data/better_ore_geology/recipes/thermal/"
                             + recipeType + "/" + definition.id() + "_chunk.json");
@@ -693,13 +693,14 @@ final class RealisticOresResourceTest {
                 "recipes/compat/pneumaticcraft/separation/black_shale.json"), JsonObject.class);
         assertTrue(blackShalePressure.getAsJsonArray("results").asList().stream()
                 .map(JsonElement::getAsJsonObject)
-                .anyMatch(result -> "chemlib:vanadium".equals(result.get("item").getAsString())
-                        && result.get("count").getAsInt() == 1));
+                .anyMatch(result -> "bloodmagic:sulfur".equals(result.get("item").getAsString())
+                        && result.get("count").getAsInt() == 2));
         Path blackShaleSifting = DATA_ROOT.resolve("recipes/compat/createsifter/sifting/black_shale");
         JsonObject zincWet = read(blackShaleSifting.resolve("zinc_wet.json"), JsonObject.class);
         JsonObject blackShaleBrassWet = read(blackShaleSifting.resolve("brass_wet.json"), JsonObject.class);
-        assertEquals(0.025, resultChance(zincWet, "chemlib:vanadium"));
-        assertEquals(0.05, resultChance(blackShaleBrassWet, "chemlib:vanadium"));
+        assertEquals(0.0625, resultChance(zincWet, "bloodmagic:sulfur"));
+        assertEquals(0.125, resultChance(blackShaleBrassWet, "bloodmagic:sulfur"));
+        assertEquals(0.0125, resultChance(blackShaleBrassWet, "better_ore_geology:gold_concentrate"));
 
         JsonObject diamondAssay = read(DATA_ROOT.resolve(
                 "recipes/compat/hexerei/diamond_assay/tin_quartz.json"), JsonObject.class);
@@ -756,16 +757,9 @@ final class RealisticOresResourceTest {
                     blockModel.getAsJsonObject("textures").get("particle").getAsString());
             for (String form : List.of("ingot", "nugget")) {
                 for (String cast : List.of("multi_use", "single_use")) {
-                    JsonObject casting = read(DATA_ROOT.resolve("recipes/compat/tconstruct/casting/"
-                            + material + "/" + form + "_" + cast + ".json"), JsonObject.class);
-                    assertEquals(form.equals("ingot") ? 90 : 10,
-                            casting.getAsJsonObject("fluid").get("amount").getAsInt());
-                    assertEquals("forge:molten_" + material,
-                            casting.getAsJsonObject("fluid").get("tag").getAsString());
-                    assertEquals("chemlib:" + material + "_" + form,
-                            casting.getAsJsonObject("result").get("item").getAsString());
-                    assertEquals(cast.equals("single_use"),
-                            casting.has("cast_consumed") && casting.get("cast_consumed").getAsBoolean());
+                    assertFalse(Files.exists(DATA_ROOT.resolve("recipes/compat/tconstruct/casting/"
+                            + material + "/" + form + "_" + cast + ".json")),
+                            "do not cast removed ChemLib metal forms: " + material + "/" + form + "/" + cast);
                 }
             }
         }
@@ -792,6 +786,11 @@ final class RealisticOresResourceTest {
         }
 
         Map<String, Integer> solidFuel = Map.of("copper", 500, "tin", 700, "zinc", 700);
+        Map<String, String> nativeNuggets = Map.of(
+                "cobalt", "tconstruct:cobalt_nugget", "copper", "tconstruct:copper_nugget",
+                "gold", "minecraft:gold_nugget", "iron", "minecraft:iron_nugget",
+                "lead", "fallout_wastelands_:lead_nugget", "silver", "occultism:silver_nugget",
+                "uranium", "alexscaves:uranium_shard", "zinc", "create:zinc_nugget");
         for (String material : List.of("copper", "tin", "zinc", "iron", "gold", "nickel", "lead",
                 "cadmium", "silver", "aluminum", "titanium", "cobalt", "osmium", "uranium", "thorium")) {
             Path melting = DATA_ROOT.resolve("recipes/compat/tconstruct/melting/concentrate_" + material + ".json");
@@ -800,9 +799,14 @@ final class RealisticOresResourceTest {
             assertEquals(expected, read(melting, JsonObject.class).get("temperature").getAsInt(), material);
             assertEquals(40, read(melting, JsonObject.class).getAsJsonObject("result")
                     .get("amount").getAsInt(), material);
-            assertEquals(4, read(DATA_ROOT.resolve("recipes/thermal/furnace/concentrate_"
-                    + material + ".json"), JsonObject.class).getAsJsonObject("result")
-                    .get("count").getAsInt(), material);
+            Path cooking = DATA_ROOT.resolve("recipes/thermal/furnace/concentrate_" + material + ".json");
+            if (nativeNuggets.containsKey(material)) {
+                JsonObject result = read(cooking, JsonObject.class).getAsJsonObject("result");
+                assertEquals(nativeNuggets.get(material), result.get("item").getAsString(), material);
+                assertEquals(4, result.get("count").getAsInt(), material);
+            } else {
+                assertFalse(Files.exists(cooking), "no unavailable nugget form for " + material);
+            }
         }
 
         try (var paths = Files.walk(RESOURCE_ROOT.resolve("data/better_ore_geology"))) {

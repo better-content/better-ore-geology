@@ -7,7 +7,7 @@
     },
     {
       "type": "forge:mod_loaded",
-      "modid": "chemlib"
+      "modid": "bloodmagic"
     }
   ],
   "inputs": [
@@ -24,7 +24,7 @@
       "count": 4
     },
     {
-      "item": "chemlib:sulfur",
+      "item": "bloodmagic:sulfur",
       "count": 2
     },
     {

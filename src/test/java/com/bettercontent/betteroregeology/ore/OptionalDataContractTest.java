@@ -49,7 +49,8 @@ final class OptionalDataContractTest {
                 assertFalse(enabled(guards, installed), path + " must skip before parsing absent " + missing);
             }
         }
-        assertTrue(checkedProviders.containsAll(Set.of("chemlib", "tconstruct", "bloodmagic", "create")));
+        assertTrue(checkedProviders.containsAll(Set.of("tconstruct", "bloodmagic", "create")));
+        assertFalse(checkedProviders.contains("chemlib"), "retired provider must not leak into active recipes");
     }
 
     @Test
@@ -70,26 +71,57 @@ final class OptionalDataContractTest {
                 }
             }
         }
-        assertTrue(optionalDomains.containsAll(Set.of("aether", "fallout_wastelands_", "chemlib")));
+        assertTrue(optionalDomains.containsAll(Set.of("aether", "fallout_wastelands_")));
+        assertFalse(optionalDomains.contains("chemlib"), "retired provider must not leak into tags");
     }
 
     @Test
-    void copperAndTinCookingPreserveCountsAndProviderConditions() throws IOException {
+    void copperAndUraniumCookingPreserveCountsAndProviderConditions() throws IOException {
         for (String method : List.of("furnace", "blasting")) {
             JsonObject copper = read(DATA.resolve("recipes/thermal/" + method + "/copper_bloom_chunk.json"));
             assertEquals("tconstruct:copper_nugget", copper.getAsJsonObject("result").get("item").getAsString());
             assertEquals(4, copper.getAsJsonObject("result").get("count").getAsInt());
-            JsonObject tin = read(DATA.resolve("recipes/thermal/" + method + "/concentrate_tin.json"));
-            assertEquals("chemlib:tin_nugget", tin.getAsJsonObject("result").get("item").getAsString());
-            assertEquals(4, tin.getAsJsonObject("result").get("count").getAsInt());
+            assertFalse(Files.exists(DATA.resolve("recipes/thermal/" + method + "/concentrate_tin.json")),
+                    "no unavailable tin nugget output");
+            JsonObject uranium = read(DATA.resolve("recipes/thermal/" + method + "/concentrate_uranium.json"));
+            assertEquals("alexscaves:uranium_shard", uranium.getAsJsonObject("result").get("item").getAsString());
+            assertEquals(4, uranium.getAsJsonObject("result").get("count").getAsInt());
         }
         JsonObject crossMod = read(DATA.resolve("recipes/compat/createsifter/sifting/evaporite_beds/brass_wet.json"));
         JsonArray conditions = crossMod.getAsJsonArray("conditions");
         Set<String> mods = new HashSet<>();
         conditions.forEach(value -> mods.add(value.getAsJsonObject().get("modid").getAsString()));
         assertTrue(mods.contains("createsifter"), "Existing serializer condition must survive");
-        assertTrue(mods.contains("chemlib"), "Foreign coproduct provider must be guarded");
+        assertFalse(mods.contains("chemlib"), "retired provider must not be guarded or emitted");
         assertTrue(mods.contains("bloodmagic"), "Foreign saltpeter provider must be guarded");
+    }
+
+    @Test
+    void retiredChemistryKeepsPhysicalAssayAmountsAndNativeFinalForms() throws IOException {
+        for (Path path : jsonFiles(DATA)) {
+            assertFalse(Files.readString(path).contains("chemlib:"), path.toString());
+            assertFalse(Files.readString(path).contains("\"modid\": \"chemlib\""), path.toString());
+        }
+        for (String family : List.of("black_shale", "evaporite_beds")) {
+            JsonObject definition = read(DATA.resolve("processing_definitions/" + family + ".json"));
+            JsonObject tech = definition.getAsJsonObject("routes").getAsJsonObject("tech");
+            assertEquals(4, tech.get("input_count").getAsInt(), family);
+            assertEquals(4, tech.get("primary_count").getAsInt(), family);
+            JsonObject pressure = read(DATA.resolve("recipes/compat/pneumaticcraft/separation/" + family + ".json"));
+            assertEquals(4, pressure.getAsJsonArray("inputs").get(0).getAsJsonObject().get("count").getAsInt(), family);
+            assertEquals(8, pressure.getAsJsonArray("results").get(0).getAsJsonObject().get("count").getAsInt(), family);
+            String coproduct = family.equals("black_shale") ? "bloodmagic:sulfur" : "bloodmagic:saltpeter";
+            assertTrue(pressure.getAsJsonArray("results").asList().stream()
+                    .map(JsonElement::getAsJsonObject)
+                    .anyMatch(row -> coproduct.equals(row.get("item").getAsString())
+                            && row.get("count").getAsInt() == 2), family);
+        }
+        JsonObject uranium = read(DATA.resolve("tags/items/radioactive_forms/uranium/final_forms.json"));
+        assertEquals("alexscaves:uranium_shard", uranium.getAsJsonArray("values").get(0)
+                .getAsJsonObject().get("id").getAsString());
+        JsonObject thorium = read(DATA.resolve("tags/items/radioactive_forms/thorium/final_forms.json"));
+        assertTrue(thorium.getAsJsonArray("values").isEmpty(),
+                "no surviving native thorium final form; keep tag identity without fake output");
     }
 
     private static boolean enabled(Set<String> guards, Set<String> installed) {

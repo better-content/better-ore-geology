@@ -64,7 +64,7 @@ public final class ExposureBakedModel extends BakedModelWrapper<BakedModel> {
                 int px = Math.max(0, Math.min(15, (int) ((u - sprite.getU0()) / (sprite.getU1() - sprite.getU0()) * 16)));
                 int py = Math.max(0, Math.min(15, (int) ((v - sprite.getV0()) / (sprite.getV1() - sprite.getV0()) * 16)));
                 if (originalMasks[variant].charAt(py * 16 + px) == '0') {
-                    role = 0;
+                    role = ExposureField.MIN_VISIBLE_ROLE;
                     variant = ExposureField.variant(family, style, role, wx, wy, wz);
                 }
             }

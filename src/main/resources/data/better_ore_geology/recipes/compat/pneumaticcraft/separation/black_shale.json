@@ -7,7 +7,7 @@
     },
     {
       "type": "forge:mod_loaded",
-      "modid": "chemlib"
+      "modid": "bloodmagic"
     }
   ],
   "inputs": [
@@ -36,12 +36,8 @@
       "count": 2
     },
     {
-      "item": "chemlib:sulfur",
+      "item": "bloodmagic:sulfur",
       "count": 2
-    },
-    {
-      "item": "chemlib:vanadium",
-      "count": 1
     },
     {
       "item": "better_ore_geology:gold_concentrate",

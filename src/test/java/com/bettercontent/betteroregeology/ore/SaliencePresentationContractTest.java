@@ -1,5 +1,6 @@
 package com.bettercontent.betteroregeology.ore;
 
+import com.bettercontent.betteroregeology.salience.SalienceAspect;
 import org.junit.jupiter.api.Test;
 
 import javax.imageio.ImageIO;
@@ -25,10 +26,11 @@ final class SaliencePresentationContractTest {
     @Test
     void everyOreAspectHasItsOwnPhysicalOgg() throws Exception {
         String sounds = new String(resource("/assets/better_ore_geology/sounds.json").readAllBytes(), StandardCharsets.UTF_8);
-        for (String aspect : new String[]{"impact", "tempo", "work", "mobility", "endurance", "robustness", "renewal", "control"}) {
-            assertTrue(sounds.contains("aspect." + aspect));
-            byte[] ogg = resource("/assets/better_ore_geology/sounds/aspect/" + aspect + ".ogg").readAllBytes();
-            assertTrue(ogg.length > 8_000, aspect);
+        for (SalienceAspect aspect : SalienceAspect.values()) {
+            assertTrue(sounds.contains("\"" + aspect.soundPath() + "\""), aspect.name());
+            assertTrue(sounds.contains("\"" + aspect.soundAsset() + "\""), aspect.name());
+            byte[] ogg = resource("/assets/" + aspect.soundAsset().replace(":", "/sounds/") + ".ogg").readAllBytes();
+            assertTrue(ogg.length > 8_000, aspect.name());
             assertArrayEquals(new byte[]{'O', 'g', 'g', 'S'}, java.util.Arrays.copyOf(ogg, 4));
         }
     }

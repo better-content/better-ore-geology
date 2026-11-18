@@ -4,7 +4,7 @@
     "item": "better_ore_geology:silver_concentrate"
   },
   "result": {
-    "item": "chemlib:silver_nugget",
+    "item": "occultism:silver_nugget",
     "count": 4
   },
   "experience": 0.2,
@@ -12,7 +12,7 @@
   "conditions": [
     {
       "type": "forge:mod_loaded",
-      "modid": "chemlib"
+      "modid": "occultism"
     }
   ]
 }

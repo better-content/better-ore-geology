@@ -36,7 +36,7 @@ final class ExposureFieldTest {
             for (double x : new double[] {-33.25, -16.25, -0.25, 0.25, 15.75, 32.25}) {
                 double y = -12.375, z = -23.625;
                 int role = ExposureField.role(family, style, x, y, z);
-                assertTrue(role >= 0 && role < 4);
+                assertTrue(role >= 1 && role < 4, "quiet must never be selected");
                 assertEquals(role, ExposureField.role(family, style, x, y, z));
                 int variant = ExposureField.variant(family, style, role, x, y, z);
                 assertTrue(variant >= 0 && variant < 3);
@@ -83,7 +83,7 @@ final class ExposureFieldTest {
     }
 
     @Test
-    void broadFieldHasQuietDominanceAndRareOriginals() {
+    void broadFieldHasNoQuietFragmentDominanceAndRareOriginals() {
         for (String family : ExposureField.FAMILIES) {
             long[] counts = new long[4];
             for (int style = 0; style < 64; style++) {
@@ -93,8 +93,10 @@ final class ExposureFieldTest {
                     }
             }
             long total = counts[0] + counts[1] + counts[2] + counts[3];
-            assertTrue(counts[0] > counts[1] && counts[0] > counts[2] && counts[0] > counts[3],
-                    family + " quiet should be the most common role: " + java.util.Arrays.toString(counts));
+            assertEquals(0L, counts[0], family + " must not select quiet");
+            assertEquals(1, ExposureField.MIN_VISIBLE_ROLE, "fallback must use fragment");
+            assertTrue(counts[1] > counts[2] && counts[1] > counts[3],
+                    family + " fragment should be the most common role: " + java.util.Arrays.toString(counts));
             assertTrue(counts[3] > 0 && counts[3] * 10 < total,
                     family + " original should occur but remain under 10%: "
                             + java.util.Arrays.toString(counts));

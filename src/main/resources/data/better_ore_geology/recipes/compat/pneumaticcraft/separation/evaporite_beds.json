@@ -8,10 +8,6 @@
     {
       "type": "forge:mod_loaded",
       "modid": "bloodmagic"
-    },
-    {
-      "type": "forge:mod_loaded",
-      "modid": "chemlib"
     }
   ],
   "inputs": [
@@ -26,10 +22,6 @@
     {
       "item": "better_ore_geology:rock_salt",
       "count": 8
-    },
-    {
-      "item": "chemlib:sodium_chloride",
-      "count": 2
     },
     {
       "item": "bloodmagic:saltpeter",

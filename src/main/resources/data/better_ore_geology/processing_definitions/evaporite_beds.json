@@ -20,11 +20,6 @@
       "primary_count": 4,
       "coproducts": [
         {
-          "material": "sodium_chloride",
-          "grade": "major",
-          "nominal_chance": 1.0
-        },
-        {
           "material": "saltpeter",
           "grade": "minor",
           "nominal_chance": 0.5

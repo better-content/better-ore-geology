@@ -4,7 +4,7 @@
     "item": "better_ore_geology:uranium_concentrate"
   },
   "result": {
-    "item": "chemlib:uranium_nugget",
+    "item": "alexscaves:uranium_shard",
     "count": 4
   },
   "experience": 0.2,
@@ -12,7 +12,7 @@
   "conditions": [
     {
       "type": "forge:mod_loaded",
-      "modid": "chemlib"
+      "modid": "alexscaves"
     }
   ]
 }

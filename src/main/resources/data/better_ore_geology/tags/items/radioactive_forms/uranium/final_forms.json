@@ -2,11 +2,7 @@
   "replace": false,
   "values": [
     {
-      "id": "chemlib:uranium_ingot",
-      "required": false
-    },
-    {
-      "id": "chemlib:uranium_nugget",
+      "id": "alexscaves:uranium_shard",
       "required": false
     }
   ]
